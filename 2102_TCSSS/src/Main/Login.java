@@ -35,8 +35,8 @@ public class Login extends javax.swing.JFrame {
     private void initComponents() {
 
         Brand = new javax.swing.JLabel();
+        Wall = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         Tag1 = new javax.swing.JLabel();
         username = new javax.swing.JTextField();
@@ -53,17 +53,17 @@ public class Login extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Brand.setFont(new java.awt.Font("Segoe Print", 1, 18)); // NOI18N
-        Brand.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pics/icon.png"))); // NOI18N
+        Brand.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pics/logo.png"))); // NOI18N
         Brand.setText("TCAF");
         Brand.setIconTextGap(0);
         getContentPane().add(Brand, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 13, -1, 40));
 
+        Wall.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pics/wall.png"))); // NOI18N
+        getContentPane().add(Wall, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
         jLabel2.setFont(new java.awt.Font("Segoe Print", 0, 8)); // NOI18N
         jLabel2.setText("Tea and Coffee Shop");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, -1, 10));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pics/wall.png"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         jPanel1.setBackground(new java.awt.Color(255, 242, 225));
 
@@ -315,9 +315,9 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel Tag2;
     private javax.swing.JLabel Tag3;
     private javax.swing.JLabel Tag4;
+    private javax.swing.JLabel Wall;
     private javax.swing.JCheckBox chikbox;
     private javax.swing.JButton clearbtn;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton loginbtn;
