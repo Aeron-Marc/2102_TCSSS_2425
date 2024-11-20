@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 14, 2024 at 11:26 AM
+-- Generation Time: Nov 20, 2024 at 09:29 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -24,58 +24,33 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cashpayment`
+-- Table structure for table `customers`
 --
 
-CREATE TABLE `cashpayment` (
-  `PaymentID` int(11) NOT NULL,
-  `CashTendered` decimal(10,2) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `checkpayment`
---
-
-CREATE TABLE `checkpayment` (
-  `PaymentID` int(11) NOT NULL,
-  `Name` varchar(50) DEFAULT NULL,
-  `BankID` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `creditpayment`
---
-
-CREATE TABLE `creditpayment` (
-  `PaymentID` int(11) NOT NULL,
-  `Number` int(11) DEFAULT NULL,
-  `Type` varchar(50) DEFAULT NULL,
-  `ExpDate` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `customer`
---
-
-CREATE TABLE `customer` (
+CREATE TABLE `customers` (
   `CustomerID` int(11) NOT NULL,
   `Name` varchar(255) NOT NULL,
   `ContactInfo` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `customers`
+--
+
+INSERT INTO `customers` (`CustomerID`, `Name`, `ContactInfo`) VALUES
+(1, 'John', '09876543211'),
+(2, 'James', '09128745761'),
+(3, 'Michael', '09888855678'),
+(4, 'Robert', '09876576543'),
+(5, 'David', '09876543432');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `item`
+-- Table structure for table `items`
 --
 
-CREATE TABLE `item` (
+CREATE TABLE `items` (
   `ItemID` int(11) NOT NULL,
   `ItemName` varchar(255) NOT NULL,
   `Price` decimal(10,2) DEFAULT NULL,
@@ -115,10 +90,10 @@ CREATE TABLE `orders` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `payment`
+-- Table structure for table `payments`
 --
 
-CREATE TABLE `payment` (
+CREATE TABLE `payments` (
   `PaymentID` int(11) NOT NULL,
   `OrderID` int(11) DEFAULT NULL,
   `Amount` decimal(10,2) DEFAULT NULL,
@@ -140,38 +115,43 @@ CREATE TABLE `receipt` (
   `PaymentMethod` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `UserID` int(11) NOT NULL,
+  `Username` varchar(100) DEFAULT NULL,
+  `Email` varchar(100) DEFAULT NULL,
+  `Password` varchar(100) DEFAULT NULL,
+  `Status` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`UserID`, `Username`, `Email`, `Password`, `Status`) VALUES
+(1, 'Admin', 'admin123@admin.com', 'Admin123', 'Admin'),
+(2, 'Staff1', 'staff1@gmail.com', 'Staff123', 'Staff'),
+(3, 'Staff2', 'staff2@gmail.com', 'Staff456', 'Staff');
+
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `cashpayment`
+-- Indexes for table `customers`
 --
-ALTER TABLE `cashpayment`
-  ADD PRIMARY KEY (`PaymentID`);
-
---
--- Indexes for table `checkpayment`
---
-ALTER TABLE `checkpayment`
-  ADD PRIMARY KEY (`PaymentID`);
-
---
--- Indexes for table `creditpayment`
---
-ALTER TABLE `creditpayment`
-  ADD PRIMARY KEY (`PaymentID`);
-
---
--- Indexes for table `customer`
---
-ALTER TABLE `customer`
+ALTER TABLE `customers`
   ADD PRIMARY KEY (`CustomerID`);
 
 --
--- Indexes for table `item`
+-- Indexes for table `items`
 --
-ALTER TABLE `item`
+ALTER TABLE `items`
   ADD PRIMARY KEY (`ItemID`);
 
 --
@@ -190,9 +170,9 @@ ALTER TABLE `orders`
   ADD KEY `CustomerID` (`CustomerID`);
 
 --
--- Indexes for table `payment`
+-- Indexes for table `payments`
 --
-ALTER TABLE `payment`
+ALTER TABLE `payments`
   ADD PRIMARY KEY (`PaymentID`),
   ADD KEY `OrderID` (`OrderID`);
 
@@ -204,14 +184,20 @@ ALTER TABLE `receipt`
   ADD KEY `OrderID` (`OrderID`);
 
 --
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`UserID`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `customer`
+-- AUTO_INCREMENT for table `customers`
 --
-ALTER TABLE `customer`
-  MODIFY `CustomerID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `customers`
+  MODIFY `CustomerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `orderdetails`
@@ -226,51 +212,39 @@ ALTER TABLE `orders`
   MODIFY `OrderID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `payment`
+-- AUTO_INCREMENT for table `payments`
 --
-ALTER TABLE `payment`
+ALTER TABLE `payments`
   MODIFY `PaymentID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `cashpayment`
---
-ALTER TABLE `cashpayment`
-  ADD CONSTRAINT `cashpayment_ibfk_1` FOREIGN KEY (`PaymentID`) REFERENCES `payment` (`PaymentID`);
-
---
--- Constraints for table `checkpayment`
---
-ALTER TABLE `checkpayment`
-  ADD CONSTRAINT `checkpayment_ibfk_1` FOREIGN KEY (`PaymentID`) REFERENCES `payment` (`PaymentID`);
-
---
--- Constraints for table `creditpayment`
---
-ALTER TABLE `creditpayment`
-  ADD CONSTRAINT `creditpayment_ibfk_1` FOREIGN KEY (`PaymentID`) REFERENCES `payment` (`PaymentID`);
-
---
 -- Constraints for table `orderdetails`
 --
 ALTER TABLE `orderdetails`
   ADD CONSTRAINT `orderdetails_ibfk_1` FOREIGN KEY (`OrderID`) REFERENCES `orders` (`OrderID`),
-  ADD CONSTRAINT `orderdetails_ibfk_2` FOREIGN KEY (`ItemID`) REFERENCES `item` (`ItemID`);
+  ADD CONSTRAINT `orderdetails_ibfk_2` FOREIGN KEY (`ItemID`) REFERENCES `items` (`ItemID`);
 
 --
 -- Constraints for table `orders`
 --
 ALTER TABLE `orders`
-  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`CustomerID`) REFERENCES `customer` (`CustomerID`);
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`CustomerID`) REFERENCES `customers` (`CustomerID`);
 
 --
--- Constraints for table `payment`
+-- Constraints for table `payments`
 --
-ALTER TABLE `payment`
-  ADD CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`OrderID`) REFERENCES `orders` (`OrderID`);
+ALTER TABLE `payments`
+  ADD CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`OrderID`) REFERENCES `orders` (`OrderID`);
 
 --
 -- Constraints for table `receipt`
