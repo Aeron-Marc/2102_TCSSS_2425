@@ -48,25 +48,25 @@ public class Customers extends javax.swing.JFrame {
         Brand = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        Customers = new javax.swing.JButton();
+        Orders = new javax.swing.JButton();
+        Payments = new javax.swing.JButton();
+        Items = new javax.swing.JButton();
+        Accounts = new javax.swing.JButton();
+        LogoutButton = new javax.swing.JButton();
         CustomerPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         customertbl = new javax.swing.JTable();
-        jTextField1 = new javax.swing.JTextField();
+        custid = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jTextField2 = new javax.swing.JTextField();
-        jButton10 = new javax.swing.JButton();
+        insertbtn = new javax.swing.JButton();
+        updatebtn = new javax.swing.JButton();
+        deletebtn = new javax.swing.JButton();
+        custname = new javax.swing.JTextField();
+        searchbtn = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        custconinfo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -99,77 +99,77 @@ public class Customers extends javax.swing.JFrame {
         jLabel1.setText("Admin Controls");
         jPanel5.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, -1, -1));
 
-        jButton1.setBackground(new java.awt.Color(219, 193, 172));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pics/customers.png"))); // NOI18N
-        jButton1.setText("Customers");
-        jButton1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        jButton1.setContentAreaFilled(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        Customers.setBackground(new java.awt.Color(219, 193, 172));
+        Customers.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pics/customers.png"))); // NOI18N
+        Customers.setText("Customers");
+        Customers.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        Customers.setContentAreaFilled(false);
+        Customers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                CustomersActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, 140, 40));
+        jPanel5.add(Customers, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, 140, 40));
 
-        jButton3.setBackground(new java.awt.Color(219, 193, 172));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pics/orders.png"))); // NOI18N
-        jButton3.setText("Orders");
-        jButton3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jButton3.setBorderPainted(false);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        Orders.setBackground(new java.awt.Color(219, 193, 172));
+        Orders.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pics/orders.png"))); // NOI18N
+        Orders.setText("Orders");
+        Orders.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        Orders.setBorderPainted(false);
+        Orders.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                OrdersActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, 140, 40));
+        jPanel5.add(Orders, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, 140, 40));
 
-        jButton4.setBackground(new java.awt.Color(219, 193, 172));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pics/payments.png"))); // NOI18N
-        jButton4.setText("Payments");
-        jButton4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jButton4.setBorderPainted(false);
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        Payments.setBackground(new java.awt.Color(219, 193, 172));
+        Payments.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pics/payments.png"))); // NOI18N
+        Payments.setText("Payments");
+        Payments.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        Payments.setBorderPainted(false);
+        Payments.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                PaymentsActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, 140, 40));
+        jPanel5.add(Payments, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, 140, 40));
 
-        jButton5.setBackground(new java.awt.Color(219, 193, 172));
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pics/items.png"))); // NOI18N
-        jButton5.setText("Items");
-        jButton5.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jButton5.setBorderPainted(false);
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        Items.setBackground(new java.awt.Color(219, 193, 172));
+        Items.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pics/items.png"))); // NOI18N
+        Items.setText("Items");
+        Items.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        Items.setBorderPainted(false);
+        Items.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                ItemsActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, 140, 40));
+        jPanel5.add(Items, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, 140, 40));
 
-        jButton6.setBackground(new java.awt.Color(219, 193, 172));
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pics/accnt.png"))); // NOI18N
-        jButton6.setText("Accounts");
-        jButton6.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jButton6.setBorderPainted(false);
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        Accounts.setBackground(new java.awt.Color(219, 193, 172));
+        Accounts.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pics/accnt.png"))); // NOI18N
+        Accounts.setText("Accounts");
+        Accounts.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        Accounts.setBorderPainted(false);
+        Accounts.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                AccountsActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, 140, 40));
+        jPanel5.add(Accounts, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, 140, 40));
 
-        jButton7.setBackground(new java.awt.Color(219, 193, 172));
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pics/out.png"))); // NOI18N
-        jButton7.setText("Logout");
-        jButton7.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jButton7.setBorderPainted(false);
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        LogoutButton.setBackground(new java.awt.Color(219, 193, 172));
+        LogoutButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pics/out.png"))); // NOI18N
+        LogoutButton.setText("Logout");
+        LogoutButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        LogoutButton.setBorderPainted(false);
+        LogoutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                LogoutButtonActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 390, 120, 30));
+        jPanel5.add(LogoutButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 390, 120, 30));
 
         CustomerPanel.setBackground(new java.awt.Color(219, 193, 172));
 
@@ -196,23 +196,23 @@ public class Customers extends javax.swing.JFrame {
 
         jLabel2.setText("ID:");
 
-        jButton2.setText("Insert");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        insertbtn.setText("Insert");
+        insertbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                insertbtnActionPerformed(evt);
             }
         });
 
-        jButton8.setText("Update");
+        updatebtn.setText("Update");
 
-        jButton9.setText("Delete");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        deletebtn.setText("Delete");
+        deletebtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                deletebtnActionPerformed(evt);
             }
         });
 
-        jButton10.setText("Search");
+        searchbtn.setText("Search");
 
         jLabel3.setText("Name:");
 
@@ -226,11 +226,11 @@ public class Customers extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(CustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(CustomerPanelLayout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(custid, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(21, 21, 21)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(custname, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(custconinfo, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(CustomerPanelLayout.createSequentialGroup()
                         .addGap(2, 2, 2)
                         .addGroup(CustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,13 +241,13 @@ public class Customers extends javax.swing.JFrame {
                                 .addGap(125, 125, 125)
                                 .addComponent(jLabel4))
                             .addGroup(CustomerPanelLayout.createSequentialGroup()
-                                .addComponent(jButton2)
+                                .addComponent(insertbtn)
                                 .addGap(9, 9, 9)
-                                .addComponent(jButton8)
+                                .addComponent(updatebtn)
                                 .addGap(9, 9, 9)
-                                .addComponent(jButton9)
+                                .addComponent(deletebtn)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton10))))
+                                .addComponent(searchbtn))))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
@@ -261,16 +261,16 @@ public class Customers extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addGap(4, 4, 4)
                 .addGroup(CustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(custid, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(custname, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(custconinfo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(CustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(insertbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(updatebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(CustomerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(deletebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(searchbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -304,44 +304,44 @@ public class Customers extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void CustomersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CustomersActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_CustomersActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void OrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OrdersActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_OrdersActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void PaymentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PaymentsActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_PaymentsActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void ItemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemsActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_ItemsActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void AccountsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccountsActionPerformed
         // TODO add your handling code here:
                 new Users().setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_AccountsActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void LogoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutButtonActionPerformed
         // TODO add your handling code here:
         int a = JOptionPane.showConfirmDialog(null, "Confirm Logout");
         if (a == 0){
             new Login().setVisible(true);
             this.dispose();
         }
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_LogoutButtonActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+    private void deletebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletebtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton9ActionPerformed
+    }//GEN-LAST:event_deletebtnActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void insertbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertbtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_insertbtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -412,19 +412,20 @@ public class Customers extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Accounts;
     private javax.swing.JLabel Brand;
     private javax.swing.JPanel CustomerPanel;
+    private javax.swing.JButton Customers;
+    private javax.swing.JButton Items;
+    private javax.swing.JButton LogoutButton;
+    private javax.swing.JButton Orders;
+    private javax.swing.JButton Payments;
+    private javax.swing.JTextField custconinfo;
+    private javax.swing.JTextField custid;
+    private javax.swing.JTextField custname;
     private javax.swing.JTable customertbl;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
+    private javax.swing.JButton deletebtn;
+    private javax.swing.JButton insertbtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -432,8 +433,7 @@ public class Customers extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JButton searchbtn;
+    private javax.swing.JButton updatebtn;
     // End of variables declaration//GEN-END:variables
 }

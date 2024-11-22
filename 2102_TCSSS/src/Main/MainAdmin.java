@@ -49,16 +49,16 @@ public class MainAdmin extends javax.swing.JFrame {
         CustomerPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         customertbl = new javax.swing.JTable();
-        jTextField1 = new javax.swing.JTextField();
+        CustIdBox = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jTextField2 = new javax.swing.JTextField();
-        jButton10 = new javax.swing.JButton();
+        InsertButton = new javax.swing.JButton();
+        UpdateButton = new javax.swing.JButton();
+        DeleteButton = new javax.swing.JButton();
+        NameBox = new javax.swing.JTextField();
+        SearchButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        ConInfoBox = new javax.swing.JTextField();
         Blank1 = new javax.swing.JPanel();
         Blank2 = new javax.swing.JPanel();
         Blank3 = new javax.swing.JPanel();
@@ -224,40 +224,40 @@ public class MainAdmin extends javax.swing.JFrame {
         jScrollPane2.setViewportView(customertbl);
 
         CustomerPanel.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 147, 610, 340));
-        CustomerPanel.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 49, 140, 30));
+        CustomerPanel.add(CustIdBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 49, 140, 30));
 
         jLabel2.setText("ID:");
         CustomerPanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 29, -1, -1));
 
-        jButton2.setText("Insert");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        InsertButton.setText("Insert");
+        InsertButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                InsertButtonActionPerformed(evt);
             }
         });
-        CustomerPanel.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, 30));
+        CustomerPanel.add(InsertButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, 30));
 
-        jButton8.setText("Update");
-        CustomerPanel.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, -1, 30));
+        UpdateButton.setText("Update");
+        CustomerPanel.add(UpdateButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, -1, 30));
 
-        jButton9.setText("Delete");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        DeleteButton.setText("Delete");
+        DeleteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                DeleteButtonActionPerformed(evt);
             }
         });
-        CustomerPanel.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, -1, 30));
-        CustomerPanel.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 49, 138, 30));
+        CustomerPanel.add(DeleteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, -1, 30));
+        CustomerPanel.add(NameBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 49, 138, 30));
 
-        jButton10.setText("Search");
-        CustomerPanel.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, -1, 30));
+        SearchButton.setText("Search");
+        CustomerPanel.add(SearchButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, -1, 30));
 
         jLabel3.setText("Name:");
         CustomerPanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(191, 29, -1, -1));
 
         jLabel4.setText("Contact Info:");
         CustomerPanel.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(351, 29, -1, -1));
-        CustomerPanel.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(346, 49, 138, 30));
+        CustomerPanel.add(ConInfoBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(346, 49, 138, 30));
 
         jTabbedPane1.addTab("tab1", CustomerPanel);
 
@@ -444,13 +444,37 @@ public class MainAdmin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_CustomersActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void InsertButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InsertButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        String CustId = CustIdBox.getText();
+        String Name = NameBox.getText();
+        String ConInfo = ConInfoBox.getText();
+        if (CustId.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "CustomerID is REQUIRED");
+        } else if (Name.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Name is REQUIRED");
+        } else if (ConInfo.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Contact Info is REQUIRED");
+        } else {
+            
+            
+            // Use the existing connection
+            try (Connection connect = dbcon.dbconnect();
+                 Statement stmt = connect.createStatement()) {
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+                String customer = "INSERT INTO customer (CustomerID, Name, ContactInfo) " +
+                        "VALUES (" + CustId + ", '" + Name + "', '" + ConInfo + "')";
+                
+               
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error adding equipment: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_InsertButtonActionPerformed
+
+    private void DeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton9ActionPerformed
+    }//GEN-LAST:event_DeleteButtonActionPerformed
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
         // TODO add your handling code here:
@@ -503,23 +527,26 @@ public class MainAdmin extends javax.swing.JFrame {
     private javax.swing.JPanel Blank2;
     private javax.swing.JPanel Blank3;
     private javax.swing.JLabel Brand;
+    private javax.swing.JTextField ConInfoBox;
+    private javax.swing.JTextField CustIdBox;
     private javax.swing.JPanel CustomerPanel;
     private javax.swing.JButton Customers;
+    private javax.swing.JButton DeleteButton;
+    private javax.swing.JButton InsertButton;
+    private javax.swing.JTextField NameBox;
+    private javax.swing.JButton SearchButton;
+    private javax.swing.JButton UpdateButton;
     private javax.swing.JPanel UserPanel;
     private javax.swing.JButton Users;
     private javax.swing.JTable customertbl;
-    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton17;
     private javax.swing.JButton jButton18;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -532,9 +559,6 @@ public class MainAdmin extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
