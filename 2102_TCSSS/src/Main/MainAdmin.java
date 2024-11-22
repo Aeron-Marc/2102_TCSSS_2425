@@ -39,13 +39,14 @@ public class MainAdmin extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         Customers = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        Orders = new javax.swing.JButton();
+        Payments = new javax.swing.JButton();
+        Items = new javax.swing.JButton();
         Users = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        Logout = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         Blank = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
         CustomerPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         customertbl = new javax.swing.JTable();
@@ -59,9 +60,45 @@ public class MainAdmin extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
-        Blank1 = new javax.swing.JPanel();
-        Blank2 = new javax.swing.JPanel();
-        Blank3 = new javax.swing.JPanel();
+        OrderPanel = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        ordertbl = new javax.swing.JTable();
+        jTextField4 = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jButton6 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
+        jButton12 = new javax.swing.JButton();
+        jTextField5 = new javax.swing.JTextField();
+        jButton13 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jTextField6 = new javax.swing.JTextField();
+        PaymentPanel = new javax.swing.JPanel();
+        jButton14 = new javax.swing.JButton();
+        jTextField10 = new javax.swing.JTextField();
+        jButton19 = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        paymenttbl = new javax.swing.JTable();
+        jTextField11 = new javax.swing.JTextField();
+        jTextField12 = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        jButton20 = new javax.swing.JButton();
+        jButton21 = new javax.swing.JButton();
+        ItemPanel = new javax.swing.JPanel();
+        jButton22 = new javax.swing.JButton();
+        jTextField13 = new javax.swing.JTextField();
+        jButton23 = new javax.swing.JButton();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        itemtbl = new javax.swing.JTable();
+        jTextField14 = new javax.swing.JTextField();
+        jTextField15 = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        jButton24 = new javax.swing.JButton();
+        jButton25 = new javax.swing.JButton();
         UserPanel = new javax.swing.JPanel();
         jTextField7 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
@@ -122,41 +159,41 @@ public class MainAdmin extends javax.swing.JFrame {
         });
         jPanel5.add(Customers, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, 140, 40));
 
-        jButton3.setBackground(new java.awt.Color(219, 193, 172));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pics/orders.png"))); // NOI18N
-        jButton3.setText("Orders");
-        jButton3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jButton3.setBorderPainted(false);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        Orders.setBackground(new java.awt.Color(219, 193, 172));
+        Orders.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pics/orders.png"))); // NOI18N
+        Orders.setText("Orders");
+        Orders.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        Orders.setBorderPainted(false);
+        Orders.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                OrdersActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, 140, 40));
+        jPanel5.add(Orders, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, 140, 40));
 
-        jButton4.setBackground(new java.awt.Color(219, 193, 172));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pics/payments.png"))); // NOI18N
-        jButton4.setText("Payments");
-        jButton4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jButton4.setBorderPainted(false);
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        Payments.setBackground(new java.awt.Color(219, 193, 172));
+        Payments.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pics/payments.png"))); // NOI18N
+        Payments.setText("Payments");
+        Payments.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        Payments.setBorderPainted(false);
+        Payments.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                PaymentsActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, 140, 40));
+        jPanel5.add(Payments, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, 140, 40));
 
-        jButton5.setBackground(new java.awt.Color(219, 193, 172));
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pics/items.png"))); // NOI18N
-        jButton5.setText("Items");
-        jButton5.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jButton5.setBorderPainted(false);
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        Items.setBackground(new java.awt.Color(219, 193, 172));
+        Items.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pics/items.png"))); // NOI18N
+        Items.setText("Items");
+        Items.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        Items.setBorderPainted(false);
+        Items.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                ItemsActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, 140, 40));
+        jPanel5.add(Items, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, 140, 40));
 
         Users.setBackground(new java.awt.Color(219, 193, 172));
         Users.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pics/accnt.png"))); // NOI18N
@@ -170,34 +207,27 @@ public class MainAdmin extends javax.swing.JFrame {
         });
         jPanel5.add(Users, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, 140, 40));
 
-        jButton7.setBackground(new java.awt.Color(219, 193, 172));
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pics/out.png"))); // NOI18N
-        jButton7.setText("Logout");
-        jButton7.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jButton7.setBorderPainted(false);
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        Logout.setBackground(new java.awt.Color(219, 193, 172));
+        Logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pics/out.png"))); // NOI18N
+        Logout.setText("Logout");
+        Logout.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        Logout.setBorderPainted(false);
+        Logout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                LogoutActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 390, 120, 30));
+        jPanel5.add(Logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 390, 120, 30));
 
         getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 250, 490));
 
         Blank.setBackground(new java.awt.Color(219, 193, 172));
+        Blank.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout BlankLayout = new javax.swing.GroupLayout(Blank);
-        Blank.setLayout(BlankLayout);
-        BlankLayout.setHorizontalGroup(
-            BlankLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 665, Short.MAX_VALUE)
-        );
-        BlankLayout.setVerticalGroup(
-            BlankLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
-        );
+        jLabel5.setText("WELCOME");
+        Blank.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(304, 225, -1, -1));
 
-        jTabbedPane1.addTab("tab3", Blank);
+        jTabbedPane1.addTab("Welcome", Blank);
 
         CustomerPanel.setBackground(new java.awt.Color(219, 193, 172));
         CustomerPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -259,52 +289,193 @@ public class MainAdmin extends javax.swing.JFrame {
         CustomerPanel.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(351, 29, -1, -1));
         CustomerPanel.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(346, 49, 138, 30));
 
-        jTabbedPane1.addTab("tab1", CustomerPanel);
+        jTabbedPane1.addTab("Customer", CustomerPanel);
 
-        Blank1.setBackground(new java.awt.Color(219, 193, 172));
+        OrderPanel.setBackground(new java.awt.Color(219, 193, 172));
+        OrderPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout Blank1Layout = new javax.swing.GroupLayout(Blank1);
-        Blank1.setLayout(Blank1Layout);
-        Blank1Layout.setHorizontalGroup(
-            Blank1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 665, Short.MAX_VALUE)
-        );
-        Blank1Layout.setVerticalGroup(
-            Blank1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
-        );
+        ordertbl.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Order ID", "Customer ID", "Order Date", "Total Amount"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
-        jTabbedPane1.addTab("tab3", Blank1);
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(ordertbl);
 
-        Blank2.setBackground(new java.awt.Color(219, 193, 172));
+        OrderPanel.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 147, 610, 340));
+        OrderPanel.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 49, 140, 30));
 
-        javax.swing.GroupLayout Blank2Layout = new javax.swing.GroupLayout(Blank2);
-        Blank2.setLayout(Blank2Layout);
-        Blank2Layout.setHorizontalGroup(
-            Blank2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 665, Short.MAX_VALUE)
-        );
-        Blank2Layout.setVerticalGroup(
-            Blank2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
-        );
+        jLabel6.setText("ID:");
+        OrderPanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 29, -1, -1));
 
-        jTabbedPane1.addTab("tab3", Blank2);
+        jButton6.setText("Insert");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        OrderPanel.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, 30));
 
-        Blank3.setBackground(new java.awt.Color(219, 193, 172));
+        jButton11.setText("Update");
+        OrderPanel.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, -1, 30));
 
-        javax.swing.GroupLayout Blank3Layout = new javax.swing.GroupLayout(Blank3);
-        Blank3.setLayout(Blank3Layout);
-        Blank3Layout.setHorizontalGroup(
-            Blank3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 665, Short.MAX_VALUE)
-        );
-        Blank3Layout.setVerticalGroup(
-            Blank3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
-        );
+        jButton12.setText("Delete");
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
+        OrderPanel.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, -1, 30));
+        OrderPanel.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 49, 138, 30));
 
-        jTabbedPane1.addTab("tab3", Blank3);
+        jButton13.setText("Search");
+        OrderPanel.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, -1, 30));
+
+        jLabel7.setText("Name:");
+        OrderPanel.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(191, 29, -1, -1));
+
+        jLabel11.setText("Contact Info:");
+        OrderPanel.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(351, 29, -1, -1));
+        OrderPanel.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(346, 49, 138, 30));
+
+        jTabbedPane1.addTab("Order", OrderPanel);
+
+        PaymentPanel.setBackground(new java.awt.Color(219, 193, 172));
+        PaymentPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton14.setText("Delete");
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
+        PaymentPanel.add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, -1, 30));
+        PaymentPanel.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 49, 138, 30));
+
+        jButton19.setText("Search");
+        PaymentPanel.add(jButton19, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, -1, 30));
+
+        jLabel12.setText("Name:");
+        PaymentPanel.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(191, 29, -1, -1));
+
+        jLabel13.setText("Contact Info:");
+        PaymentPanel.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(351, 29, -1, -1));
+
+        paymenttbl.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "PaymentID", "OrderID", "Amount", "Payment Method"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane5.setViewportView(paymenttbl);
+
+        PaymentPanel.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 147, 610, 340));
+        PaymentPanel.add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(346, 49, 138, 30));
+        PaymentPanel.add(jTextField12, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 49, 140, 30));
+
+        jLabel14.setText("ID:");
+        PaymentPanel.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 29, -1, -1));
+
+        jButton20.setText("Insert");
+        jButton20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton20ActionPerformed(evt);
+            }
+        });
+        PaymentPanel.add(jButton20, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, 30));
+
+        jButton21.setText("Update");
+        PaymentPanel.add(jButton21, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, -1, 30));
+
+        jTabbedPane1.addTab("Payment", PaymentPanel);
+
+        ItemPanel.setBackground(new java.awt.Color(219, 193, 172));
+        ItemPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton22.setText("Delete");
+        jButton22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton22ActionPerformed(evt);
+            }
+        });
+        ItemPanel.add(jButton22, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, -1, 30));
+        ItemPanel.add(jTextField13, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 49, 138, 30));
+
+        jButton23.setText("Search");
+        ItemPanel.add(jButton23, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, -1, 30));
+
+        jLabel15.setText("Name:");
+        ItemPanel.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(191, 29, -1, -1));
+
+        jLabel16.setText("Contact Info:");
+        ItemPanel.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(351, 29, -1, -1));
+
+        itemtbl.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Order ID", "Customer ID", "Order Date", "Total Amount"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane6.setViewportView(itemtbl);
+
+        ItemPanel.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 147, 610, 340));
+        ItemPanel.add(jTextField14, new org.netbeans.lib.awtextra.AbsoluteConstraints(346, 49, 138, 30));
+        ItemPanel.add(jTextField15, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 49, 140, 30));
+
+        jLabel17.setText("ID:");
+        ItemPanel.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 29, -1, -1));
+
+        jButton24.setText("Insert");
+        jButton24.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton24ActionPerformed(evt);
+            }
+        });
+        ItemPanel.add(jButton24, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, 30));
+
+        jButton25.setText("Update");
+        ItemPanel.add(jButton25, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, -1, 30));
+
+        jTabbedPane1.addTab("Items", ItemPanel);
 
         UserPanel.setBackground(new java.awt.Color(219, 193, 172));
         UserPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -366,21 +537,21 @@ public class MainAdmin extends javax.swing.JFrame {
         jButton18.setText("Search");
         UserPanel.add(jButton18, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, -1, 30));
 
-        jTabbedPane1.addTab("tab2", UserPanel);
+        jTabbedPane1.addTab("Accounts", UserPanel);
 
         getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 670, 530));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void LogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutActionPerformed
         // TODO add your handling code here:
         int a = JOptionPane.showConfirmDialog(null, "Confirm Logout");
         if (a == 0){
             new Login().setVisible(true);
             this.dispose();
         }
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_LogoutActionPerformed
 
     private void UsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsersActionPerformed
         // TODO add your handling code here:
@@ -410,17 +581,68 @@ public class MainAdmin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_UsersActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void ItemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemsActionPerformed
+        jTabbedPane1.setSelectedIndex(4);
+        try {
+            Statement st = dbcon.dbconnect().createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM items");
+            
+            DefaultTableModel model = (DefaultTableModel)paymenttbl.getModel();
+            
+            model.setRowCount(0);
+            
+            while(rs.next()){
+                model.addRow(new String[]{rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)});
+            }
+            
+        } 
+        
+        catch (SQLException ex) {
+            Logger.getLogger(MainAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_ItemsActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void PaymentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PaymentsActionPerformed
+        jTabbedPane1.setSelectedIndex(3);
+        try {
+            Statement st = dbcon.dbconnect().createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM payments");
+            
+            DefaultTableModel model = (DefaultTableModel)paymenttbl.getModel();
+            
+            model.setRowCount(0);
+            
+            while(rs.next()){
+                model.addRow(new String[]{rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)});
+            }
+            
+        } 
+        
+        catch (SQLException ex) {
+            Logger.getLogger(MainAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_PaymentsActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void OrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OrdersActionPerformed
+        jTabbedPane1.setSelectedIndex(2);
+        try {
+            Statement st = dbcon.dbconnect().createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM orders");
+            
+            DefaultTableModel model = (DefaultTableModel)ordertbl.getModel();
+            
+            model.setRowCount(0);
+            
+            while(rs.next()){
+                model.addRow(new String[]{rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)});
+            }
+            
+        } 
+        
+        catch (SQLException ex) {
+            Logger.getLogger(MainAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_OrdersActionPerformed
 
     private void CustomersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CustomersActionPerformed
         // TODO add your handling code here:
@@ -459,6 +681,30 @@ public class MainAdmin extends javax.swing.JFrame {
     private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton17ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton20ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton20ActionPerformed
+
+    private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton22ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton22ActionPerformed
+
+    private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton24ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton24ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -499,45 +745,82 @@ public class MainAdmin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Blank;
-    private javax.swing.JPanel Blank1;
-    private javax.swing.JPanel Blank2;
-    private javax.swing.JPanel Blank3;
     private javax.swing.JLabel Brand;
     private javax.swing.JPanel CustomerPanel;
     private javax.swing.JButton Customers;
+    private javax.swing.JPanel ItemPanel;
+    private javax.swing.JButton Items;
+    private javax.swing.JButton Logout;
+    private javax.swing.JPanel OrderPanel;
+    private javax.swing.JButton Orders;
+    private javax.swing.JPanel PaymentPanel;
+    private javax.swing.JButton Payments;
     private javax.swing.JPanel UserPanel;
     private javax.swing.JButton Users;
     private javax.swing.JTable customertbl;
+    private javax.swing.JTable itemtbl;
     private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton17;
     private javax.swing.JButton jButton18;
+    private javax.swing.JButton jButton19;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton20;
+    private javax.swing.JButton jButton21;
+    private javax.swing.JButton jButton22;
+    private javax.swing.JButton jButton23;
+    private javax.swing.JButton jButton24;
+    private javax.swing.JButton jButton25;
+    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField10;
+    private javax.swing.JTextField jTextField11;
+    private javax.swing.JTextField jTextField12;
+    private javax.swing.JTextField jTextField13;
+    private javax.swing.JTextField jTextField14;
+    private javax.swing.JTextField jTextField15;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JTable ordertbl;
+    private javax.swing.JTable paymenttbl;
     private javax.swing.JTable usertbl;
     // End of variables declaration//GEN-END:variables
 }
