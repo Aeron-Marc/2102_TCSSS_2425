@@ -83,6 +83,11 @@ public class Login extends javax.swing.JFrame {
 
         password.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         password.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 10, 2, 10));
+        password.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passwordActionPerformed(evt);
+            }
+        });
 
         Tag3.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         Tag3.setText("Password:");
@@ -111,7 +116,6 @@ public class Login extends javax.swing.JFrame {
         chikbox.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         chikbox.setText("Show Password");
         chikbox.setBorder(null);
-        chikbox.setOpaque(false);
         chikbox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chikboxActionPerformed(evt);
@@ -148,8 +152,7 @@ public class Login extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(loginbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(clearbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                .addComponent(clearbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(73, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -272,7 +275,14 @@ public class Login extends javax.swing.JFrame {
 
     private void loginbtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginbtn1ActionPerformed
         // TODO add your handling code here:
+        Signup signup = new Signup();
+        signup.setVisible(true);
+        dispose();
     }//GEN-LAST:event_loginbtn1ActionPerformed
+
+    private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_passwordActionPerformed
 
     /**
      * @param args the command line arguments

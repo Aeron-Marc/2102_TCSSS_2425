@@ -32,7 +32,7 @@ public class Customers extends javax.swing.JFrame {
             Logger.getLogger(MainAdmin.class.getName()).log(Level.SEVERE, null, ex);
         }
         customertbl.getTableHeader().setFont(new Font("Segoe UI Black", Font.BOLD, 12));
-        centerContent(); 
+        centerContent();
     }
 
     /**
@@ -341,6 +341,36 @@ public class Customers extends javax.swing.JFrame {
 
     private void insertbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertbtnActionPerformed
         // TODO add your handling code here:
+        String id = custid.getText();
+        String name = custname.getText();
+        String info = custconinfo.getText();
+       
+        
+        if (id.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "CustomerID is REQUIRED");
+        } else if (name.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Name is REQUIRED");
+        } else if (info.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "ContactInfo is REQUIRED");
+        } else {
+           
+            // Use the existing connection
+            try (Connection connect = dbcon.dbconnect();
+     Statement stmt = connect.createStatement()) {
+
+                String query = "INSERT INTO customer(CustomerID, Name, ContactInfo) VALUES (" + id + ", " + name + ", " + info + ")";
+                    stmt.execute(query);
+                    
+                
+                custid.setText("");
+                custname.setText("");
+                custconinfo.setText("");
+                
+
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error adding equipment: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_insertbtnActionPerformed
 
     /**
