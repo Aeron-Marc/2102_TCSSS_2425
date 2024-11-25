@@ -22,6 +22,17 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        username.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            loginbtnActionPerformed(evt); // Call the login action
+            }
+        });
+
+        password.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            loginbtnActionPerformed(evt); // Call the login action
+            }
+        });
         
     }
 
@@ -35,8 +46,8 @@ public class Login extends javax.swing.JFrame {
     private void initComponents() {
 
         Brand = new javax.swing.JLabel();
-        Wall = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        Wall = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         Tag1 = new javax.swing.JLabel();
         username = new javax.swing.JTextField();
@@ -45,9 +56,9 @@ public class Login extends javax.swing.JFrame {
         Tag3 = new javax.swing.JLabel();
         loginbtn = new javax.swing.JButton();
         clearbtn = new javax.swing.JButton();
-        chikbox = new javax.swing.JCheckBox();
         loginbtn1 = new javax.swing.JButton();
         Tag4 = new javax.swing.JLabel();
+        seePass = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -58,12 +69,12 @@ public class Login extends javax.swing.JFrame {
         Brand.setIconTextGap(0);
         getContentPane().add(Brand, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 13, -1, 40));
 
-        Wall.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pics/wall.png"))); // NOI18N
-        getContentPane().add(Wall, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
         jLabel2.setFont(new java.awt.Font("Segoe Print", 0, 8)); // NOI18N
         jLabel2.setText("Tea and Coffee Shop");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, -1, 10));
+
+        Wall.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pics/wall.png"))); // NOI18N
+        getContentPane().add(Wall, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         jPanel1.setBackground(new java.awt.Color(255, 242, 225));
 
@@ -112,16 +123,6 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        chikbox.setBackground(new java.awt.Color(255, 242, 225));
-        chikbox.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
-        chikbox.setText("Show Password");
-        chikbox.setBorder(null);
-        chikbox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chikboxActionPerformed(evt);
-            }
-        });
-
         loginbtn1.setBackground(new java.awt.Color(255, 254, 255));
         loginbtn1.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         loginbtn1.setText("Sign Up");
@@ -135,6 +136,16 @@ public class Login extends javax.swing.JFrame {
         Tag4.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         Tag4.setText("No account?");
 
+        seePass.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pics/eye.png"))); // NOI18N
+        seePass.setBorderPainted(false);
+        seePass.setContentAreaFilled(false);
+        seePass.setFocusPainted(false);
+        seePass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                seePassActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -145,15 +156,16 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(Tag3)
                     .addComponent(Tag2)
                     .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(chikbox)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(password, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(loginbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(clearbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(73, Short.MAX_VALUE))
+                                .addComponent(clearbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(seePass, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(41, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,18 +186,18 @@ public class Login extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addComponent(Tag2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
                 .addComponent(Tag3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(chikbox)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seePass))
+                .addGap(47, 47, 47)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(loginbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(clearbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Tag4)
                     .addComponent(loginbtn1))
@@ -196,7 +208,8 @@ public class Login extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    private boolean isPassVisible = false;
     
     
     private void loginbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginbtnActionPerformed
@@ -257,16 +270,6 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_usernameActionPerformed
 
-    private void chikboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chikboxActionPerformed
-        // TODO add your handling code here:
-        if(chikbox.isSelected()){
-            password.setEchoChar((char)0);
-        }
-        else {
-            password.setEchoChar('•');
-        }
-    }//GEN-LAST:event_chikboxActionPerformed
-
     private void clearbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearbtnActionPerformed
         // TODO add your handling code here:
         username.setText("");
@@ -283,6 +286,17 @@ public class Login extends javax.swing.JFrame {
     private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_passwordActionPerformed
+
+    private void seePassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seePassActionPerformed
+
+        if (!isPassVisible){
+            password.setEchoChar('•');
+        }
+        else {
+            password.setEchoChar((char)0);
+        }
+        isPassVisible = !isPassVisible; 
+    }//GEN-LAST:event_seePassActionPerformed
 
     /**
      * @param args the command line arguments
@@ -326,13 +340,13 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel Tag3;
     private javax.swing.JLabel Tag4;
     private javax.swing.JLabel Wall;
-    private javax.swing.JCheckBox chikbox;
     private javax.swing.JButton clearbtn;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton loginbtn;
     private javax.swing.JButton loginbtn1;
     private javax.swing.JPasswordField password;
+    private javax.swing.JButton seePass;
     private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
 }
