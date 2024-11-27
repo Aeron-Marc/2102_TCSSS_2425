@@ -1557,7 +1557,18 @@ public class Admin extends javax.swing.JFrame {
             Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, e);
             JOptionPane.showMessageDialog(this, "Error logging update: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }   
+    }  
+    
+    private void logDeletion(String username, String customerId, String customerName, String contactInfo) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("deletelogs.txt", true))) {
+            String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+            writer.write(timestamp + " - " + username + ": Deleted Customer ID: " + customerId + ", Name: " + customerName + ", Contact Info: " + contactInfo);
+            writer.newLine();
+        } catch (IOException e) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, e);
+            JOptionPane.showMessageDialog(this, "Error logging deletion: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
     
     private void logoutbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutbtnActionPerformed
         // TODO add your handling code here:
@@ -1900,15 +1911,21 @@ public class Admin extends javax.swing.JFrame {
         if (confirm == JOptionPane.YES_OPTION) {
             try {
                 Statement st = dbcon.dbconnect().createStatement();
-                String sql = "DELETE FROM customers WHERE CustomerID = '" + customerId + "'";
-                int rowsAffected = st.executeUpdate(sql);
 
-                if (rowsAffected > 0) {
-                    JOptionPane.showMessageDialog(this, "Customer deleted successfully!");
-                    loadCustomer(); // Refresh the customer table
-                } else {
-                    JOptionPane.showMessageDialog(this, "Customer ID not found.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
+                // Move the record to the deleted_customers table
+                String insertSQL = "INSERT INTO deleted_customers (CustomerID, Name, ContactInfo) " +
+                                   "VALUES ( '" + customerId + "', '" + customerName + "', '" + contactInfo + "')";
+                st.executeUpdate(insertSQL);
+
+                // Delete the record from the original customers table
+                String deleteSQL = "DELETE FROM customers WHERE CustomerID = '" + customerId + "'";
+                st.executeUpdate(deleteSQL);
+
+                // Log deletion
+                logDeletion(username, customerId, customerName, contactInfo);
+
+                JOptionPane.showMessageDialog(this, "Customer deleted successfully!");
+                loadCustomer(); // Refresh the customer table
             } catch (SQLException ex) {
                 Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(this, "Error deleting customer: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
