@@ -225,7 +225,7 @@ public class Login extends javax.swing.JFrame {
                 }
                 
                 if (found && passWord.equals(passDB) && "Admin".equals(statusDB)){
-                        new MainAdmin().setVisible(true);
+                        new Admin().setVisible(true);
                         this.dispose();
                     }
                 else if (found && passWord.equals(passDB) && "Staff".equals(statusDB)){
