@@ -3,9 +3,17 @@ package Main;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -13,8 +21,10 @@ import javax.swing.table.DefaultTableModel;
 
 public class Admin extends javax.swing.JFrame {
 
+    private String username;
     
-    public Admin() {
+    public Admin(String username) {
+        this.username = username;
         initComponents();    
         customertbl.getTableHeader().setFont(new Font(" Segoe UI", Font.BOLD, 12));
         ordertbl.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
@@ -54,13 +64,13 @@ public class Admin extends javax.swing.JFrame {
                     String customerId = model.getValueAt(selectedRow, 1).toString();
                     String orderDate = model.getValueAt(selectedRow, 2).toString();
                     String totalAmount = model.getValueAt(selectedRow, 3).toString();
-                    // Set the fields (you should have these fields defined)
+                   
                     orderIDField.setText(orderId);
                     customerIDField.setText(customerId);
                     orderDateField.setText(orderDate);
                     totalAmountField.setText(totalAmount);
                     
-                     loadOrderDetails(orderId);
+                    loadOrderDetails(orderId);
                     }
                 }
             }
@@ -79,13 +89,15 @@ public class Admin extends javax.swing.JFrame {
                     String category = model.getValueAt(selectedRow, 3).toString();
                     String description = model.getValueAt(selectedRow, 4).toString();
                     String stock = model.getValueAt(selectedRow, 5).toString();
-                    // Set the fields (you should have these fields defined)
+
                     itemIDField.setText(itemId);
                     itemNameField.setText(itemName);
                     priceField.setText(price);
-                    descriptionField.setText(category);
                     descriptionField.setText(description);
                     stockField.setText(stock);
+
+ 
+                    categoryfield.setSelectedItem(category);
                     }
                 }
             }
@@ -126,7 +138,7 @@ public class Admin extends javax.swing.JFrame {
                     String password = model.getValueAt(selectedRow, 3).toString();
                     String status = model.getValueAt(selectedRow, 4).toString();
 
-                    // Set the fields
+                    
                     userIDField.setText(userId);
                     userNameField.setText(userName);
                     emailField.setText(email);
@@ -197,10 +209,10 @@ public class Admin extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        orderaddbtn = new javax.swing.JButton();
+        orderupdatebtn = new javax.swing.JButton();
+        orderdeletebtn = new javax.swing.JButton();
+        clearbtn2 = new javax.swing.JButton();
         jScrollPane7 = new javax.swing.JScrollPane();
         orderdetailstbl = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
@@ -224,17 +236,17 @@ public class Admin extends javax.swing.JFrame {
         priceField = new javax.swing.JTextField();
         descriptionField = new javax.swing.JTextField();
         stockField = new javax.swing.JTextField();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
+        itemaddbtn = new javax.swing.JButton();
+        itemupdatebtn = new javax.swing.JButton();
+        itemdeletebtn = new javax.swing.JButton();
+        clearbtn3 = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        categoryfield = new javax.swing.JComboBox<>();
         jPanel7 = new javax.swing.JPanel();
         jButton12 = new javax.swing.JButton();
         jTextField17 = new javax.swing.JTextField();
@@ -253,10 +265,10 @@ public class Admin extends javax.swing.JFrame {
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
-        jButton13 = new javax.swing.JButton();
-        jButton14 = new javax.swing.JButton();
-        jButton15 = new javax.swing.JButton();
-        jButton16 = new javax.swing.JButton();
+        payaddbtn = new javax.swing.JButton();
+        payupdatebtn = new javax.swing.JButton();
+        paydeletebtn = new javax.swing.JButton();
+        clearbtn4 = new javax.swing.JButton();
         jLabel38 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         jTextField20 = new javax.swing.JTextField();
@@ -277,10 +289,10 @@ public class Admin extends javax.swing.JFrame {
         jLabel32 = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
         jLabel34 = new javax.swing.JLabel();
-        jButton17 = new javax.swing.JButton();
-        jButton18 = new javax.swing.JButton();
-        jButton19 = new javax.swing.JButton();
-        jButton20 = new javax.swing.JButton();
+        useraddbtn = new javax.swing.JButton();
+        userupdatebtn = new javax.swing.JButton();
+        userdeletebtn = new javax.swing.JButton();
+        clearbtn5 = new javax.swing.JButton();
         jPanel12 = new javax.swing.JPanel();
         jLabel35 = new javax.swing.JLabel();
         jTextField25 = new javax.swing.JTextField();
@@ -455,7 +467,7 @@ public class Admin extends javax.swing.JFrame {
         );
         homepanelLayout.setVerticalGroup(
             homepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 675, Short.MAX_VALUE)
+            .addGap(0, 680, Short.MAX_VALUE)
         );
 
         admintabs.addTab("hm", homepanel);
@@ -730,13 +742,23 @@ public class Admin extends javax.swing.JFrame {
 
         jLabel9.setText("Total Amount:");
 
-        jButton1.setText("Add");
+        orderaddbtn.setText("Add");
+        orderaddbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                orderaddbtnActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Update");
+        orderupdatebtn.setText("Update");
+        orderupdatebtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                orderupdatebtnActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Delete");
+        orderdeletebtn.setText("Delete");
 
-        jButton4.setText("Clear");
+        clearbtn2.setText("Clear");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -760,13 +782,13 @@ public class Admin extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(totalAmountField)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(orderaddbtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(orderupdatebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(orderdeletebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4)))
+                        .addComponent(clearbtn2)))
                 .addGap(64, 64, 64))
         );
         jPanel3Layout.setVerticalGroup(
@@ -790,10 +812,10 @@ public class Admin extends javax.swing.JFrame {
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(orderaddbtn)
+                    .addComponent(orderupdatebtn)
+                    .addComponent(orderdeletebtn)
+                    .addComponent(clearbtn2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -934,13 +956,23 @@ public class Admin extends javax.swing.JFrame {
             }
         });
 
-        jButton8.setText("Add");
+        itemaddbtn.setText("Add");
+        itemaddbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemaddbtnActionPerformed(evt);
+            }
+        });
 
-        jButton9.setText("Update");
+        itemupdatebtn.setText("Update");
+        itemupdatebtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemupdatebtnActionPerformed(evt);
+            }
+        });
 
-        jButton10.setText("Delete");
+        itemdeletebtn.setText("Delete");
 
-        jButton11.setText("Clear");
+        clearbtn3.setText("Clear");
 
         jLabel16.setText("Item ID:");
 
@@ -954,11 +986,11 @@ public class Admin extends javax.swing.JFrame {
 
         jLabel21.setText("Stock:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Coffee", "Tea", "Pastries" }));
-        jComboBox1.setSelectedIndex(-1);
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        categoryfield.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Coffee", "Tea", "Pastries" }));
+        categoryfield.setSelectedIndex(-1);
+        categoryfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                categoryfieldActionPerformed(evt);
             }
         });
 
@@ -984,22 +1016,22 @@ public class Admin extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(itemNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(itemupdatebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(priceField, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(itemdeletebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(itemIDField, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(itemaddbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(categoryfield, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(stockField, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
                             .addComponent(descriptionField, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(clearbtn3, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -1008,24 +1040,24 @@ public class Admin extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(itemIDField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton8)
+                    .addComponent(itemaddbtn)
                     .addComponent(jLabel16))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(itemNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton9)
+                    .addComponent(itemupdatebtn)
                     .addComponent(jLabel17))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(priceField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton10)
+                    .addComponent(itemdeletebtn)
                     .addComponent(jLabel18))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton11)
+                        .addComponent(clearbtn3)
                         .addComponent(jLabel19))
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(categoryfield, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(descriptionField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1117,13 +1149,23 @@ public class Admin extends javax.swing.JFrame {
 
         jLabel27.setText("Payment Method:");
 
-        jButton13.setText("Add");
+        payaddbtn.setText("Add");
+        payaddbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                payaddbtnActionPerformed(evt);
+            }
+        });
 
-        jButton14.setText("Update");
+        payupdatebtn.setText("Update");
+        payupdatebtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                payupdatebtnActionPerformed(evt);
+            }
+        });
 
-        jButton15.setText("Delete");
+        paydeletebtn.setText("Delete");
 
-        jButton16.setText("Clear");
+        clearbtn4.setText("Clear");
 
         jLabel38.setText("Status:");
 
@@ -1135,13 +1177,13 @@ public class Admin extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(payaddbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(payupdatebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton15, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+                        .addComponent(paydeletebtn, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(clearbtn4, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel24)
@@ -1184,10 +1226,10 @@ public class Admin extends javax.swing.JFrame {
                     .addComponent(jLabel38))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton13)
-                    .addComponent(jButton14)
-                    .addComponent(jButton15)
-                    .addComponent(jButton16))
+                    .addComponent(payaddbtn)
+                    .addComponent(payupdatebtn)
+                    .addComponent(paydeletebtn)
+                    .addComponent(clearbtn4))
                 .addGap(22, 22, 22))
         );
 
@@ -1307,13 +1349,23 @@ public class Admin extends javax.swing.JFrame {
 
         jLabel34.setText("Status:");
 
-        jButton17.setText("Add");
+        useraddbtn.setText("Add");
+        useraddbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                useraddbtnActionPerformed(evt);
+            }
+        });
 
-        jButton18.setText("Update");
+        userupdatebtn.setText("Update");
+        userupdatebtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userupdatebtnActionPerformed(evt);
+            }
+        });
 
-        jButton19.setText("Delete");
+        userdeletebtn.setText("Delete");
 
-        jButton20.setText("Clear");
+        clearbtn5.setText("Clear");
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -1331,20 +1383,19 @@ public class Admin extends javax.swing.JFrame {
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addComponent(jLabel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18))
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addComponent(jLabel34, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addComponent(jButton17)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(useraddbtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel34, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(jButton18)
-                        .addGap(30, 30, 30)
-                        .addComponent(jButton19)
-                        .addGap(29, 29, 29)
-                        .addComponent(jButton20))
+                        .addComponent(userupdatebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(userdeletebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(clearbtn5, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(statusField, 0, 264, Short.MAX_VALUE)
                         .addComponent(passwordField, javax.swing.GroupLayout.Alignment.LEADING)
@@ -1378,10 +1429,10 @@ public class Admin extends javax.swing.JFrame {
                     .addComponent(jLabel34))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton17)
-                    .addComponent(jButton18)
-                    .addComponent(jButton19)
-                    .addComponent(jButton20))
+                    .addComponent(useraddbtn)
+                    .addComponent(userupdatebtn)
+                    .addComponent(userdeletebtn)
+                    .addComponent(clearbtn5))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1486,9 +1537,8 @@ public class Admin extends javax.swing.JFrame {
                     .addGroup(salespanelLayout.createSequentialGroup()
                         .addComponent(timeframe)
                         .addGap(1, 1, 1)))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(460, 460, 460))
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(296, 296, 296))
         );
 
         admintabs.addTab("tab7", salespanel);
@@ -1497,7 +1547,18 @@ public class Admin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+  
+    private void logUpdate(String message) {
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter("updatelogs.txt", true))) {
+            String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+            writer.write(timestamp + " - " + username + ": " + message);
+            writer.newLine();
+        } catch (IOException e) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, e);
+            JOptionPane.showMessageDialog(this, "Error logging update: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }   
+    
     private void logoutbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutbtnActionPerformed
         // TODO add your handling code here:
         
@@ -1559,7 +1620,7 @@ public class Admin extends javax.swing.JFrame {
     private void loadOrderDetails(String orderId) {
         try {
             Statement st = dbcon.dbconnect().createStatement();
-            String query = "SELECT od.ItemID, i.ItemName, od.PriceEach, od.Quantity " +
+            String query = "SELECT od.ItemID, i.ItemName, od.Quantity, od.Price " +
                            "FROM orderdetails od " +
                            "JOIN items i ON od.ItemID = i.ItemID " +
                            "WHERE od.OrderID = '" + orderId + "'";
@@ -1567,13 +1628,13 @@ public class Admin extends javax.swing.JFrame {
             ResultSet rs = st.executeQuery(query);
 
             DefaultTableModel model = (DefaultTableModel) orderdetailstbl.getModel();
-            model.setRowCount(0); // Clear existing data
+            model.setRowCount(0); // Clear the existing data
 
             while (rs.next()) {
                 model.addRow(new Object[]{
                     rs.getString("ItemID"),
                     rs.getString("ItemName"),
-                    rs.getDouble("PriceEach"),
+                    rs.getDouble("Price"), // assuming this is the unit price
                     rs.getInt("Quantity")
                 });
             }
@@ -1586,6 +1647,13 @@ public class Admin extends javax.swing.JFrame {
         admintabs.setSelectedIndex(3);
         loadItems();
     }//GEN-LAST:event_itembtnActionPerformed
+    private void populateCategoryComboBox() {
+        categoryfield.removeAllItems(); 
+        categoryfield.addItem("Coffee");
+        categoryfield.addItem("Tea");
+        categoryfield.addItem("Pastries");
+    
+    }
     private void loadItems() {
         try {
             Statement st = dbcon.dbconnect().createStatement();
@@ -1632,7 +1700,7 @@ public class Admin extends javax.swing.JFrame {
                 });
             }
 
-            populatePaymentComboBoxes(); // Method to populate combo boxes
+            populatePaymentComboBoxes();
         } catch (SQLException ex) {
             Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Error loading payments data: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -1692,10 +1760,12 @@ public class Admin extends javax.swing.JFrame {
         String customerName = custNameField.getText();
         String contactInfo = contactInfoField.getText();
 
+       
         if (customerId.isEmpty() || customerName.isEmpty() || contactInfo.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please fill all fields", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+
         int confirm = JOptionPane.showConfirmDialog(this,
                 "Are you sure you want to add the following customer?\n\n" +
                 "Customer ID: " + customerId + "\n" +
@@ -1706,23 +1776,21 @@ public class Admin extends javax.swing.JFrame {
 
         if (confirm == JOptionPane.YES_OPTION) {
             try {
+                // Establish connection and create a statement
                 Statement st = dbcon.dbconnect().createStatement();
-                String checkSql = "SELECT COUNT(*) FROM customers WHERE CustomerID = '" + customerId + "'";
-                ResultSet rs = st.executeQuery(checkSql);
-                rs.next();
-                int count = rs.getInt(1);
+                String sql = "INSERT INTO customers (CustomerID, Name, ContactInfo) VALUES ('" 
+                             + customerId + "', '" + customerName + "', '" + contactInfo + "')";
 
-                if (count > 0) {
-                    JOptionPane.showMessageDialog(this, "Customer ID already exists. Please use a different ID.", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
+                st.executeUpdate(sql); // Execute the insert statement
 
-                String sql = "INSERT INTO customers (CustomerID, Name, ContactInfo) VALUES ('"
-                        + customerId + "', '" + customerName + "', '" + contactInfo + "')";
-                st.executeUpdate(sql);
                 JOptionPane.showMessageDialog(this, "Customer added successfully!");
-                loadCustomer();
+
+                loadCustomer(); 
+
+                
+                st.close();
             } catch (SQLException ex) {
+                
                 Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(this, "Error adding customer: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -1735,37 +1803,73 @@ public class Admin extends javax.swing.JFrame {
         String customerName = custNameField.getText();
         String contactInfo = contactInfoField.getText();
 
+        // Validate input
         if (customerId.isEmpty() || customerName.isEmpty() || contactInfo.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please fill all fields", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
+        // Retrieve existing customer data
+        String existingCustomerName = "";
+        String existingContactInfo = "";
+
+        try {
+            Statement st = dbcon.dbconnect().createStatement();
+            String sql = "SELECT * FROM customers WHERE CustomerID = '" + customerId + "'";
+            ResultSet rs = st.executeQuery(sql);
+
+            if (rs.next()) {
+                existingCustomerName = rs.getString("Name");
+                existingContactInfo = rs.getString("ContactInfo");
+            } else {
+                JOptionPane.showMessageDialog(this, "Customer ID not found.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error retrieving customer data: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Show confirmation dialog with old and new values
         int confirm = JOptionPane.showConfirmDialog(this,
                 "Are you sure you want to update the following customer?\n\n" +
-                "Customer ID: " + customerId + "\n" +
-                "Customer Name: " + customerName + "\n" +
-                "Contact Info: " + contactInfo,
+                "Customer ID: " + customerId + "\n\n" +
+                "Old Values:\n" +
+                "  Name: " + existingCustomerName + "\n" +
+                "  Contact Info: " + existingContactInfo + "\n\n" +
+                "New Values:\n" +
+                "  Name: " + customerName + "\n" +
+                "  Contact Info: " + contactInfo,
                 "Confirm Update",
                 JOptionPane.YES_NO_OPTION);
 
         if (confirm == JOptionPane.YES_OPTION) {
             try {
+                // Establish connection and create a statement
                 Statement st = dbcon.dbconnect().createStatement();
                 String sql = "UPDATE customers SET Name = '" + customerName + "', ContactInfo = '" + contactInfo + "' WHERE CustomerID = '" + customerId + "'";
-                int rowsAffected = st.executeUpdate(sql);
+                st.executeUpdate(sql); // Execute the update statement
 
-                if (rowsAffected > 0) {
-                    JOptionPane.showMessageDialog(this, "Customer updated successfully!");
-                    loadCustomer(); // Refresh the customer table
-                } else {
-                    JOptionPane.showMessageDialog(this, "Customer ID not found.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
+                // Get the current date and time
+                LocalDateTime now = LocalDateTime.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                String timestamp = now.format(formatter);
+
+                // Log essential data: timestamp, user, ID, and changes
+                String logMessage = String.format("Update Action: CustomerID: %s, Timestamp: %s, User: %s, Changes: [Name: '%s' to '%s', Contact Info: '%s' to '%s']",
+                        customerId, timestamp, username, existingCustomerName, customerName, existingContactInfo, contactInfo);
+                logUpdate(logMessage); // Log the change
+
+                JOptionPane.showMessageDialog(this, "Customer updated successfully!");
+                loadCustomer(); // Refresh the customer table
+
+                st.close(); // Close the statement
             } catch (SQLException ex) {
                 Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(this, "Error updating customer: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
-        }                               
-        
+        }
     }//GEN-LAST:event_customerupdatebtnActionPerformed
 
     private void clearbtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearbtn1ActionPerformed
@@ -1854,9 +1958,9 @@ public class Admin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_descriptionFieldActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void categoryfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoryfieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_categoryfieldActionPerformed
 
     private void jTextField20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField20ActionPerformed
         // TODO add your handling code here:
@@ -1900,6 +2004,503 @@ public class Admin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_timeframeActionPerformed
 
+    private void orderaddbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderaddbtnActionPerformed
+        String orderId = orderIDField.getText();
+        String customerId = customerIDField.getText();
+        String orderDateStr = orderDateField.getText();
+        String totalAmountStr = totalAmountField.getText();
+
+        // Validate input
+        if (orderId.isEmpty() || customerId.isEmpty() || orderDateStr.isEmpty() || totalAmountStr.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill all fields", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Ensure total amount is a valid double
+        double totalAmount;
+        try {
+            totalAmount = Double.parseDouble(totalAmountStr);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid total amount", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "Are you sure you want to add the following order?\n\n" +
+                "Order ID: " + orderId + "\n" +
+                "Customer ID: " + customerId + "\n" +
+                "Order Date: " + orderDateStr + "\n" +
+                "Total Amount: " + totalAmount,
+                "Confirm Add",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            try {
+                Statement st = dbcon.dbconnect().createStatement();
+                String sql = "INSERT INTO orders (OrderID, CustomerID, OrderDate, TotalAmount) VALUES ('" 
+                             + orderId + "', '" + customerId + "', STR_TO_DATE('" + orderDateStr + "', '%Y-%m-%d'), " + totalAmount + ")";
+                st.executeUpdate(sql); // Execute the insert statement
+
+                JOptionPane.showMessageDialog(this, "Order added successfully!");
+                loadOrders(); // Refresh the order table
+                st.close(); // Close the statement
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Error adding order: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_orderaddbtnActionPerformed
+
+    private void itemaddbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemaddbtnActionPerformed
+        String itemId = itemIDField.getText();
+        String itemName = itemNameField.getText();
+        String priceStr = priceField.getText();
+        String category = (String) categoryfield.getSelectedItem();
+        String description = descriptionField.getText();
+        String stockStr = stockField.getText();
+
+        // Validate input
+        if (itemId.isEmpty() || itemName.isEmpty() || priceStr.isEmpty() || category == null || description.isEmpty() || stockStr.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill all fields", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Ensure price and stock are valid numbers
+        double price;
+        int stock;
+        try {
+            price = Double.parseDouble(priceStr);
+            stock = Integer.parseInt(stockStr);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please enter valid price and stock", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "Are you sure you want to add the following item?\n\n" +
+                "Item ID: " + itemId + "\n" +
+                "Item Name: " + itemName + "\n" +
+                "Price: " + price + "\n" +
+                "Category: " + category + "\n" +
+                "Description: " + description + "\n" +
+                "Stock: " + stock,
+                "Confirm Add",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            try {
+                Statement st = dbcon.dbconnect().createStatement();
+                String sql = "INSERT INTO items (ItemID, ItemName, Price, Category, Description, Stock) VALUES ('" 
+                             + itemId + "', '" + itemName + "', " + price + ", '" + category + "', '" + description + "', " + stock + ")";
+                st.executeUpdate(sql); // Execute the insert statement
+
+                JOptionPane.showMessageDialog(this, "Item added successfully!");
+                loadItems(); // Refresh the item table
+                st.close(); // Close the statement
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Error adding item: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_itemaddbtnActionPerformed
+
+    private void payaddbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payaddbtnActionPerformed
+        String paymentId = paymentIDField.getText();
+        String orderId = orderIDField1.getText();
+        String amountStr = amountField.getText();
+        String paymentMethod = (String) paymentMethodField.getSelectedItem();
+        String status = (String) paymentStatusField.getSelectedItem();
+
+        // Validate input
+        if (paymentId.isEmpty() || orderId.isEmpty() || amountStr.isEmpty() || paymentMethod == null || status == null) {
+            JOptionPane.showMessageDialog(this, "Please fill all fields", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Ensure amount is a valid double
+        double amount;
+        try {
+            amount = Double.parseDouble(amountStr);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid amount", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "Are you sure you want to add the following payment?\n\n" +
+                "Payment ID: " + paymentId + "\n" +
+                "Order ID: " + orderId + "\n" +
+                "Amount: " + amount + "\n" +
+                "Payment Method: " + paymentMethod + "\n" +
+                "Status: " + status,
+                "Confirm Add",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            try {
+                Statement st = dbcon.dbconnect().createStatement();
+                String sql = "INSERT INTO payments (PaymentID, OrderID, Amount, PaymentMethod, Status) VALUES ('" 
+                             + paymentId + "', '" + orderId + "', " + amount + ", '" + paymentMethod + "', '" + status + "')";
+                st.executeUpdate(sql); // Execute the insert statement
+
+                JOptionPane.showMessageDialog(this, "Payment added successfully!");
+                loadPayments(); // Refresh payment table
+                st.close(); // Close the statement
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Error adding payment: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_payaddbtnActionPerformed
+
+    private void useraddbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useraddbtnActionPerformed
+        String userId = userIDField.getText();
+        String userName = userNameField.getText();
+        String email = emailField.getText();
+        String password = passwordField.getText();
+        String status = (String) statusField.getSelectedItem();
+
+        
+        if (userId.isEmpty() || userName.isEmpty() || email.isEmpty() || password.isEmpty() || status == null) {
+            JOptionPane.showMessageDialog(this, "Please fill all fields", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "Are you sure you want to add the following user?\n\n" +
+                "User ID: " + userId + "\n" +
+                "User Name: " + userName + "\n" +
+                "Email: " + email + "\n" +
+                "Status: " + status,
+                "Confirm Add",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            try {
+                Statement st = dbcon.dbconnect().createStatement();
+                String sql = "INSERT INTO users (UserID, UserName, Email, Password, Status) VALUES ('" 
+                             + userId + "', '" + userName + "', '" + email + "', '" + password + "', '" + status + "')";
+                st.executeUpdate(sql); // Execute the insert statement
+
+                JOptionPane.showMessageDialog(this, "User added successfully!");
+                loadUsers(); // Refresh user table
+
+                st.close(); // Close the statement
+            } catch (SQLException ex) {
+                Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Error adding user: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_useraddbtnActionPerformed
+
+    private void orderupdatebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderupdatebtnActionPerformed
+        String orderId = orderIDField.getText();
+        String customerId = customerIDField.getText();
+        String orderDateStr = orderDateField.getText();
+        String totalAmountStr = totalAmountField.getText();
+
+        // Validate input
+        if (orderId.isEmpty() || customerId.isEmpty() || orderDateStr.isEmpty() || totalAmountStr.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill all fields", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Retrieve existing order data
+        String existingCustomerId = "";
+        String existingOrderDate = "";
+        double existingTotalAmount = 0;
+
+        try {
+            Statement st = dbcon.dbconnect().createStatement();
+            String sql = "SELECT * FROM orders WHERE OrderID = '" + orderId + "'";
+            ResultSet rs = st.executeQuery(sql);
+
+            if (rs.next()) {
+                existingCustomerId = rs.getString("CustomerID");
+                existingOrderDate = rs.getString("OrderDate");
+                existingTotalAmount = rs.getDouble("TotalAmount");
+            } else {
+                JOptionPane.showMessageDialog(this, "Order ID not found.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error retrieving order data: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Show confirmation dialog with old and new values
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "Are you sure you want to update the following order?\n\n" +
+                "Order ID: " + orderId + "\n\n" +
+                "Old Values:\n" +
+                "  Customer ID: " + existingCustomerId + "\n" +
+                "  Order Date: " + existingOrderDate + "\n" +
+                "  Total Amount: " + existingTotalAmount + "\n\n" +
+                "New Values:\n" +
+                "  Customer ID: " + customerId + "\n" +
+                "  Order Date: " + orderDateStr + "\n" +
+                "  Total Amount: " + totalAmountStr,
+                "Confirm Update",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            try {
+                // Establish connection and create a statement
+                Statement st = dbcon.dbconnect().createStatement();
+                String sql = "UPDATE orders SET CustomerID = '" + customerId + "', OrderDate = STR_TO_DATE('" + orderDateStr + "', '%Y-%m-%d'), TotalAmount = " + totalAmountStr + " WHERE OrderID = '" + orderId + "'";
+                st.executeUpdate(sql); // Execute the update statement
+
+                // Get the current date and time for logging
+                LocalDateTime now = LocalDateTime.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                String timestamp = now.format(formatter);
+
+                // Log the update
+                String logMessage = String.format("Update Action: OrderID: %s, Timestamp: %s, User: %s, Changes: [Customer ID: '%s' to '%s', Order Date: '%s' to '%s', Total Amount: '%.2f' to '%.2f']",
+                        orderId, timestamp, username, existingCustomerId, customerId, existingOrderDate, orderDateStr, existingTotalAmount, Double.parseDouble(totalAmountStr));
+                logUpdate(logMessage); // Log the change
+
+                JOptionPane.showMessageDialog(this, "Order updated successfully!");
+                loadOrders(); // Refresh the order table
+                st.close(); // Close the statement
+            } catch (SQLException ex) {
+                Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Error updating order: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_orderupdatebtnActionPerformed
+
+    private void itemupdatebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemupdatebtnActionPerformed
+        String itemId = itemIDField.getText();
+        String itemName = itemNameField.getText();
+        String priceStr = priceField.getText();
+        String category = (String) categoryfield.getSelectedItem();
+        String stockStr = stockField.getText();
+        String description = descriptionField.getText();
+
+        if (itemId.isEmpty() || itemName.isEmpty() || priceStr.isEmpty() || category == null || stockStr.isEmpty() || description.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill all fields", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Retrieve existing item data
+        String existingItemName = "";
+        double existingPrice = 0;
+        int existingStock = 0;
+
+        try {
+            Statement st = dbcon.dbconnect().createStatement();
+            String sql = "SELECT * FROM items WHERE ItemID = '" + itemId + "'";
+            ResultSet rs = st.executeQuery(sql);
+
+            if (rs.next()) {
+                existingItemName = rs.getString("ItemName");
+                existingPrice = rs.getDouble("Price");
+                existingStock = rs.getInt("Stock");
+            } else {
+                JOptionPane.showMessageDialog(this, "Item ID not found.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error retrieving item data: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Show confirmation dialog
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "Are you sure you want to update the following item?\n\n" +
+                "Item ID: " + itemId + "\n\n" +
+                "Old Values:\n" +
+                "  Item Name: " + existingItemName + "\n" +
+                "  Price: " + existingPrice + "\n" +
+                "  Stock: " + existingStock + "\n\n" +
+                "New Values:\n" +
+                "  Item Name: " + itemName + "\n" +
+                "  Price: " + priceStr + "\n" +
+                "  Stock: " + stockStr,
+                "Confirm Update",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            try {
+                Statement st = dbcon.dbconnect().createStatement();
+                String sql = "UPDATE items SET ItemName = '" + itemName + "', Price = " + priceStr + ", Category = '" + category + "', Description = '" + description + "', Stock = " + stockStr + " WHERE ItemID = '" + itemId + "'";
+                st.executeUpdate(sql); // Execute the update statement
+
+                // Logging
+                LocalDateTime now = LocalDateTime.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                String timestamp = now.format(formatter);
+                String logMessage = String.format("Update Action: ItemID: %s, Timestamp: %s, User: %s, Changes: [Item Name: '%s' to '%s', Price: '%.2f' to '%.2f', Stock: %d to %d]",
+                        itemId, timestamp, username, existingItemName, itemName, existingPrice, Double.parseDouble(priceStr), existingStock, Integer.parseInt(stockStr));
+                logUpdate(logMessage);
+
+                JOptionPane.showMessageDialog(this, "Item updated successfully!");
+                loadItems(); // Refresh the items table
+                st.close(); // Close the statement
+            } catch (SQLException ex) {
+                Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Error updating item: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_itemupdatebtnActionPerformed
+
+    private void payupdatebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payupdatebtnActionPerformed
+        String paymentId = paymentIDField.getText();
+        String orderId = orderIDField1.getText();
+        String amountStr = amountField.getText();
+        String paymentMethod = (String) paymentMethodField.getSelectedItem();
+        String status = (String) paymentStatusField.getSelectedItem();
+
+        // Validate input
+        if (paymentId.isEmpty() || orderId.isEmpty() || amountStr.isEmpty() || paymentMethod == null || status == null) {
+            JOptionPane.showMessageDialog(this, "Please fill all fields", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        double existingAmount;
+        String existingPaymentMethod = "";
+        String existingStatus = "";
+
+        try {
+            Statement st = dbcon.dbconnect().createStatement();
+            String sql = "SELECT * FROM payments WHERE PaymentID = '" + paymentId + "'";
+            ResultSet rs = st.executeQuery(sql);
+
+            if (rs.next()) {
+                existingAmount = rs.getDouble("Amount");
+                existingPaymentMethod = rs.getString("PaymentMethod");
+                existingStatus = rs.getString("Status");
+            } else {
+                JOptionPane.showMessageDialog(this, "Payment ID not found.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error retrieving payment data: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Confirmation dialog
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "Are you sure you want to update the following payment?\n\n" +
+                "Payment ID: " + paymentId + "\n\n" +
+                "Old Values:\n" +
+                "  Amount: " + existingAmount + "\n" +
+                "  Payment Method: " + existingPaymentMethod + "\n" +
+                "  Status: " + existingStatus + "\n\n" +
+                "New Values:\n" +
+                "  Amount: " + amountStr + "\n" +
+                "  Payment Method: " + paymentMethod + "\n" +
+                "  Status: " + status,
+                "Confirm Update",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            try {
+                Statement st = dbcon.dbconnect().createStatement();
+                String sql = "UPDATE payments SET OrderID = '" + orderId + "', Amount = " + amountStr + ", PaymentMethod = '" + paymentMethod + "', Status = '" + status + "' WHERE PaymentID = '" + paymentId + "'";
+                st.executeUpdate(sql); // Execute the update statement
+
+                // Logging
+                LocalDateTime now = LocalDateTime.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                String timestamp = now.format(formatter);
+                String logMessage = String.format("Update Action: PaymentID: %s, Timestamp: %s, User: %s, Changes: [Amount: %.2f to %.2f, Payment Method: '%s' to '%s', Status: '%s' to '%s']",
+                        paymentId, timestamp, username, existingAmount, Double.parseDouble(amountStr), existingPaymentMethod, paymentMethod, existingStatus, status);
+                logUpdate(logMessage);
+
+                JOptionPane.showMessageDialog(this, "Payment updated successfully!");
+                loadPayments(); // Refresh the payments table
+                st.close(); // Close the statement
+            } catch (SQLException ex) {
+                Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Error updating payment: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_payupdatebtnActionPerformed
+
+    private void userupdatebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userupdatebtnActionPerformed
+        String userId = userIDField.getText();
+        String userName = userNameField.getText();
+        String email = emailField.getText();
+        String password = passwordField.getText();
+        String status = (String) statusField.getSelectedItem();
+
+        // Validate input
+        if (userId.isEmpty() || userName.isEmpty() || email.isEmpty() || password.isEmpty() || status == null) {
+            JOptionPane.showMessageDialog(this, "Please fill all fields", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Retrieve existing user data
+        String existingUserName = "";
+        String existingEmail = "";
+        String existingStatus = "";
+
+        try {
+            Statement st = dbcon.dbconnect().createStatement();
+            String sql = "SELECT * FROM users WHERE UserID = '" + userId + "'";
+            ResultSet rs = st.executeQuery(sql);
+
+            if (rs.next()) {
+                existingUserName = rs.getString("UserName");
+                existingEmail = rs.getString("Email");
+                existingStatus = rs.getString("Status");
+            } else {
+                JOptionPane.showMessageDialog(this, "User ID not found.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error retrieving user data: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Show confirmation dialog
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "Are you sure you want to update the following user?\n\n" +
+                "User ID: " + userId + "\n\n" +
+                "Old Values:\n" +
+                "  User Name: " + existingUserName + "\n" +
+                "  Email: " + existingEmail + "\n" +
+                "  Status: " + existingStatus + "\n\n" +
+                "New Values:\n" +
+                "  User Name: " + userName + "\n" +
+                "  Email: " + email + "\n" +
+                "  Status: " + status,
+                "Confirm Update",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            try {
+                Statement st = dbcon.dbconnect().createStatement();
+                String sql = "UPDATE users SET UserName = '" + userName + "', Email = '" + email + "', Password = '" + password + "', Status = '" + status + "' WHERE UserID = '" + userId + "'";
+                st.executeUpdate(sql); // Execute the update statement
+
+                // Logging
+                LocalDateTime now = LocalDateTime.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                String timestamp = now.format(formatter);
+                String logMessage = String.format("Update Action: UserID: %s, Timestamp: %s, User: %s, Changes: [User Name: '%s' to '%s', Email: '%s' to '%s', Status: '%s' to '%s']",
+                        userId, timestamp, username, existingUserName, userName, existingEmail, email, existingStatus, status);
+                logUpdate(logMessage);
+
+                JOptionPane.showMessageDialog(this, "User updated successfully!");
+                loadUsers(); // Refresh the user table
+                st.close(); // Close the statement
+            } catch (SQLException ex) {
+                Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Error updating user: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_userupdatebtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1930,7 +2531,7 @@ public class Admin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Admin().setVisible(true);
+                new Admin("adminUsername").setVisible(true);
             }
         });
     }
@@ -1943,7 +2544,12 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel Head1;
     private javax.swing.JTabbedPane admintabs;
     private javax.swing.JTextField amountField;
+    private javax.swing.JComboBox<String> categoryfield;
     private javax.swing.JButton clearbtn1;
+    private javax.swing.JButton clearbtn2;
+    private javax.swing.JButton clearbtn3;
+    private javax.swing.JButton clearbtn4;
+    private javax.swing.JButton clearbtn5;
     private javax.swing.JTextField contactInfoField;
     private javax.swing.JTextField custIDField;
     private javax.swing.JTextField custNameField;
@@ -1961,32 +2567,18 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JPanel homepanel;
     private javax.swing.JTextField itemIDField;
     private javax.swing.JTextField itemNameField;
+    private javax.swing.JButton itemaddbtn;
     private javax.swing.JButton itembtn;
+    private javax.swing.JButton itemdeletebtn;
     private javax.swing.JPanel itempanel;
     private javax.swing.JTable itemtbl;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
+    private javax.swing.JButton itemupdatebtn;
     private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton15;
-    private javax.swing.JButton jButton16;
-    private javax.swing.JButton jButton17;
-    private javax.swing.JButton jButton18;
-    private javax.swing.JButton jButton19;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton20;
     private javax.swing.JButton jButton21;
     private javax.swing.JButton jButton22;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2057,17 +2649,23 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JTextField orderDateField;
     private javax.swing.JTextField orderIDField;
     private javax.swing.JTextField orderIDField1;
+    private javax.swing.JButton orderaddbtn;
     private javax.swing.JButton orderbtn;
+    private javax.swing.JButton orderdeletebtn;
     private javax.swing.JTable orderdetailstbl;
     private javax.swing.JPanel orderpanel;
     private javax.swing.JTable ordertbl;
+    private javax.swing.JButton orderupdatebtn;
     private javax.swing.JTextField passwordField;
+    private javax.swing.JButton payaddbtn;
+    private javax.swing.JButton paydeletebtn;
     private javax.swing.JTextField paymentIDField;
     private javax.swing.JComboBox<String> paymentMethodField;
     private javax.swing.JComboBox<String> paymentStatusField;
     private javax.swing.JButton paymentbtn;
     private javax.swing.JPanel paymentpanel;
     private javax.swing.JTable paymenttbl;
+    private javax.swing.JButton payupdatebtn;
     private javax.swing.JTextField priceField;
     private javax.swing.JButton sales;
     private javax.swing.JPanel salespanel;
@@ -2079,8 +2677,11 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JTextField totalAmountField;
     private javax.swing.JTextField userIDField;
     private javax.swing.JTextField userNameField;
+    private javax.swing.JButton useraddbtn;
     private javax.swing.JButton userbtn;
+    private javax.swing.JButton userdeletebtn;
     private javax.swing.JPanel userspanel;
     private javax.swing.JTable usertbl;
+    private javax.swing.JButton userupdatebtn;
     // End of variables declaration//GEN-END:variables
 }
