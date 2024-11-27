@@ -17,6 +17,12 @@ public class Admin extends javax.swing.JFrame {
     public Admin() {
         initComponents();    
         customertbl.getTableHeader().setFont(new Font(" Segoe UI", Font.BOLD, 12));
+        ordertbl.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        itemtbl.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        paymenttbl.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        usertbl.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        orderdetailstbl.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        
         customertbl.addMouseListener(new MouseAdapter() {
         @Override
         public void mousePressed(MouseEvent e) {
@@ -36,6 +42,102 @@ public class Admin extends javax.swing.JFrame {
                 }
             }
         });
+        
+        ordertbl.addMouseListener(new MouseAdapter() {
+        @Override
+        public void mousePressed(MouseEvent e) {
+            if (e.getClickCount() == 1) {
+                int selectedRow = ordertbl.rowAtPoint(e.getPoint());
+                if (selectedRow >= 0 && selectedRow < ordertbl.getRowCount()) {
+                    DefaultTableModel model = (DefaultTableModel) ordertbl.getModel();
+                    String orderId = model.getValueAt(selectedRow, 0).toString();
+                    String customerId = model.getValueAt(selectedRow, 1).toString();
+                    String orderDate = model.getValueAt(selectedRow, 2).toString();
+                    String totalAmount = model.getValueAt(selectedRow, 3).toString();
+                    // Set the fields (you should have these fields defined)
+                    orderIDField.setText(orderId);
+                    customerIDField.setText(customerId);
+                    orderDateField.setText(orderDate);
+                    totalAmountField.setText(totalAmount);
+                    
+                     loadOrderDetails(orderId);
+                    }
+                }
+            }
+        });
+        
+        itemtbl.addMouseListener(new MouseAdapter() {
+        @Override
+        public void mousePressed(MouseEvent e) {
+            if (e.getClickCount() == 1) {
+                int selectedRow = itemtbl.rowAtPoint(e.getPoint());
+                if (selectedRow >= 0 && selectedRow < itemtbl.getRowCount()) {
+                    DefaultTableModel model = (DefaultTableModel) itemtbl.getModel();
+                    String itemId = model.getValueAt(selectedRow, 0).toString();
+                    String itemName = model.getValueAt(selectedRow, 1).toString();
+                    String price = model.getValueAt(selectedRow, 2).toString();
+                    String category = model.getValueAt(selectedRow, 3).toString();
+                    String description = model.getValueAt(selectedRow, 4).toString();
+                    String stock = model.getValueAt(selectedRow, 5).toString();
+                    // Set the fields (you should have these fields defined)
+                    itemIDField.setText(itemId);
+                    itemNameField.setText(itemName);
+                    priceField.setText(price);
+                    descriptionField.setText(category);
+                    descriptionField.setText(description);
+                    stockField.setText(stock);
+                    }
+                }
+            }
+        });
+        
+        paymenttbl.addMouseListener(new MouseAdapter() {
+        @Override
+        public void mousePressed(MouseEvent e) {
+            if (e.getClickCount() == 1) {
+                int selectedRow = paymenttbl.rowAtPoint(e.getPoint());
+                if (selectedRow >= 0 && selectedRow < paymenttbl.getRowCount()) {
+                    DefaultTableModel model = (DefaultTableModel) paymenttbl.getModel();
+                    String paymentId = model.getValueAt(selectedRow, 0).toString();
+                    String orderId = model.getValueAt(selectedRow, 1).toString();
+                    String amount = model.getValueAt(selectedRow, 2).toString();
+                    String paymentMethod = model.getValueAt(selectedRow, 3).toString();
+
+                    paymentIDField.setText(paymentId);
+                    orderIDField1.setText(orderId);
+                    amountField.setText(amount);
+                    paymentMethodField.setSelectedItem(paymentMethod); 
+                    paymentStatusField.setSelectedItem(model.getValueAt(selectedRow, 4).toString()); 
+                    }
+                }
+            }
+        });
+        
+        usertbl.addMouseListener(new MouseAdapter() {
+        @Override
+        public void mousePressed(MouseEvent e) {
+            if (e.getClickCount() == 1) {
+                int selectedRow = usertbl.rowAtPoint(e.getPoint());
+                if (selectedRow >= 0 && selectedRow < usertbl.getRowCount()) {
+                    DefaultTableModel model = (DefaultTableModel) usertbl.getModel();
+                    String userId = model.getValueAt(selectedRow, 0).toString();
+                    String userName = model.getValueAt(selectedRow, 1).toString();
+                    String email = model.getValueAt(selectedRow, 2).toString();
+                    String password = model.getValueAt(selectedRow, 3).toString();
+                    String status = model.getValueAt(selectedRow, 4).toString();
+
+                    // Set the fields
+                    userIDField.setText(userId);
+                    userNameField.setText(userName);
+                    emailField.setText(email);
+                    passwordField.setText(password);
+                    statusField.setSelectedItem(status); 
+                    }
+                }
+            }
+        });
+        
+        
     }
    
 
@@ -54,7 +156,7 @@ public class Admin extends javax.swing.JFrame {
         itembtn = new javax.swing.JButton();
         paymentbtn = new javax.swing.JButton();
         userbtn = new javax.swing.JButton();
-        staffredirectbtn = new javax.swing.JButton();
+        sales = new javax.swing.JButton();
         logoutbtn = new javax.swing.JButton();
         Brand3 = new javax.swing.JLabel();
         admintabs = new javax.swing.JTabbedPane();
@@ -87,10 +189,10 @@ public class Admin extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        orderIDField = new javax.swing.JTextField();
+        customerIDField = new javax.swing.JTextField();
+        orderDateField = new javax.swing.JTextField();
+        totalAmountField = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -100,7 +202,7 @@ public class Admin extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jScrollPane7 = new javax.swing.JScrollPane();
-        orderdetailstable = new javax.swing.JTable();
+        orderdetailstbl = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
         jTextField7 = new javax.swing.JTextField();
         jTextField8 = new javax.swing.JTextField();
@@ -117,11 +219,11 @@ public class Admin extends javax.swing.JFrame {
         itemtbl = new javax.swing.JTable();
         jLabel15 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jTextField11 = new javax.swing.JTextField();
-        jTextField12 = new javax.swing.JTextField();
-        jTextField13 = new javax.swing.JTextField();
-        jTextField15 = new javax.swing.JTextField();
-        jTextField16 = new javax.swing.JTextField();
+        itemIDField = new javax.swing.JTextField();
+        itemNameField = new javax.swing.JTextField();
+        priceField = new javax.swing.JTextField();
+        descriptionField = new javax.swing.JTextField();
+        stockField = new javax.swing.JTextField();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
@@ -142,10 +244,11 @@ public class Admin extends javax.swing.JFrame {
         paymenttbl = new javax.swing.JTable();
         jLabel23 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
-        jTextField14 = new javax.swing.JTextField();
-        jTextField18 = new javax.swing.JTextField();
-        jTextField19 = new javax.swing.JTextField();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        paymentIDField = new javax.swing.JTextField();
+        orderIDField1 = new javax.swing.JTextField();
+        amountField = new javax.swing.JTextField();
+        paymentMethodField = new javax.swing.JComboBox<>();
+        paymentStatusField = new javax.swing.JComboBox<>();
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
@@ -154,6 +257,7 @@ public class Admin extends javax.swing.JFrame {
         jButton14 = new javax.swing.JButton();
         jButton15 = new javax.swing.JButton();
         jButton16 = new javax.swing.JButton();
+        jLabel38 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         jTextField20 = new javax.swing.JTextField();
         jLabel28 = new javax.swing.JLabel();
@@ -163,11 +267,11 @@ public class Admin extends javax.swing.JFrame {
         usertbl = new javax.swing.JTable();
         jLabel29 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
-        jTextField21 = new javax.swing.JTextField();
-        jTextField22 = new javax.swing.JTextField();
-        jTextField23 = new javax.swing.JTextField();
-        jTextField24 = new javax.swing.JTextField();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        userIDField = new javax.swing.JTextField();
+        userNameField = new javax.swing.JTextField();
+        emailField = new javax.swing.JTextField();
+        passwordField = new javax.swing.JTextField();
+        statusField = new javax.swing.JComboBox<>();
         jLabel30 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
@@ -182,6 +286,11 @@ public class Admin extends javax.swing.JFrame {
         jTextField25 = new javax.swing.JTextField();
         jButton22 = new javax.swing.JButton();
         salespanel = new javax.swing.JPanel();
+        jLabel36 = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
+        timeframe = new javax.swing.JComboBox<>();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        salestbl = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -298,20 +407,20 @@ public class Admin extends javax.swing.JFrame {
         });
         jPanel4.add(userbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 200, -1));
 
-        staffredirectbtn.setFont(new java.awt.Font("Monospaced", 0, 14)); // NOI18N
-        staffredirectbtn.setForeground(new java.awt.Color(255, 255, 255));
-        staffredirectbtn.setText("Staff UI");
-        staffredirectbtn.setBorderPainted(false);
-        staffredirectbtn.setContentAreaFilled(false);
-        staffredirectbtn.setFocusPainted(false);
-        staffredirectbtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        staffredirectbtn.setRequestFocusEnabled(false);
-        staffredirectbtn.addActionListener(new java.awt.event.ActionListener() {
+        sales.setFont(new java.awt.Font("Monospaced", 0, 14)); // NOI18N
+        sales.setForeground(new java.awt.Color(255, 255, 255));
+        sales.setText("Sales");
+        sales.setBorderPainted(false);
+        sales.setContentAreaFilled(false);
+        sales.setFocusPainted(false);
+        sales.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        sales.setRequestFocusEnabled(false);
+        sales.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                staffredirectbtnActionPerformed(evt);
+                salesActionPerformed(evt);
             }
         });
-        jPanel4.add(staffredirectbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 200, -1));
+        jPanel4.add(sales, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 200, -1));
 
         logoutbtn.setFont(new java.awt.Font("Monospaced", 0, 14)); // NOI18N
         logoutbtn.setForeground(new java.awt.Color(255, 255, 255));
@@ -640,17 +749,16 @@ public class Admin extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel8)))
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel8))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField3)
+                            .addComponent(customerIDField)
+                            .addComponent(orderDateField)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(orderIDField, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jTextField4)))
+                            .addComponent(totalAmountField)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -666,19 +774,19 @@ public class Admin extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(orderIDField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(customerIDField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(orderDateField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(totalAmountField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -691,7 +799,7 @@ public class Admin extends javax.swing.JFrame {
 
         orderpanel.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, 320, 210));
 
-        orderdetailstable.setModel(new javax.swing.table.DefaultTableModel(
+        orderdetailstbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -707,7 +815,7 @@ public class Admin extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane7.setViewportView(orderdetailstable);
+        jScrollPane7.setViewportView(orderdetailstbl);
 
         orderpanel.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 110, 300, 310));
 
@@ -814,15 +922,15 @@ public class Admin extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, null));
 
-        jTextField12.addActionListener(new java.awt.event.ActionListener() {
+        itemNameField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField12ActionPerformed(evt);
+                itemNameFieldActionPerformed(evt);
             }
         });
 
-        jTextField15.addActionListener(new java.awt.event.ActionListener() {
+        descriptionField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField15ActionPerformed(evt);
+                descriptionFieldActionPerformed(evt);
             }
         });
 
@@ -874,22 +982,22 @@ public class Admin extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(itemNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(priceField, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(itemIDField, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField16, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
-                            .addComponent(jTextField15, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE))
+                            .addComponent(stockField, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
+                            .addComponent(descriptionField, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -899,17 +1007,17 @@ public class Admin extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(itemIDField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton8)
                     .addComponent(jLabel16))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(itemNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton9)
                     .addComponent(jLabel17))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(priceField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton10)
                     .addComponent(jLabel18))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -920,11 +1028,11 @@ public class Admin extends javax.swing.JFrame {
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(descriptionField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel20))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField16, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(stockField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel21))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -977,11 +1085,11 @@ public class Admin extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Payment ID", "Order ID", "Amount", "Payment Method"
+                "Payment ID", "Order ID", "Amount", "Payment Method", "Status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -995,8 +1103,11 @@ public class Admin extends javax.swing.JFrame {
 
         jPanel8.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, null));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cash", "Check", "Credit" }));
-        jComboBox2.setSelectedIndex(-1);
+        paymentMethodField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cash", "Check", "Credit" }));
+        paymentMethodField.setSelectedIndex(-1);
+
+        paymentStatusField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Unpaid", "Paid" }));
+        paymentStatusField.setSelectedIndex(-1);
 
         jLabel24.setText("Payment ID:");
 
@@ -1014,6 +1125,8 @@ public class Admin extends javax.swing.JFrame {
 
         jButton16.setText("Clear");
 
+        jLabel38.setText("Status:");
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -1027,48 +1140,55 @@ public class Admin extends javax.swing.JFrame {
                         .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton15, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
-                        .addGap(12, 12, 12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel24)
                             .addComponent(jLabel25)
                             .addComponent(jLabel26)
-                            .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(34, 34, 34)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField19, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
-                            .addComponent(jTextField18, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
-                            .addComponent(jTextField14))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(paymentMethodField, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(amountField, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                            .addComponent(orderIDField1, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                            .addComponent(paymentIDField)
+                            .addComponent(paymentStatusField, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(paymentIDField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel24))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField18, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(orderIDField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel25))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField19, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(amountField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel26))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(paymentMethodField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel27))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(paymentStatusField)
+                    .addComponent(jLabel38))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton13)
                     .addComponent(jButton14)
                     .addComponent(jButton15)
                     .addComponent(jButton16))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addGap(22, 22, 22))
         );
 
         jPanel9.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, null));
@@ -1137,11 +1257,10 @@ public class Admin extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(paymentpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(paymentpanelLayout.createSequentialGroup()
-                        .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(35, 35, 35))
-                    .addGroup(paymentpanelLayout.createSequentialGroup()
                         .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         admintabs.addTab("pymnt", paymentpanel);
@@ -1175,8 +1294,8 @@ public class Admin extends javax.swing.JFrame {
 
         jPanel10.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, null));
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Staff", "Admin" }));
-        jComboBox3.setSelectedIndex(-1);
+        statusField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Staff", "Admin" }));
+        statusField.setSelectedIndex(-1);
 
         jLabel30.setText("User ID:");
 
@@ -1227,11 +1346,11 @@ public class Admin extends javax.swing.JFrame {
                         .addGap(29, 29, 29)
                         .addComponent(jButton20))
                     .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jComboBox3, 0, 264, Short.MAX_VALUE)
-                        .addComponent(jTextField24, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jTextField23, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jTextField22, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jTextField21, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addComponent(statusField, 0, 264, Short.MAX_VALUE)
+                        .addComponent(passwordField, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(emailField, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(userNameField, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(userIDField, javax.swing.GroupLayout.Alignment.LEADING)))
                 .addGap(25, 25, 25))
         );
         jPanel10Layout.setVerticalGroup(
@@ -1239,23 +1358,23 @@ public class Admin extends javax.swing.JFrame {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField21, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(userIDField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel30))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField22, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(userNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel31))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField23, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel32))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField24, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel33))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(statusField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel34))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1306,15 +1425,70 @@ public class Admin extends javax.swing.JFrame {
 
         admintabs.addTab("user", userspanel);
 
+        jLabel36.setFont(new java.awt.Font("Segoe Print", 1, 36)); // NOI18N
+        jLabel36.setText("Sales");
+
+        jLabel37.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel37.setText("Total Sales:");
+
+        timeframe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Daily", "Monthly", "Yearly" }));
+        timeframe.setSelectedIndex(-1);
+        timeframe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                timeframeActionPerformed(evt);
+            }
+        });
+
+        salestbl.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null}
+            },
+            new String [] {
+                "Period", "Total Sales"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane6.setViewportView(salestbl);
+
         javax.swing.GroupLayout salespanelLayout = new javax.swing.GroupLayout(salespanel);
         salespanel.setLayout(salespanelLayout);
         salespanelLayout.setHorizontalGroup(
             salespanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 775, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, salespanelLayout.createSequentialGroup()
+                .addContainerGap(348, Short.MAX_VALUE)
+                .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(331, 331, 331))
+            .addGroup(salespanelLayout.createSequentialGroup()
+                .addGap(64, 64, 64)
+                .addGroup(salespanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(salespanelLayout.createSequentialGroup()
+                        .addComponent(jLabel37)
+                        .addGap(18, 18, 18)
+                        .addComponent(timeframe, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         salespanelLayout.setVerticalGroup(
             salespanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 680, Short.MAX_VALUE)
+            .addGroup(salespanelLayout.createSequentialGroup()
+                .addGap(87, 87, 87)
+                .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(salespanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel37)
+                    .addGroup(salespanelLayout.createSequentialGroup()
+                        .addComponent(timeframe)
+                        .addGap(1, 1, 1)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(460, 460, 460))
         );
 
         admintabs.addTab("tab7", salespanel);
@@ -1358,24 +1532,160 @@ public class Admin extends javax.swing.JFrame {
     }
     private void orderbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderbtnActionPerformed
         admintabs.setSelectedIndex(2);
-        
+        loadOrders();    
     }//GEN-LAST:event_orderbtnActionPerformed
+    private void loadOrders() {
+        try {
+            Statement st = dbcon.dbconnect().createStatement();
+            ResultSet rs = st.executeQuery("SELECT OrderID, CustomerID, OrderDate, TotalAmount FROM orders");
 
+            DefaultTableModel model = (DefaultTableModel) ordertbl.getModel();
+            model.setRowCount(0); // Clear existing data
+
+            while (rs.next()) {
+                model.addRow(new Object[]{
+                    rs.getString("OrderID"),
+                    rs.getString("CustomerID"),
+                    rs.getDate("OrderDate"),
+                    rs.getDouble("TotalAmount")
+                });
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error loading orders data: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    private void loadOrderDetails(String orderId) {
+        try {
+            Statement st = dbcon.dbconnect().createStatement();
+            String query = "SELECT od.ItemID, i.ItemName, od.PriceEach, od.Quantity " +
+                           "FROM orderdetails od " +
+                           "JOIN items i ON od.ItemID = i.ItemID " +
+                           "WHERE od.OrderID = '" + orderId + "'";
+
+            ResultSet rs = st.executeQuery(query);
+
+            DefaultTableModel model = (DefaultTableModel) orderdetailstbl.getModel();
+            model.setRowCount(0); // Clear existing data
+
+            while (rs.next()) {
+                model.addRow(new Object[]{
+                    rs.getString("ItemID"),
+                    rs.getString("ItemName"),
+                    rs.getDouble("PriceEach"),
+                    rs.getInt("Quantity")
+                });
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error loading order details: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
     private void itembtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itembtnActionPerformed
         admintabs.setSelectedIndex(3);
+        loadItems();
     }//GEN-LAST:event_itembtnActionPerformed
+    private void loadItems() {
+        try {
+            Statement st = dbcon.dbconnect().createStatement();
+            ResultSet rs = st.executeQuery("SELECT ItemID, ItemName, Price, Category, Description, Stock FROM items");
 
+            DefaultTableModel model = (DefaultTableModel) itemtbl.getModel();
+            model.setRowCount(0); // Clear existing data
+
+            while (rs.next()) {
+                model.addRow(new Object[]{
+                    rs.getString("ItemID"),
+                    rs.getString("ItemName"),
+                    rs.getDouble("Price"),
+                    rs.getString("Category"),
+                    rs.getString("Description"),
+                    rs.getInt("Stock")
+                });
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error loading items data: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
     private void paymentbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentbtnActionPerformed
         admintabs.setSelectedIndex(4);
+        loadPayments();
     }//GEN-LAST:event_paymentbtnActionPerformed
+    private void loadPayments() {
+        try {
+            Statement st = dbcon.dbconnect().createStatement();
+            ResultSet rs = st.executeQuery("SELECT PaymentID, OrderID, Amount, PaymentMethod, Status FROM payments");
 
+            DefaultTableModel model = (DefaultTableModel) paymenttbl.getModel();
+            model.setRowCount(0); // Clear existing data
+
+            // Load the table data
+            while (rs.next()) {
+                model.addRow(new Object[]{
+                    rs.getString("PaymentID"),
+                    rs.getString("OrderID"),
+                    rs.getDouble("Amount"),
+                    rs.getString("PaymentMethod"),
+                    rs.getString("Status")
+                });
+            }
+
+            populatePaymentComboBoxes(); // Method to populate combo boxes
+        } catch (SQLException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error loading payments data: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void populatePaymentComboBoxes() {
+        paymentMethodField.removeAllItems();
+        paymentMethodField.addItem("Cash");
+        paymentMethodField.addItem("Check");
+        paymentMethodField.addItem("Credit");
+        paymentStatusField.removeAllItems();
+        paymentStatusField.addItem("Unpaid");
+        paymentStatusField.addItem("Paid");
+    }
+    
     private void userbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userbtnActionPerformed
         admintabs.setSelectedIndex(5);
+        loadUsers();
     }//GEN-LAST:event_userbtnActionPerformed
+    private void loadUsers() {
+        try {
+            Statement st = dbcon.dbconnect().createStatement();
+            ResultSet rs = st.executeQuery("SELECT UserID, UserName, Email, Password, Status FROM users");
 
-    private void staffredirectbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_staffredirectbtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_staffredirectbtnActionPerformed
+            DefaultTableModel model = (DefaultTableModel) usertbl.getModel();
+            model.setRowCount(0); 
+
+            while (rs.next()) {
+                model.addRow(new Object[]{
+                    rs.getString("UserID"),
+                    rs.getString("UserName"),
+                    rs.getString("Email"),
+                    rs.getString("Password"),
+                    rs.getString("Status")
+                });
+            }
+
+            populateUserComboBox();
+        } catch (SQLException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error loading users data: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void populateUserComboBox() {
+        statusField.removeAllItems();
+        statusField.addItem("Staff");
+        statusField.addItem("Admin");
+    }
+    private void salesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salesActionPerformed
+        admintabs.setSelectedIndex(6);
+    }//GEN-LAST:event_salesActionPerformed
 
     private void customeraddbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customeraddbtnActionPerformed
         String customerId = custIDField.getText();
@@ -1536,13 +1846,13 @@ public class Admin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField10ActionPerformed
 
-    private void jTextField12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField12ActionPerformed
+    private void itemNameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemNameFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField12ActionPerformed
+    }//GEN-LAST:event_itemNameFieldActionPerformed
 
-    private void jTextField15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField15ActionPerformed
+    private void descriptionFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descriptionFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField15ActionPerformed
+    }//GEN-LAST:event_descriptionFieldActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
@@ -1551,6 +1861,44 @@ public class Admin extends javax.swing.JFrame {
     private void jTextField20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField20ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField20ActionPerformed
+
+    private void loadSalesData(String period) {
+            try {
+            Statement st = dbcon.dbconnect().createStatement();
+            ResultSet rs;
+
+            // Adjust SQL based on the selected period
+            switch (period) {
+                case "Daily":
+                    rs = st.executeQuery("SELECT DATE(OrderDate) AS sale_date, SUM(TotalAmount) AS total_sales FROM orders GROUP BY DATE(OrderDate)");
+                    break;
+                case "Monthly":
+                    rs = st.executeQuery("SELECT DATE_FORMAT(OrderDate, '%Y-%m') AS sale_month, SUM(TotalAmount) AS total_sales FROM orders GROUP BY sale_month");
+                    break;
+                case "Yearly":
+                    rs = st.executeQuery("SELECT YEAR(OrderDate) AS sale_year, SUM(TotalAmount) AS total_sales FROM orders GROUP BY sale_year");
+                    break;
+                default:
+                    return;
+            }
+
+            DefaultTableModel model = (DefaultTableModel) salestbl.getModel();
+            model.setRowCount(0); // Clear existing data
+
+            while (rs.next()) {
+                model.addRow(new Object[]{rs.getString(1), rs.getDouble(2)});
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error loading sales data: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    private void timeframeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeframeActionPerformed
+            String selectedTimeframe = (String) timeframe.getSelectedItem();
+        if (selectedTimeframe != null) {
+            loadSalesData(selectedTimeframe); 
+        }
+    }//GEN-LAST:event_timeframeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1594,10 +1942,12 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel Head;
     private javax.swing.JLabel Head1;
     private javax.swing.JTabbedPane admintabs;
+    private javax.swing.JTextField amountField;
     private javax.swing.JButton clearbtn1;
     private javax.swing.JTextField contactInfoField;
     private javax.swing.JTextField custIDField;
     private javax.swing.JTextField custNameField;
+    private javax.swing.JTextField customerIDField;
     private javax.swing.JPanel customerPanel;
     private javax.swing.JButton customeraddbtn;
     private javax.swing.JButton customerbtn;
@@ -1605,8 +1955,12 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JButton customersearchbtn;
     private javax.swing.JTable customertbl;
     private javax.swing.JButton customerupdatebtn;
+    private javax.swing.JTextField descriptionField;
+    private javax.swing.JTextField emailField;
     private javax.swing.JButton homebtn;
     private javax.swing.JPanel homepanel;
+    private javax.swing.JTextField itemIDField;
+    private javax.swing.JTextField itemNameField;
     private javax.swing.JButton itembtn;
     private javax.swing.JPanel itempanel;
     private javax.swing.JTable itemtbl;
@@ -1633,8 +1987,6 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1664,6 +2016,9 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1686,27 +2041,12 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField15;
-    private javax.swing.JTextField jTextField16;
     private javax.swing.JTextField jTextField17;
-    private javax.swing.JTextField jTextField18;
-    private javax.swing.JTextField jTextField19;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField20;
-    private javax.swing.JTextField jTextField21;
-    private javax.swing.JTextField jTextField22;
-    private javax.swing.JTextField jTextField23;
-    private javax.swing.JTextField jTextField24;
     private javax.swing.JTextField jTextField25;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
@@ -1714,16 +2054,31 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField9;
     private javax.swing.JButton logoutbtn;
     private javax.swing.JPanel modifyPanel;
+    private javax.swing.JTextField orderDateField;
+    private javax.swing.JTextField orderIDField;
+    private javax.swing.JTextField orderIDField1;
     private javax.swing.JButton orderbtn;
-    private javax.swing.JTable orderdetailstable;
+    private javax.swing.JTable orderdetailstbl;
     private javax.swing.JPanel orderpanel;
     private javax.swing.JTable ordertbl;
+    private javax.swing.JTextField passwordField;
+    private javax.swing.JTextField paymentIDField;
+    private javax.swing.JComboBox<String> paymentMethodField;
+    private javax.swing.JComboBox<String> paymentStatusField;
     private javax.swing.JButton paymentbtn;
     private javax.swing.JPanel paymentpanel;
     private javax.swing.JTable paymenttbl;
+    private javax.swing.JTextField priceField;
+    private javax.swing.JButton sales;
     private javax.swing.JPanel salespanel;
+    private javax.swing.JTable salestbl;
     private javax.swing.JPanel searchpanel1;
-    private javax.swing.JButton staffredirectbtn;
+    private javax.swing.JComboBox<String> statusField;
+    private javax.swing.JTextField stockField;
+    private javax.swing.JComboBox<String> timeframe;
+    private javax.swing.JTextField totalAmountField;
+    private javax.swing.JTextField userIDField;
+    private javax.swing.JTextField userNameField;
     private javax.swing.JButton userbtn;
     private javax.swing.JPanel userspanel;
     private javax.swing.JTable usertbl;
