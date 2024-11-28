@@ -4,6 +4,18 @@
  */
 package Main;
 
+import java.sql.PreparedStatement;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author leand
@@ -15,6 +27,7 @@ public class MainStaff extends javax.swing.JFrame {
      */
     public MainStaff() {
         initComponents();
+        loadData();
     }
 
     /**
@@ -26,32 +39,404 @@ public class MainStaff extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        coffeeTbl = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        teaTbl = new javax.swing.JTable();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        pastTbl = new javax.swing.JTable();
+        jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        pays = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        paymethod = new javax.swing.JComboBox<>();
+        print = new javax.swing.JButton();
+        pay = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        OrderTbl = new javax.swing.JTable();
+        jPanel5 = new javax.swing.JPanel();
+        jButton3 = new javax.swing.JButton();
+        delete = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jSpinner1 = new javax.swing.JSpinner();
+        addOrder = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("STAFFFFFF");
+        jTabbedPane1.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, null));
+
+        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
+
+        coffeeTbl.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Item Name", "Description", "Price", "Stock"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(coffeeTbl);
+
+        jPanel1.add(jScrollPane3);
+
+        jTabbedPane1.addTab("Coffee", jPanel1);
+
+        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
+
+        teaTbl.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Item Name", "Description", "Price", "Stock"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(teaTbl);
+
+        jPanel2.add(jScrollPane4);
+
+        jTabbedPane1.addTab("Tea", jPanel2);
+
+        jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.LINE_AXIS));
+
+        pastTbl.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Item Name", "Description", "Price", "Stock"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane5.setViewportView(pastTbl);
+
+        jPanel3.add(jScrollPane5);
+
+        jTabbedPane1.addTab("Pastries", jPanel3);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setText("TOTAL :");
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setText("BALANCE :");
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setText("PAY :");
+
+        pays.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                paysActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("0");
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("0");
+
+        paymethod.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        paymethod.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CASH", "CARD", "ONLINE" }));
+        paymethod.setSelectedIndex(-1);
+        paymethod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                paymethodActionPerformed(evt);
+            }
+        });
+
+        print.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        print.setText("PRINT");
+        print.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printActionPerformed(evt);
+            }
+        });
+
+        pay.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        pay.setText("PAY");
+        pay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                payActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel6.setText("PAYMENT METHOD :");
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel10.setText("Contact Info :");
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel11.setText("Customer Name :");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel10))
+                .addGap(3, 3, 3)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(jLabel3))
+                    .addComponent(jLabel2))
+                .addGap(4, 4, 4)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pays, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addComponent(jLabel6)
+                .addGap(5, 5, 5)
+                .addComponent(paymethod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
+                .addComponent(pay, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(print, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jLabel5)
+                .addGap(10, 10, 10)
+                .addComponent(pays, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addComponent(jLabel4))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel6))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(paymethod, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(pay, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(print, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        OrderTbl.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Item Name", "Price", "Quantity", "Subtotal"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        OrderTbl.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(OrderTbl);
+        if (OrderTbl.getColumnModel().getColumnCount() > 0) {
+            OrderTbl.getColumnModel().getColumn(0).setResizable(false);
+            OrderTbl.getColumnModel().getColumn(1).setResizable(false);
+            OrderTbl.getColumnModel().getColumn(2).setResizable(false);
+            OrderTbl.getColumnModel().getColumn(3).setResizable(false);
+        }
+
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton3.setText("EDIT");
+        jPanel5.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 60, 80, -1));
+
+        delete.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        delete.setText("DELETE");
+        delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteActionPerformed(evt);
+            }
+        });
+        jPanel5.add(delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 60, -1, -1));
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel8.setText("Item Name :");
+        jPanel5.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, 26));
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel9.setText("Quantity :");
+        jPanel5.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, 26));
+        jPanel5.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 133, 26));
+        jPanel5.add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 130, 30));
+
+        addOrder.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        addOrder.setText("ADD");
+        addOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addOrderActionPerformed(evt);
+            }
+        });
+        jPanel5.add(addOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 20, 80, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(178, 178, 178)
-                .addComponent(jLabel1)
-                .addContainerGap(166, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(128, 128, 128)
-                .addComponent(jLabel1)
-                .addContainerGap(156, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 572, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void paysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paysActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_paysActionPerformed
+
+    private void paymethodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymethodActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_paymethodActionPerformed
+
+    private void printActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_printActionPerformed
+
+    private void payActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_payActionPerformed
+
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_deleteActionPerformed
+
+    private void addOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addOrderActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addOrderActionPerformed
+
+    private void loadData() {
+        loadItemsByCategory("Coffee", coffeeTbl);
+        loadItemsByCategory("Tea", teaTbl);
+        loadItemsByCategory("Pastries", pastTbl);
+    }
+
+    private void loadItemsByCategory(String category, JTable table) {
+        Connection conn = dbcon.dbconnect();
+        if (conn == null) return;
+
+        try {
+            String sql = "SELECT ItemName, Description, Price, Stock FROM items WHERE Category = ?"; // Use a parameterized query to prevent SQL injection
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, category);
+            ResultSet rs = pstmt.executeQuery();
+
+            DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+            tableModel.setRowCount(0); // Clear existing rows
+
+            while (rs.next()) {
+                String itemName = rs.getString("ItemName");
+                String description = rs.getString("Description");
+                double price = rs.getDouble("Price");
+                int stock = rs.getInt("Stock");
+
+                tableModel.addRow(new Object[]{itemName, description, price, stock});
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error loading " + category + " data: " + e.getMessage());
+        } 
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -88,6 +473,40 @@ public class MainStaff extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable OrderTbl;
+    private javax.swing.JButton addOrder;
+    private javax.swing.JTable coffeeTbl;
+    private javax.swing.JButton delete;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTable pastTbl;
+    private javax.swing.JButton pay;
+    private javax.swing.JComboBox<String> paymethod;
+    private javax.swing.JTextField pays;
+    private javax.swing.JButton print;
+    private javax.swing.JTable teaTbl;
     // End of variables declaration//GEN-END:variables
 }
