@@ -4,6 +4,16 @@
  */
 package Main;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author leand
@@ -36,8 +46,9 @@ public class Signup extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         createaccbtn = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        backloginbtn = new javax.swing.JButton();
+        status = new javax.swing.JComboBox<>();
+        statusbtn = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -97,17 +108,26 @@ public class Signup extends javax.swing.JFrame {
         jLabel6.setText("I have an account");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 330, -1, -1));
 
-        jButton1.setText("Log In");
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 320, -1, -1));
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Main", "Admin" }));
-        jComboBox1.setSelectedIndex(-1);
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        backloginbtn.setText("Log In");
+        backloginbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                backloginbtnActionPerformed(evt);
             }
         });
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, 130, 40));
+        jPanel1.add(backloginbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 320, -1, -1));
+
+        status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Staff" }));
+        status.setSelectedIndex(-1);
+        status.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                statusActionPerformed(evt);
+            }
+        });
+        jPanel1.add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, 130, 40));
+
+        statusbtn.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+        statusbtn.setText("Status:");
+        jPanel1.add(statusbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 140, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 420, 370));
 
@@ -148,12 +168,71 @@ public class Signup extends javax.swing.JFrame {
 
     private void createaccbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createaccbtnActionPerformed
         // TODO add your handling code here:
+        String usernameSignup, passwordSignup, emailSignup, statusSignup, userDB = null, emailDB = null, passDB = null, statusDB = null;
+        boolean found = false;
         
+        try {
+            // TODO add your handling code here:
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/tcsss_oop","root", "");
+            Statement st = con.createStatement();
+            
+            if(namesignup.getText().equals("")){
+                JOptionPane.showMessageDialog(new JFrame(), "Username is required", "Error!", JOptionPane.ERROR_MESSAGE);
+            } 
+            else if (passsignup.getText().equals("")) {
+                JOptionPane.showMessageDialog(new JFrame(), "Password is required", "Error!", JOptionPane.ERROR_MESSAGE);
+            }
+            else if (status.getSelectedItem().equals("")) {
+                JOptionPane.showMessageDialog(new JFrame(), "Status is required", "Error!", JOptionPane.ERROR_MESSAGE);
+            }
+            else if (emailsignup.getText().equals("")) {
+                JOptionPane.showMessageDialog(new JFrame(), "Email is required", "Error!", JOptionPane.ERROR_MESSAGE);
+            }
+            else {
+                usernameSignup    = namesignup.getText();
+                passwordSignup = passsignup.getText();  
+                
+                ResultSet rs = st.executeQuery("SELECT * FROM users WHERE Username = '" + usernameSignup + "'");
+                while(rs.next()){
+                userDB = rs.getString("Username");
+                emailDB = rs.getString("Email");
+                passDB = rs.getString("Password");
+                statusDB = rs.getString("Status");
+                found = true;
+                }
+                
+                if (found && passsignup.equals(passDB) && "Admin".equals(statusDB)){
+                        new Admin().setVisible(true);
+                        this.dispose();
+                    }
+                else if (found && passsignup.equals(passDB) && "Staff".equals(statusDB)){
+                        new MainStaff().setVisible(true);
+                        this.dispose();
+                    }
+                else {
+                    JOptionPane.showMessageDialog(new JFrame(), "Incorrect email or password", "Error!", JOptionPane.ERROR_MESSAGE);
+                    passsignup.setText("");
+                    }
+                    
+            }
+            
+            
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_createaccbtnActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void statusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_statusActionPerformed
+
+    private void backloginbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backloginbtnActionPerformed
+        // TODO add your handling code here:
+        Login login = new Login();
+        login.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_backloginbtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -191,10 +270,9 @@ public class Signup extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backloginbtn;
     private javax.swing.JButton createaccbtn;
     private javax.swing.JTextField emailsignup;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -205,5 +283,7 @@ public class Signup extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField namesignup;
     private javax.swing.JTextField passsignup;
+    private javax.swing.JComboBox<String> status;
+    private javax.swing.JLabel statusbtn;
     // End of variables declaration//GEN-END:variables
 }
