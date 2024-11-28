@@ -22,13 +22,13 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         username.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            loginbtnActionPerformed(evt); // Call the login action
+            loginbtnActionPerformed(evt); 
             }
         });
 
         password.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            loginbtnActionPerformed(evt); // Call the login action
+            loginbtnActionPerformed(evt); 
             }
         });
         
@@ -196,7 +196,7 @@ public class Login extends javax.swing.JFrame {
         boolean found = false;
         
         try {
-            // TODO add your handling code here:
+            
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/tcsss_oop","root", "");
             Statement st = con.createStatement();
@@ -247,11 +247,11 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_loginbtnActionPerformed
 
     private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_usernameActionPerformed
 
     private void clearbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearbtnActionPerformed
-        // TODO add your handling code here:
+        
         username.setText("");
         password.setText("");     
     }//GEN-LAST:event_clearbtnActionPerformed

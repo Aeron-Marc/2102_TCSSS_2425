@@ -9,3 +9,7 @@
 2024-11-28 11:30:27 - Aeron: Update Action: ItemID: 4, Timestamp: 2024-11-28 11:30:27, User: Aeron, Changes: [Item Name: 'Cookiez' to 'Cookies', Price: '25.00' to '25.00', Stock: 200 to 200]
 2024-11-28 11:30:55 - Aeron: Update Action: UserID: 3, Timestamp: 2024-11-28 11:30:55, User: Aeron, Changes: [User Name: 'Staff2' to 'Staff2', Email: 'staff2@gmail.com' to 'staff2@gmail.com', Status: 'Staff' to 'Staff']
 2024-11-28 12:15:11 - Aeron: Update Action: CustomerID: 3, Timestamp: 2024-11-28 12:15:11, User: Aeron, Changes: [Name: 'Michael Angelo' to 'Michael', Contact Info: '09888855667' to '09888855667']
+2024-11-28 12:44:28 - Aeron: Update Action: ItemID: 2, Timestamp: 2024-11-28 12:44:28, User: Aeron, Changes: [Quantity: 2 to 1]
+2024-11-28 12:44:44 - Aeron: Update Action: ItemID: 2, Timestamp: 2024-11-28 12:44:44, User: Aeron, Changes: [Quantity: 1 to 2]
+2024-11-28 12:46:35 - Aeron: Update Action: ItemID: 2, Timestamp: 2024-11-28 12:46:35, User: Aeron, Changes: [Quantity: 2 to 3]
+2024-11-28 12:48:29 - Aeron: Update Action: ItemID: 2, Timestamp: 2024-11-28 12:48:29, User: Aeron, Changes: [Quantity: 3 to 2]

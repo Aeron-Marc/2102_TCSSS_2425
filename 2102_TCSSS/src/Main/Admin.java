@@ -88,8 +88,7 @@ public class Admin extends javax.swing.JFrame {
                     String itemName = model.getValueAt(selectedRow, 1).toString();
                     String price = model.getValueAt(selectedRow, 2).toString();
                     String quantity = model.getValueAt(selectedRow, 3).toString();
-
-                    // Set the fields
+   
                     oditemID.setText(itemId);
                     oditemname.setText(itemName);
                     odprice.setText(price);
@@ -1695,7 +1694,7 @@ public class Admin extends javax.swing.JFrame {
             ResultSet rs = st.executeQuery("SELECT OrderID, CustomerID, OrderDate, TotalAmount FROM orders");
 
             DefaultTableModel model = (DefaultTableModel) ordertbl.getModel();
-            model.setRowCount(0); // Clear existing data
+            model.setRowCount(0); 
 
             while (rs.next()) {
                 model.addRow(new Object[]{
@@ -1714,7 +1713,7 @@ public class Admin extends javax.swing.JFrame {
     private void loadOrderDetails(String orderId) {
         try {
             Statement st = dbcon.dbconnect().createStatement();
-            String query = "SELECT od.ItemID, i.ItemName, od.Quantity, od.Price " +
+            String query = "SELECT od.ItemID, i.ItemName, i.Price, od.Quantity " +
                            "FROM orderdetails od " +
                            "JOIN items i ON od.ItemID = i.ItemID " +
                            "WHERE od.OrderID = '" + orderId + "'";
@@ -1722,13 +1721,13 @@ public class Admin extends javax.swing.JFrame {
             ResultSet rs = st.executeQuery(query);
 
             DefaultTableModel model = (DefaultTableModel) orderdetailstbl.getModel();
-            model.setRowCount(0); // Clear the existing data
+            model.setRowCount(0); 
 
             while (rs.next()) {
                 model.addRow(new Object[]{
                     rs.getString("ItemID"),
                     rs.getString("ItemName"),
-                    rs.getDouble("Price"), // assuming this is the unit price
+                    rs.getDouble("Price"), 
                     rs.getInt("Quantity")
                 });
             }
@@ -1754,7 +1753,7 @@ public class Admin extends javax.swing.JFrame {
             ResultSet rs = st.executeQuery("SELECT ItemID, ItemName, Price, Category, Description, Stock FROM items");
 
             DefaultTableModel model = (DefaultTableModel) itemtbl.getModel();
-            model.setRowCount(0); // Clear existing data
+            model.setRowCount(0); 
 
             while (rs.next()) {
                 model.addRow(new Object[]{
@@ -1781,9 +1780,8 @@ public class Admin extends javax.swing.JFrame {
             ResultSet rs = st.executeQuery("SELECT PaymentID, OrderID, Amount, PaymentMethod, Status FROM payments");
 
             DefaultTableModel model = (DefaultTableModel) paymenttbl.getModel();
-            model.setRowCount(0); // Clear existing data
+            model.setRowCount(0); 
 
-            // Load the table data
             while (rs.next()) {
                 model.addRow(new Object[]{
                     rs.getString("PaymentID"),
@@ -1870,12 +1868,11 @@ public class Admin extends javax.swing.JFrame {
 
         if (confirm == JOptionPane.YES_OPTION) {
             try {
-                // Establish connection and create a statement
                 Statement st = dbcon.dbconnect().createStatement();
                 String sql = "INSERT INTO customers (CustomerID, Name, ContactInfo) VALUES ('" 
                              + customerId + "', '" + customerName + "', '" + contactInfo + "')";
 
-                st.executeUpdate(sql); // Execute the insert statement
+                st.executeUpdate(sql); 
 
                 JOptionPane.showMessageDialog(this, "Customer added successfully!");
 
@@ -1897,13 +1894,11 @@ public class Admin extends javax.swing.JFrame {
         String customerName = custNameField.getText();
         String contactInfo = contactInfoField.getText();
 
-        // Validate input
         if (customerId.isEmpty() || customerName.isEmpty() || contactInfo.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please fill all fields", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Retrieve existing customer data
         String existingCustomerName = "";
         String existingContactInfo = "";
 
@@ -1925,7 +1920,6 @@ public class Admin extends javax.swing.JFrame {
             return;
         }
 
-        // Show confirmation dialog with old and new values
         int confirm = JOptionPane.showConfirmDialog(this,
                 "Are you sure you want to update the following customer?\n\n" +
                 "Customer ID: " + customerId + "\n\n" +
@@ -1940,25 +1934,22 @@ public class Admin extends javax.swing.JFrame {
 
         if (confirm == JOptionPane.YES_OPTION) {
             try {
-                // Establish connection and create a statement
                 Statement st = dbcon.dbconnect().createStatement();
                 String sql = "UPDATE customers SET Name = '" + customerName + "', ContactInfo = '" + contactInfo + "' WHERE CustomerID = '" + customerId + "'";
-                st.executeUpdate(sql); // Execute the update statement
+                st.executeUpdate(sql); 
 
-                // Get the current date and time
                 LocalDateTime now = LocalDateTime.now();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 String timestamp = now.format(formatter);
 
-                // Log essential data: timestamp, user, ID, and changes
                 String logMessage = String.format("Update Action: CustomerID: %s, Timestamp: %s, User: %s, Changes: [Name: '%s' to '%s', Contact Info: '%s' to '%s']",
                         customerId, timestamp, username, existingCustomerName, customerName, existingContactInfo, contactInfo);
-                logUpdate(logMessage); // Log the change
+                logUpdate(logMessage); 
 
                 JOptionPane.showMessageDialog(this, "Customer updated successfully!");
-                loadCustomer(); // Refresh the customer table
+                loadCustomer(); 
 
-                st.close(); // Close the statement
+                st.close(); 
             } catch (SQLException ex) {
                 Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(this, "Error updating customer: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -1982,7 +1973,6 @@ public class Admin extends javax.swing.JFrame {
             return;
         }
 
-        // Show confirmation dialog
         int confirm = JOptionPane.showConfirmDialog(this,
                 "Are you sure you want to delete the following customer?\n\n" +
                 "Customer ID: " + customerId + "\n" +
@@ -1995,20 +1985,17 @@ public class Admin extends javax.swing.JFrame {
             try {
                 Statement st = dbcon.dbconnect().createStatement();
 
-                // Move the record to the deleted_customers table
                 String insertSQL = "INSERT INTO deleted_customers (CustomerID, Name, ContactInfo) " +
                                    "VALUES ( '" + customerId + "', '" + customerName + "', '" + contactInfo + "')";
                 st.executeUpdate(insertSQL);
 
-                // Delete the record from the original customers table
                 String deleteSQL = "DELETE FROM customers WHERE CustomerID = '" + customerId + "'";
                 st.executeUpdate(deleteSQL);
 
-                // Log deletion
                 logDeletion(username, customerId, customerName, contactInfo);
 
                 JOptionPane.showMessageDialog(this, "Customer deleted successfully!");
-                loadCustomer(); // Refresh the customer table
+                loadCustomer(); 
             } catch (SQLException ex) {
                 Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(this, "Error deleting customer: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -2058,9 +2045,9 @@ public class Admin extends javax.swing.JFrame {
             if (rs.next()) {
                 orderIDField.setText(rs.getString("OrderID"));
                 customerIDField.setText(rs.getString("CustomerID"));
-                orderDateField.setText(rs.getString("OrderDate")); // Ensure formatting if necessary
+                orderDateField.setText(rs.getString("OrderDate"));  
                 totalAmountField.setText(String.valueOf(rs.getDouble("TotalAmount")));
-                loadOrderDetails(searchId); // Optionally load order details
+                loadOrderDetails(searchId); 
             } else {
                 JOptionPane.showMessageDialog(this, "Order ID not found.", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -2095,7 +2082,6 @@ public class Admin extends javax.swing.JFrame {
             Statement st = dbcon.dbconnect().createStatement();
             ResultSet rs;
 
-            // Adjust SQL based on the selected period
             switch (period) {
                 case "Daily":
                     rs = st.executeQuery("SELECT DATE(OrderDate) AS sale_date, SUM(TotalAmount) AS total_sales FROM orders GROUP BY DATE(OrderDate)");
@@ -2111,7 +2097,7 @@ public class Admin extends javax.swing.JFrame {
             }
 
             DefaultTableModel model = (DefaultTableModel) salestbl.getModel();
-            model.setRowCount(0); // Clear existing data
+            model.setRowCount(0); 
 
             while (rs.next()) {
                 model.addRow(new Object[]{rs.getString(1), rs.getDouble(2)});
@@ -2134,13 +2120,11 @@ public class Admin extends javax.swing.JFrame {
         String orderDateStr = orderDateField.getText();
         String totalAmountStr = totalAmountField.getText();
 
-        // Validate input
         if (orderId.isEmpty() || customerId.isEmpty() || orderDateStr.isEmpty() || totalAmountStr.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please fill all fields", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Ensure total amount is a valid double
         double totalAmount;
         try {
             totalAmount = Double.parseDouble(totalAmountStr);
@@ -2163,11 +2147,11 @@ public class Admin extends javax.swing.JFrame {
                 Statement st = dbcon.dbconnect().createStatement();
                 String sql = "INSERT INTO orders (OrderID, CustomerID, OrderDate, TotalAmount) VALUES ('" 
                              + orderId + "', '" + customerId + "', STR_TO_DATE('" + orderDateStr + "', '%Y-%m-%d'), " + totalAmount + ")";
-                st.executeUpdate(sql); // Execute the insert statement
+                st.executeUpdate(sql); 
 
                 JOptionPane.showMessageDialog(this, "Order added successfully!");
-                loadOrders(); // Refresh the order table
-                st.close(); // Close the statement
+                loadOrders(); 
+                st.close(); 
 
             } catch (SQLException ex) {
                 Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
@@ -2184,13 +2168,11 @@ public class Admin extends javax.swing.JFrame {
         String description = descriptionField.getText();
         String stockStr = stockField.getText();
 
-        // Validate input
         if (itemId.isEmpty() || itemName.isEmpty() || priceStr.isEmpty() || category == null || description.isEmpty() || stockStr.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please fill all fields", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Ensure price and stock are valid numbers
         double price;
         int stock;
         try {
@@ -2217,11 +2199,11 @@ public class Admin extends javax.swing.JFrame {
                 Statement st = dbcon.dbconnect().createStatement();
                 String sql = "INSERT INTO items (ItemID, ItemName, Price, Category, Description, Stock) VALUES ('" 
                              + itemId + "', '" + itemName + "', " + price + ", '" + category + "', '" + description + "', " + stock + ")";
-                st.executeUpdate(sql); // Execute the insert statement
+                st.executeUpdate(sql); 
 
                 JOptionPane.showMessageDialog(this, "Item added successfully!");
-                loadItems(); // Refresh the item table
-                st.close(); // Close the statement
+                loadItems(); 
+                st.close(); 
 
             } catch (SQLException ex) {
                 Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
@@ -2237,13 +2219,11 @@ public class Admin extends javax.swing.JFrame {
         String paymentMethod = (String) paymentMethodField.getSelectedItem();
         String status = (String) paymentStatusField.getSelectedItem();
 
-        // Validate input
         if (paymentId.isEmpty() || orderId.isEmpty() || amountStr.isEmpty() || paymentMethod == null || status == null) {
             JOptionPane.showMessageDialog(this, "Please fill all fields", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Ensure amount is a valid double
         double amount;
         try {
             amount = Double.parseDouble(amountStr);
@@ -2267,11 +2247,11 @@ public class Admin extends javax.swing.JFrame {
                 Statement st = dbcon.dbconnect().createStatement();
                 String sql = "INSERT INTO payments (PaymentID, OrderID, Amount, PaymentMethod, Status) VALUES ('" 
                              + paymentId + "', '" + orderId + "', " + amount + ", '" + paymentMethod + "', '" + status + "')";
-                st.executeUpdate(sql); // Execute the insert statement
+                st.executeUpdate(sql); 
 
                 JOptionPane.showMessageDialog(this, "Payment added successfully!");
-                loadPayments(); // Refresh payment table
-                st.close(); // Close the statement
+                loadPayments(); 
+                st.close(); 
 
             } catch (SQLException ex) {
                 Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
@@ -2307,12 +2287,12 @@ public class Admin extends javax.swing.JFrame {
                 Statement st = dbcon.dbconnect().createStatement();
                 String sql = "INSERT INTO users (UserID, UserName, Email, Password, Status) VALUES ('" 
                              + userId + "', '" + userName + "', '" + email + "', '" + password + "', '" + status + "')";
-                st.executeUpdate(sql); // Execute the insert statement
+                st.executeUpdate(sql); 
 
                 JOptionPane.showMessageDialog(this, "User added successfully!");
-                loadUsers(); // Refresh user table
+                loadUsers(); 
 
-                st.close(); // Close the statement
+                st.close(); 
             } catch (SQLException ex) {
                 Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(this, "Error adding user: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -2917,7 +2897,105 @@ public class Admin extends javax.swing.JFrame {
     }//GEN-LAST:event_odclearActionPerformed
 
     private void odupdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_odupdateActionPerformed
-        
+        String itemId = oditemID.getText();
+        String quantityStr = odquantity.getText();
+
+        // Validate input
+        if (itemId.isEmpty() || quantityStr.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill all fields", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int quantity;
+        try {
+            quantity = Integer.parseInt(quantityStr);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid quantity", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Retrieve existing item data for logging purposes
+        String existingItemName = "";
+        double existingPrice = 0;
+        int existingQuantity = 0;
+        String orderId = orderIDField.getText();  // Assuming orderIDField is the field storing the current OrderID
+
+        try {
+            Statement st = dbcon.dbconnect().createStatement();
+
+            // SQL query to get the current item details
+            String sql = "SELECT i.ItemName, i.Price, od.Quantity " +
+                         "FROM orderdetails od " +
+                         "JOIN items i ON od.ItemID = i.ItemID " +
+                         "WHERE od.ItemID = '" + itemId + "' AND od.OrderID = '" + orderId + "'";
+
+            ResultSet rs = st.executeQuery(sql);
+
+            if (rs.next()) {
+                existingItemName = rs.getString("ItemName");
+                existingPrice = rs.getDouble("Price");
+                existingQuantity = rs.getInt("Quantity");
+            } else {
+                JOptionPane.showMessageDialog(this, "Item ID not found in order details.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error retrieving item data: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Confirmation dialog
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "Are you sure you want to update the quantity for the following item?\n\n" +
+                "Item ID: " + itemId + "\n" +
+                "Item Name: " + existingItemName + "\n" +
+                "Old Quantity: " + existingQuantity + "\n" +
+                "New Quantity: " + quantity,
+                "Confirm Update",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            try {
+                // Update the quantity of the item in orderdetails
+                Statement st = dbcon.dbconnect().createStatement();
+                String updateQuantitySql = "UPDATE orderdetails SET Quantity = " + quantity + 
+                                           " WHERE ItemID = '" + itemId + "' AND OrderID = '" + orderId + "'";
+                st.executeUpdate(updateQuantitySql); // Execute the update statement
+
+                // Now update the total amount for the order
+                String updateTotalSql = "UPDATE orders o " +
+                                         "SET o.TotalAmount = ( " +
+                                         "  SELECT SUM(od.Quantity * i.Price) " +
+                                         "  FROM orderdetails od " +
+                                         "  JOIN items i ON od.ItemID = i.ItemID " +
+                                         "  WHERE od.OrderID = o.OrderID " +
+                                         ") " +
+                                         "WHERE EXISTS ( " +
+                                         "  SELECT 1 " +
+                                         "  FROM orderdetails od " +
+                                         "  WHERE od.OrderID = o.OrderID " +
+                                         ")";
+                st.executeUpdate(updateTotalSql); // Execute the total update
+
+                // Logging
+                LocalDateTime now = LocalDateTime.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                String timestamp = now.format(formatter);
+                String logMessage = String.format("Update Action: ItemID: %s, Timestamp: %s, User: %s, Changes: [Quantity: %d to %d]",
+                        itemId, timestamp, username, existingQuantity, quantity);
+                logUpdate(logMessage); // Log the change
+
+                loadOrders();
+                
+                JOptionPane.showMessageDialog(this, "Quantity updated successfully and total amount recalculated!");
+                loadOrderDetails(orderId); // Refresh the order details to reflect changes
+                st.close(); // Close the statement
+            } catch (SQLException ex) {
+                Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Error updating quantity: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_odupdateActionPerformed
 
     /**
