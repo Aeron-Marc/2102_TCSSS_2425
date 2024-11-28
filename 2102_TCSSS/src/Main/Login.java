@@ -61,7 +61,7 @@ public class Login extends javax.swing.JFrame {
         Brand.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pics/logo.png"))); // NOI18N
         Brand.setText("TCAF");
         Brand.setIconTextGap(0);
-        getContentPane().add(Brand, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 13, -1, 40));
+        getContentPane().add(Brand, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, 40));
 
         jLabel2.setFont(new java.awt.Font("Segoe Print", 0, 8)); // NOI18N
         jLabel2.setText("Tea and Coffee Shop");

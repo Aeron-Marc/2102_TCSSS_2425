@@ -195,6 +195,7 @@ public class Admin extends javax.swing.JFrame {
         Brand3 = new javax.swing.JLabel();
         admintabs = new javax.swing.JTabbedPane();
         homepanel = new javax.swing.JPanel();
+        jLabel39 = new javax.swing.JLabel();
         customerPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         customertbl = new javax.swing.JTable();
@@ -343,7 +344,7 @@ public class Admin extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe Print", 0, 8)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Tea and Coffee Shop");
-        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, -1, 10));
+        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, -1, 10));
 
         Brand2.setFont(new java.awt.Font("Segoe Print", 1, 14)); // NOI18N
         Brand2.setForeground(new java.awt.Color(255, 255, 255));
@@ -473,23 +474,29 @@ public class Admin extends javax.swing.JFrame {
 
         Brand3.setFont(new java.awt.Font("Segoe Print", 1, 18)); // NOI18N
         Brand3.setForeground(new java.awt.Color(255, 255, 255));
+        Brand3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pics/logowhite.png"))); // NOI18N
         Brand3.setText("TCAF");
-        Brand3.setIconTextGap(0);
-        jPanel4.add(Brand3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 60, 40));
+        Brand3.setIconTextGap(1);
+        jPanel4.add(Brand3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 110, 40));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, 640));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
+        jLabel39.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pics/shop.png"))); // NOI18N
+
         javax.swing.GroupLayout homepanelLayout = new javax.swing.GroupLayout(homepanel);
         homepanel.setLayout(homepanelLayout);
         homepanelLayout.setHorizontalGroup(
             homepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 775, Short.MAX_VALUE)
+            .addComponent(jLabel39, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         homepanelLayout.setVerticalGroup(
             homepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 680, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homepanelLayout.createSequentialGroup()
+                .addContainerGap(160, Short.MAX_VALUE)
+                .addComponent(jLabel39)
+                .addGap(86, 86, 86))
         );
 
         admintabs.addTab("hm", homepanel);
@@ -731,9 +738,7 @@ public class Admin extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(ordersearchbtn)))
+                            .addComponent(ordersearchbtn))
                         .addGap(61, 61, 61))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1653,8 +1658,21 @@ public class Admin extends javax.swing.JFrame {
     }
     
     private void logoutbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutbtnActionPerformed
-        // TODO add your handling code here:
-        
+        // Show a confirmation dialog
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "Are you sure you want to log out?",
+                "Confirm Logout",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+
+        // If user clicks "Yes", logout
+        if (confirm == JOptionPane.YES_OPTION) {
+            dispose(); // Close the Admin window (or you may use setVisible(false) instead)
+
+            // Here you would typically launch your login screen
+            // Assuming you have a Login class
+            new Login().setVisible(true); // Change this to the appropriate class for your login window
+        }    
     }//GEN-LAST:event_logoutbtnActionPerformed
 
     private void homebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homebtnActionPerformed
@@ -3103,6 +3121,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
