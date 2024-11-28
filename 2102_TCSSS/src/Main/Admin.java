@@ -6,10 +6,9 @@ import java.awt.event.MouseEvent;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -293,7 +292,6 @@ public class Admin extends javax.swing.JFrame {
         jLabel27 = new javax.swing.JLabel();
         payaddbtn = new javax.swing.JButton();
         payupdatebtn = new javax.swing.JButton();
-        paydeletebtn = new javax.swing.JButton();
         clearbtn4 = new javax.swing.JButton();
         jLabel38 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
@@ -1242,13 +1240,6 @@ public class Admin extends javax.swing.JFrame {
             }
         });
 
-        paydeletebtn.setText("Delete");
-        paydeletebtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                paydeletebtnActionPerformed(evt);
-            }
-        });
-
         clearbtn4.setText("Clear");
         clearbtn4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1270,8 +1261,6 @@ public class Admin extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(payupdatebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(paydeletebtn, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(clearbtn4, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1286,9 +1275,8 @@ public class Admin extends javax.swing.JFrame {
                             .addComponent(amountField, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
                             .addComponent(orderIDField1, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
                             .addComponent(paymentIDField)
-                            .addComponent(paymentStatusField, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                            .addComponent(paymentStatusField, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1317,7 +1305,6 @@ public class Admin extends javax.swing.JFrame {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(payaddbtn)
                     .addComponent(payupdatebtn)
-                    .addComponent(paydeletebtn)
                     .addComponent(clearbtn4))
                 .addGap(22, 22, 22))
         );
@@ -1998,46 +1985,6 @@ public class Admin extends javax.swing.JFrame {
         contactInfoField.setText("");
     }//GEN-LAST:event_clearbtn1ActionPerformed
 
-    private void customerdeletebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customerdeletebtnActionPerformed
-        String customerId = custIDField.getText();
-        String customerName = custNameField.getText();
-        String contactInfo = contactInfoField.getText();
-
-        if (customerId.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter a Customer ID to delete", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        int confirm = JOptionPane.showConfirmDialog(this,
-                "Are you sure you want to delete the following customer?\n\n" +
-                "Customer ID: " + customerId + "\n" +
-                "Customer Name: " + customerName + "\n" +
-                "Contact Info: " + contactInfo,
-                "Confirm Delete",
-                JOptionPane.YES_NO_OPTION);
-
-        if (confirm == JOptionPane.YES_OPTION) {
-            try {
-                Statement st = dbcon.dbconnect().createStatement();
-
-                String insertSQL = "INSERT INTO deleted_customers (CustomerID, Name, ContactInfo) " +
-                                   "VALUES ( '" + customerId + "', '" + customerName + "', '" + contactInfo + "')";
-                st.executeUpdate(insertSQL);
-
-                String deleteSQL = "DELETE FROM customers WHERE CustomerID = '" + customerId + "'";
-                st.executeUpdate(deleteSQL);
-
-                logDeletion(username, customerId, customerName, contactInfo);
-
-                JOptionPane.showMessageDialog(this, "Customer deleted successfully!");
-                loadCustomer(); 
-            } catch (SQLException ex) {
-                Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(this, "Error deleting customer: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }//GEN-LAST:event_customerdeletebtnActionPerformed
-
     private void customersearchbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customersearchbtnActionPerformed
         String searchId = jTextField6.getText().trim();
 
@@ -2629,44 +2576,89 @@ public class Admin extends javax.swing.JFrame {
 
     private void orderdeletebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderdeletebtnActionPerformed
         String orderId = orderIDField.getText();
-        String customerId = customerIDField.getText(); 
-        String orderDate = orderDateField.getText(); 
-        String totalAmount = totalAmountField.getText(); 
+        String existingCustomerId = "";
+        String existingCustomerName = "";
+        LocalDate orderDate = null;
+        double totalAmount = 0;
 
         if (orderId.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter an Order ID to delete", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-
         int confirm = JOptionPane.showConfirmDialog(this,
-                "Are you sure you want to delete the following order?\n\n" +
-                "Order ID: " + orderId + "\n" +
-                "Customer ID: " + customerId + "\n" +
-                "Order Date: " + orderDate + "\n" +
-                "Total Amount: " + totalAmount,
+                "Are you sure you want to delete Order ID: " + orderId + "?",
                 "Confirm Delete",
                 JOptionPane.YES_NO_OPTION);
 
         if (confirm == JOptionPane.YES_OPTION) {
-            try {
-                Statement st = dbcon.dbconnect().createStatement();
+            try (Connection conn = dbcon.dbconnect()) {
+                conn.setAutoCommit(false);
+                Statement stmt = conn.createStatement();
 
-                String insertSQL = "INSERT INTO deleted_orders (OrderID, CustomerID, OrderDate, TotalAmount, DeletedAt) " +
-                                   "VALUES ('" + orderId + "', '" + customerId + "', STR_TO_DATE('" + orderDate + "', '%Y-%m-%d'), " + totalAmount + ", CURRENT_TIMESTAMP)";
-                st.executeUpdate(insertSQL);
+                String query = "SELECT CustomerID, OrderDate, TotalAmount FROM orders WHERE OrderID = '" + orderId + "'";
+                ResultSet rs = stmt.executeQuery(query);
 
-                String deleteSQL = "DELETE FROM orders WHERE OrderID = '" + orderId + "'";
-                st.executeUpdate(deleteSQL);
+                if (rs.next()) {
+                    existingCustomerId = rs.getString("CustomerID");
+                    orderDate = rs.getDate("OrderDate").toLocalDate();
+                    totalAmount = rs.getDouble("TotalAmount");
 
-                JOptionPane.showMessageDialog(this, "Order deleted successfully!");
-                loadOrders(); 
+                    String customerQuery = "SELECT Name FROM customers WHERE CustomerID = '" + existingCustomerId + "'";
+                    ResultSet customerRs = stmt.executeQuery(customerQuery);
+                    if (customerRs.next()) {
+                        existingCustomerName = customerRs.getString("Name");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Order ID not found.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                String insertDeletedPaymentsSQL = "INSERT INTO deleted_payments (PaymentID, OrderID, Amount, PaymentMethod, Status, DeletedAt) " +
+                                                   "SELECT PaymentID, OrderID, Amount, PaymentMethod, Status, CURRENT_TIMESTAMP FROM payments WHERE OrderID = ?";
+                String insertDeletedOrderSQL = "INSERT INTO deleted_orders (OrderID, CustomerID, OrderDate, TotalAmount, DeletedAt) " +
+                                                "SELECT OrderID, CustomerID, OrderDate, TotalAmount, CURRENT_TIMESTAMP FROM orders WHERE OrderID = ?";
+                String deleteOrderDetailsSQL = "DELETE FROM orderdetails WHERE OrderID = ?";
+                String deletePaymentsSQL = "DELETE FROM payments WHERE OrderID = ?";
+                String deleteOrderSQL = "DELETE FROM orders WHERE OrderID = ?";
+
+                try (PreparedStatement insertDeletedPaymentsStmt = conn.prepareStatement(insertDeletedPaymentsSQL);
+                     PreparedStatement insertDeletedOrderStmt = conn.prepareStatement(insertDeletedOrderSQL);
+                     PreparedStatement deleteOrderDetailsStmt = conn.prepareStatement(deleteOrderDetailsSQL);
+                     PreparedStatement deletePaymentsStmt = conn.prepareStatement(deletePaymentsSQL);
+                     PreparedStatement deleteOrderStmt = conn.prepareStatement(deleteOrderSQL)) {
+
+                    insertDeletedPaymentsStmt.setString(1, orderId);
+                    insertDeletedPaymentsStmt.executeUpdate();
+
+                    insertDeletedOrderStmt.setString(1, orderId);
+                    insertDeletedOrderStmt.executeUpdate();
+
+                    deleteOrderDetailsStmt.setString(1, orderId);
+                    deleteOrderDetailsStmt.executeUpdate();
+
+                    deletePaymentsStmt.setString(1, orderId);
+                    deletePaymentsStmt.executeUpdate();
+
+                    deleteOrderStmt.setString(1, orderId);
+                    deleteOrderStmt.executeUpdate();
+
+                    conn.commit();
+
+                    logDeletion(username, orderId, existingCustomerId + ": " + existingCustomerName, orderDate != null ? orderDate.toString() : "N/A");
+
+                    JOptionPane.showMessageDialog(this, "Order and related records (payments) deleted successfully!");
+                    loadOrders();
+                } catch (SQLException ex) {
+                    conn.rollback();
+                    Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(this, "Error deleting order: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(this, "Error deleting order: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Database connection error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-
     }//GEN-LAST:event_orderdeletebtnActionPerformed
 
     private void itemdeletebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemdeletebtnActionPerformed
@@ -2691,59 +2683,33 @@ public class Admin extends javax.swing.JFrame {
             try {
                 Statement st = dbcon.dbconnect().createStatement();
 
-                String insertSQL = "INSERT INTO deleted_items (ItemID, ItemName, Price, Category, Description, Stock, DeletedAt) " +
-                                   "VALUES ('" + itemId + "', '" + itemName + "', " + price + ", '" + categoryfield.getSelectedItem() + "', '" + descriptionField.getText() + "', " + stockField.getText() + ", CURRENT_TIMESTAMP)";
-                st.executeUpdate(insertSQL);
+                String orderDetailCheckQuery = "SELECT COUNT(*) AS DetailCount FROM orderdetails WHERE ItemID = '" + itemId + "'";
+                ResultSet orderDetailsCountResult = st.executeQuery(orderDetailCheckQuery);
+                orderDetailsCountResult.next();
+                int orderDetailCount = orderDetailsCountResult.getInt("DetailCount");
 
-                String deleteSQL = "DELETE FROM items WHERE ItemID = '" + itemId + "'";
-                st.executeUpdate(deleteSQL);
+                if (orderDetailCount > 0) {
+                    JOptionPane.showMessageDialog(this, "Cannot delete item. There are existing order details related to it.", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    String insertSQL = "INSERT INTO deleted_items (ItemID, ItemName, Price, Category, Description, Stock, DeletedAt) " +
+                                       "VALUES ('" + itemId + "', '" + itemName + "', " + price + ", '" + categoryfield.getSelectedItem() + "', '" + descriptionField.getText() + "', " + stockField.getText() + ", CURRENT_TIMESTAMP)";
+                    st.executeUpdate(insertSQL);
 
-                JOptionPane.showMessageDialog(this, "Item deleted successfully!");
-                loadItems(); 
+                    String deleteSQL = "DELETE FROM items WHERE ItemID = '" + itemId + "'";
+                    st.executeUpdate(deleteSQL);
+
+                    JOptionPane.showMessageDialog(this, "Item deleted successfully!");
+
+                    logDeletion(username, itemId, itemName, price);
+
+                    loadItems(); 
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(this, "Error deleting item: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_itemdeletebtnActionPerformed
-
-    private void paydeletebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paydeletebtnActionPerformed
-        String paymentId = paymentIDField.getText();
-        String orderId = orderIDField1.getText(); 
-        String amount = amountField.getText(); 
-
-        if (paymentId.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter a Payment ID to delete", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        int confirm = JOptionPane.showConfirmDialog(this,
-                "Are you sure you want to delete the following payment?\n\n" +
-                "Payment ID: " + paymentId + "\n" +
-                "Order ID: " + orderId + "\n" +
-                "Amount: " + amount,
-                "Confirm Delete",
-                JOptionPane.YES_NO_OPTION);
-
-        if (confirm == JOptionPane.YES_OPTION) {
-            try {
-                Statement st = dbcon.dbconnect().createStatement();
-
-                String insertSQL = "INSERT INTO deleted_payments (PaymentID, OrderID, Amount, PaymentMethod, Status, DeletedAt) " +
-                                   "VALUES ('" + paymentId + "', '" + orderId + "', " + amount + ", '" + paymentMethodField.getSelectedItem() + "', '" + paymentStatusField.getSelectedItem() + "', CURRENT_TIMESTAMP)";
-                st.executeUpdate(insertSQL);
-
-                String deleteSQL = "DELETE FROM payments WHERE PaymentID = '" + paymentId + "'";
-                st.executeUpdate(deleteSQL);
-
-                JOptionPane.showMessageDialog(this, "Payment deleted successfully!");
-                loadPayments(); 
-            } catch (SQLException ex) {
-                Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(this, "Error deleting payment: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }//GEN-LAST:event_paydeletebtnActionPerformed
 
     private void userdeletebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userdeletebtnActionPerformed
         String userId = userIDField.getText();
@@ -3004,6 +2970,53 @@ public class Admin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_odupdateActionPerformed
 
+    private void customerdeletebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customerdeletebtnActionPerformed
+        String customerId = custIDField.getText();
+        String customerName = custNameField.getText(); 
+        String contactInfo = contactInfoField.getText();
+
+        if (customerId.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a Customer ID to delete", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "Are you sure you want to delete Customer ID: " + customerId + "?",
+                "Confirm Delete",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            try (Connection conn = dbcon.dbconnect()) {
+                Statement stmt = conn.createStatement();
+
+                // Check if there are existing orders related to the customer
+                String orderCheckQuery = "SELECT COUNT(*) AS OrderCount FROM orders WHERE CustomerID = '" + customerId + "'";
+                ResultSet orderResultSet = stmt.executeQuery(orderCheckQuery);
+                orderResultSet.next();
+                int orderCount = orderResultSet.getInt("OrderCount");
+
+                // Check if there are existing payments related to the customer
+                String paymentCheckQuery = "SELECT COUNT(*) AS PaymentCount FROM payments WHERE OrderID IN (SELECT OrderID FROM orders WHERE CustomerID = '" + customerId + "')";
+                ResultSet paymentResultSet = stmt.executeQuery(paymentCheckQuery);
+                paymentResultSet.next();
+                int paymentCount = paymentResultSet.getInt("PaymentCount");
+
+                if (orderCount > 0 || paymentCount > 0) {
+                    JOptionPane.showMessageDialog(this, "Cannot delete customer. There are existing related data (orders/payments).", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    String deleteSQL = "DELETE FROM customers WHERE CustomerID = '" + customerId + "'";
+                    stmt.executeUpdate(deleteSQL);
+                    logDeletion(username, customerId, customerName, contactInfo);
+                    JOptionPane.showMessageDialog(this, "Customer deleted successfully!");
+                    loadCustomer(); 
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Error deleting customer: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_customerdeletebtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -3157,7 +3170,6 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JButton orderupdatebtn;
     private javax.swing.JTextField passwordField;
     private javax.swing.JButton payaddbtn;
-    private javax.swing.JButton paydeletebtn;
     private javax.swing.JTextField paymentIDField;
     private javax.swing.JComboBox<String> paymentMethodField;
     private javax.swing.JComboBox<String> paymentStatusField;

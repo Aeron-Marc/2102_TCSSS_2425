@@ -1567,8 +1567,6 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="payupdatebtn" min="-2" pref="82" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="paydeletebtn" pref="78" max="32767" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="clearbtn4" min="-2" pref="70" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
@@ -1587,10 +1585,9 @@
                                       <Component id="paymentIDField" max="32767" attributes="0"/>
                                       <Component id="paymentStatusField" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1626,7 +1623,6 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="payaddbtn" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="payupdatebtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="paydeletebtn" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="clearbtn4" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
@@ -1704,14 +1700,6 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="payupdatebtnActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JButton" name="paydeletebtn">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Delete"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="paydeletebtnActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="clearbtn4">

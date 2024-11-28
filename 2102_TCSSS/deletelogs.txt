@@ -1,3 +1,6 @@
 2024-11-28 03:24:37 - Aeron: Deleted Customer ID: 5, Name: David, Contact Info: 09876543432
 2024-11-28 12:15:27 - Aeron: Deleted Customer ID: 7, Name: Marc, Contact Info: 09876543213
 2024-11-28 14:17:08 - Aeron: Deleted Customer ID: 7, Name: Killua, Contact Info: 09104565329
+2024-11-29 03:03:41 - Aeron: Deleted Customer ID: 36, Name: Apple Strudel, Contact Info: 50.0
+2024-11-29 03:20:35 - Aeron: Deleted Customer ID: 13, Name: 17: jollibee, Contact Info: 2024-11-29
+2024-11-29 03:20:48 - Aeron: Deleted Customer ID: 17, Name: jollibee, Contact Info: 87000
