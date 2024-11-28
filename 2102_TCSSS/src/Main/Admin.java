@@ -1680,20 +1680,15 @@ public class Admin extends javax.swing.JFrame {
     }
     
     private void logoutbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutbtnActionPerformed
-        // Show a confirmation dialog
         int confirm = JOptionPane.showConfirmDialog(this,
                 "Are you sure you want to log out?",
                 "Confirm Logout",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE);
 
-        // If user clicks "Yes", logout
         if (confirm == JOptionPane.YES_OPTION) {
-            dispose(); // Close the Admin window (or you may use setVisible(false) instead)
-
-            // Here you would typically launch your login screen
-            // Assuming you have a Login class
-            new Login().setVisible(true); // Change this to the appropriate class for your login window
+            dispose();
+            new Login().setVisible(true);  
         }    
     }//GEN-LAST:event_logoutbtnActionPerformed
 
@@ -2346,13 +2341,11 @@ public class Admin extends javax.swing.JFrame {
         String orderDateStr = orderDateField.getText();
         String totalAmountStr = totalAmountField.getText();
 
-        // Validate input
         if (orderId.isEmpty() || customerId.isEmpty() || orderDateStr.isEmpty() || totalAmountStr.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please fill all fields", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Retrieve existing order data
         String existingCustomerId = "";
         String existingOrderDate = "";
         double existingTotalAmount = 0;
@@ -2376,7 +2369,6 @@ public class Admin extends javax.swing.JFrame {
             return;
         }
 
-        // Show confirmation dialog with old and new values
         int confirm = JOptionPane.showConfirmDialog(this,
                 "Are you sure you want to update the following order?\n\n" +
                 "Order ID: " + orderId + "\n\n" +
@@ -2393,24 +2385,23 @@ public class Admin extends javax.swing.JFrame {
 
         if (confirm == JOptionPane.YES_OPTION) {
             try {
-                // Establish connection and create a statement
                 Statement st = dbcon.dbconnect().createStatement();
                 String sql = "UPDATE orders SET CustomerID = '" + customerId + "', OrderDate = STR_TO_DATE('" + orderDateStr + "', '%Y-%m-%d'), TotalAmount = " + totalAmountStr + " WHERE OrderID = '" + orderId + "'";
-                st.executeUpdate(sql); // Execute the update statement
+                st.executeUpdate(sql);
 
-                // Get the current date and time for logging
+
                 LocalDateTime now = LocalDateTime.now();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 String timestamp = now.format(formatter);
 
-                // Log the update
+
                 String logMessage = String.format("Update Action: OrderID: %s, Timestamp: %s, User: %s, Changes: [Customer ID: '%s' to '%s', Order Date: '%s' to '%s', Total Amount: '%.2f' to '%.2f']",
                         orderId, timestamp, username, existingCustomerId, customerId, existingOrderDate, orderDateStr, existingTotalAmount, Double.parseDouble(totalAmountStr));
-                logUpdate(logMessage); // Log the change
+                logUpdate(logMessage);
 
                 JOptionPane.showMessageDialog(this, "Order updated successfully!");
-                loadOrders(); // Refresh the order table
-                st.close(); // Close the statement
+                loadOrders();
+                st.close(); 
             } catch (SQLException ex) {
                 Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(this, "Error updating order: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -2431,7 +2422,6 @@ public class Admin extends javax.swing.JFrame {
             return;
         }
 
-        // Retrieve existing item data
         String existingItemName = "";
         double existingPrice = 0;
         int existingStock = 0;
@@ -2455,7 +2445,6 @@ public class Admin extends javax.swing.JFrame {
             return;
         }
 
-        // Show confirmation dialog
         int confirm = JOptionPane.showConfirmDialog(this,
                 "Are you sure you want to update the following item?\n\n" +
                 "Item ID: " + itemId + "\n\n" +
@@ -2474,9 +2463,8 @@ public class Admin extends javax.swing.JFrame {
             try {
                 Statement st = dbcon.dbconnect().createStatement();
                 String sql = "UPDATE items SET ItemName = '" + itemName + "', Price = " + priceStr + ", Category = '" + category + "', Description = '" + description + "', Stock = " + stockStr + " WHERE ItemID = '" + itemId + "'";
-                st.executeUpdate(sql); // Execute the update statement
+                st.executeUpdate(sql);
 
-                // Logging
                 LocalDateTime now = LocalDateTime.now();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 String timestamp = now.format(formatter);
@@ -2485,8 +2473,8 @@ public class Admin extends javax.swing.JFrame {
                 logUpdate(logMessage);
 
                 JOptionPane.showMessageDialog(this, "Item updated successfully!");
-                loadItems(); // Refresh the items table
-                st.close(); // Close the statement
+                loadItems(); 
+                st.close(); 
             } catch (SQLException ex) {
                 Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(this, "Error updating item: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -2501,7 +2489,6 @@ public class Admin extends javax.swing.JFrame {
         String paymentMethod = (String) paymentMethodField.getSelectedItem();
         String status = (String) paymentStatusField.getSelectedItem();
 
-        // Validate input
         if (paymentId.isEmpty() || orderId.isEmpty() || amountStr.isEmpty() || paymentMethod == null || status == null) {
             JOptionPane.showMessageDialog(this, "Please fill all fields", "Error", JOptionPane.ERROR_MESSAGE);
             return;
@@ -2530,7 +2517,6 @@ public class Admin extends javax.swing.JFrame {
             return;
         }
 
-        // Confirmation dialog
         int confirm = JOptionPane.showConfirmDialog(this,
                 "Are you sure you want to update the following payment?\n\n" +
                 "Payment ID: " + paymentId + "\n\n" +
@@ -2549,9 +2535,8 @@ public class Admin extends javax.swing.JFrame {
             try {
                 Statement st = dbcon.dbconnect().createStatement();
                 String sql = "UPDATE payments SET OrderID = '" + orderId + "', Amount = " + amountStr + ", PaymentMethod = '" + paymentMethod + "', Status = '" + status + "' WHERE PaymentID = '" + paymentId + "'";
-                st.executeUpdate(sql); // Execute the update statement
+                st.executeUpdate(sql); 
 
-                // Logging
                 LocalDateTime now = LocalDateTime.now();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 String timestamp = now.format(formatter);
@@ -2560,8 +2545,8 @@ public class Admin extends javax.swing.JFrame {
                 logUpdate(logMessage);
 
                 JOptionPane.showMessageDialog(this, "Payment updated successfully!");
-                loadPayments(); // Refresh the payments table
-                st.close(); // Close the statement
+                loadPayments(); 
+                st.close(); 
             } catch (SQLException ex) {
                 Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(this, "Error updating payment: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -2576,13 +2561,11 @@ public class Admin extends javax.swing.JFrame {
         String password = passwordField.getText();
         String status = (String) statusField.getSelectedItem();
 
-        // Validate input
         if (userId.isEmpty() || userName.isEmpty() || email.isEmpty() || password.isEmpty() || status == null) {
             JOptionPane.showMessageDialog(this, "Please fill all fields", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Retrieve existing user data
         String existingUserName = "";
         String existingEmail = "";
         String existingStatus = "";
@@ -2606,7 +2589,6 @@ public class Admin extends javax.swing.JFrame {
             return;
         }
 
-        // Show confirmation dialog
         int confirm = JOptionPane.showConfirmDialog(this,
                 "Are you sure you want to update the following user?\n\n" +
                 "User ID: " + userId + "\n\n" +
@@ -2625,9 +2607,9 @@ public class Admin extends javax.swing.JFrame {
             try {
                 Statement st = dbcon.dbconnect().createStatement();
                 String sql = "UPDATE users SET UserName = '" + userName + "', Email = '" + email + "', Password = '" + password + "', Status = '" + status + "' WHERE UserID = '" + userId + "'";
-                st.executeUpdate(sql); // Execute the update statement
+                st.executeUpdate(sql);
 
-                // Logging
+
                 LocalDateTime now = LocalDateTime.now();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 String timestamp = now.format(formatter);
@@ -2636,8 +2618,8 @@ public class Admin extends javax.swing.JFrame {
                 logUpdate(logMessage);
 
                 JOptionPane.showMessageDialog(this, "User updated successfully!");
-                loadUsers(); // Refresh the user table
-                st.close(); // Close the statement
+                loadUsers(); 
+                st.close(); 
             } catch (SQLException ex) {
                 Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(this, "Error updating user: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -2647,16 +2629,16 @@ public class Admin extends javax.swing.JFrame {
 
     private void orderdeletebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderdeletebtnActionPerformed
         String orderId = orderIDField.getText();
-        String customerId = customerIDField.getText(); // Assuming a field for customer ID exists
-        String orderDate = orderDateField.getText(); // Assuming a field for order date exists
-        String totalAmount = totalAmountField.getText(); // Assuming a field for total amount exists
+        String customerId = customerIDField.getText(); 
+        String orderDate = orderDateField.getText(); 
+        String totalAmount = totalAmountField.getText(); 
 
         if (orderId.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter an Order ID to delete", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Show confirmation dialog
+
         int confirm = JOptionPane.showConfirmDialog(this,
                 "Are you sure you want to delete the following order?\n\n" +
                 "Order ID: " + orderId + "\n" +
@@ -2670,17 +2652,15 @@ public class Admin extends javax.swing.JFrame {
             try {
                 Statement st = dbcon.dbconnect().createStatement();
 
-                // Move the record to the deleted_orders table with the current timestamp
                 String insertSQL = "INSERT INTO deleted_orders (OrderID, CustomerID, OrderDate, TotalAmount, DeletedAt) " +
                                    "VALUES ('" + orderId + "', '" + customerId + "', STR_TO_DATE('" + orderDate + "', '%Y-%m-%d'), " + totalAmount + ", CURRENT_TIMESTAMP)";
                 st.executeUpdate(insertSQL);
 
-                // Delete the record from the original orders table
                 String deleteSQL = "DELETE FROM orders WHERE OrderID = '" + orderId + "'";
                 st.executeUpdate(deleteSQL);
 
                 JOptionPane.showMessageDialog(this, "Order deleted successfully!");
-                loadOrders(); // Refresh the orders table
+                loadOrders(); 
             } catch (SQLException ex) {
                 Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(this, "Error deleting order: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -2691,15 +2671,14 @@ public class Admin extends javax.swing.JFrame {
 
     private void itemdeletebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemdeletebtnActionPerformed
         String itemId = itemIDField.getText();
-        String itemName = itemNameField.getText(); // Assuming a field for item name exists
-        String price = priceField.getText(); // Assuming a field for item price exists
+        String itemName = itemNameField.getText(); 
+        String price = priceField.getText(); 
 
         if (itemId.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter an Item ID to delete", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Show confirmation dialog
         int confirm = JOptionPane.showConfirmDialog(this,
                 "Are you sure you want to delete the following item?\n\n" +
                 "Item ID: " + itemId + "\n" +
@@ -2712,17 +2691,15 @@ public class Admin extends javax.swing.JFrame {
             try {
                 Statement st = dbcon.dbconnect().createStatement();
 
-                // Move the record to the deleted_items table with the current timestamp
                 String insertSQL = "INSERT INTO deleted_items (ItemID, ItemName, Price, Category, Description, Stock, DeletedAt) " +
                                    "VALUES ('" + itemId + "', '" + itemName + "', " + price + ", '" + categoryfield.getSelectedItem() + "', '" + descriptionField.getText() + "', " + stockField.getText() + ", CURRENT_TIMESTAMP)";
                 st.executeUpdate(insertSQL);
 
-                // Delete the record from the original items table
                 String deleteSQL = "DELETE FROM items WHERE ItemID = '" + itemId + "'";
                 st.executeUpdate(deleteSQL);
 
                 JOptionPane.showMessageDialog(this, "Item deleted successfully!");
-                loadItems(); // Refresh the items table
+                loadItems(); 
             } catch (SQLException ex) {
                 Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(this, "Error deleting item: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -2732,15 +2709,14 @@ public class Admin extends javax.swing.JFrame {
 
     private void paydeletebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paydeletebtnActionPerformed
         String paymentId = paymentIDField.getText();
-        String orderId = orderIDField1.getText(); // Assuming a field for order ID exists
-        String amount = amountField.getText(); // Assuming a field for amount exists
+        String orderId = orderIDField1.getText(); 
+        String amount = amountField.getText(); 
 
         if (paymentId.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter a Payment ID to delete", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Show confirmation dialog
         int confirm = JOptionPane.showConfirmDialog(this,
                 "Are you sure you want to delete the following payment?\n\n" +
                 "Payment ID: " + paymentId + "\n" +
@@ -2753,17 +2729,15 @@ public class Admin extends javax.swing.JFrame {
             try {
                 Statement st = dbcon.dbconnect().createStatement();
 
-                // Move the record to the deleted_payments table with the current timestamp
                 String insertSQL = "INSERT INTO deleted_payments (PaymentID, OrderID, Amount, PaymentMethod, Status, DeletedAt) " +
                                    "VALUES ('" + paymentId + "', '" + orderId + "', " + amount + ", '" + paymentMethodField.getSelectedItem() + "', '" + paymentStatusField.getSelectedItem() + "', CURRENT_TIMESTAMP)";
                 st.executeUpdate(insertSQL);
 
-                // Delete the record from the original payments table
                 String deleteSQL = "DELETE FROM payments WHERE PaymentID = '" + paymentId + "'";
                 st.executeUpdate(deleteSQL);
 
                 JOptionPane.showMessageDialog(this, "Payment deleted successfully!");
-                loadPayments(); // Refresh the payments table
+                loadPayments(); 
             } catch (SQLException ex) {
                 Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(this, "Error deleting payment: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -2773,15 +2747,14 @@ public class Admin extends javax.swing.JFrame {
 
     private void userdeletebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userdeletebtnActionPerformed
         String userId = userIDField.getText();
-        String userName = userNameField.getText(); // Assuming a field for user name exists
-        String email = emailField.getText(); // Assuming a field for user email exists
+        String userName = userNameField.getText(); 
+        String email = emailField.getText(); 
 
         if (userId.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter a User ID to delete", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Show confirmation dialog
         int confirm = JOptionPane.showConfirmDialog(this,
                 "Are you sure you want to delete the following user?\n\n" +
                 "User ID: " + userId + "\n" +
@@ -2794,17 +2767,15 @@ public class Admin extends javax.swing.JFrame {
             try {
                 Statement st = dbcon.dbconnect().createStatement();
 
-                // Move the record to the deleted_users table with the current timestamp
                 String insertSQL = "INSERT INTO deleted_users (UserID, UserName, Email, Password, Status, DeletedAt) " +
                                    "VALUES ('" + userId + "', '" + userName + "', '" + email + "', '" + passwordField.getText() + "', '" + statusField.getSelectedItem() + "', CURRENT_TIMESTAMP)";
                 st.executeUpdate(insertSQL);
 
-                // Delete the record from the original users table
                 String deleteSQL = "DELETE FROM users WHERE UserID = '" + userId + "'";
                 st.executeUpdate(deleteSQL);
 
                 JOptionPane.showMessageDialog(this, "User deleted successfully!");
-                loadUsers(); // Refresh the users table
+                loadUsers(); 
             } catch (SQLException ex) {
                 Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(this, "Error deleting user: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -2861,7 +2832,7 @@ public class Admin extends javax.swing.JFrame {
                 userIDField.setText(rs.getString("UserID"));
                 userNameField.setText(rs.getString("UserName"));
                 emailField.setText(rs.getString("Email"));
-                passwordField.setText(rs.getString("Password")); // Be cautious about showing passwords
+                passwordField.setText(rs.getString("Password")); 
                 statusField.setSelectedItem(rs.getString("Status"));
             } else {
                 JOptionPane.showMessageDialog(this, "User ID not found.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -2940,7 +2911,6 @@ public class Admin extends javax.swing.JFrame {
         String itemId = oditemID.getText();
         String quantityStr = odquantity.getText();
 
-        // Validate input
         if (itemId.isEmpty() || quantityStr.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please fill all fields", "Error", JOptionPane.ERROR_MESSAGE);
             return;
@@ -2954,16 +2924,14 @@ public class Admin extends javax.swing.JFrame {
             return;
         }
 
-        // Retrieve existing item data for logging purposes
         String existingItemName = "";
         double existingPrice = 0;
         int existingQuantity = 0;
-        String orderId = orderIDField.getText();  // Assuming orderIDField is the field storing the current OrderID
+        String orderId = orderIDField.getText();  
 
         try {
             Statement st = dbcon.dbconnect().createStatement();
 
-            // SQL query to get the current item details
             String sql = "SELECT i.ItemName, i.Price, od.Quantity " +
                          "FROM orderdetails od " +
                          "JOIN items i ON od.ItemID = i.ItemID " +
@@ -2985,7 +2953,6 @@ public class Admin extends javax.swing.JFrame {
             return;
         }
 
-        // Confirmation dialog
         int confirm = JOptionPane.showConfirmDialog(this,
                 "Are you sure you want to update the quantity for the following item?\n\n" +
                 "Item ID: " + itemId + "\n" +
@@ -2997,13 +2964,12 @@ public class Admin extends javax.swing.JFrame {
 
         if (confirm == JOptionPane.YES_OPTION) {
             try {
-                // Update the quantity of the item in orderdetails
                 Statement st = dbcon.dbconnect().createStatement();
                 String updateQuantitySql = "UPDATE orderdetails SET Quantity = " + quantity + 
                                            " WHERE ItemID = '" + itemId + "' AND OrderID = '" + orderId + "'";
-                st.executeUpdate(updateQuantitySql); // Execute the update statement
+                st.executeUpdate(updateQuantitySql); 
 
-                // Now update the total amount for the order
+               
                 String updateTotalSql = "UPDATE orders o " +
                                          "SET o.TotalAmount = ( " +
                                          "  SELECT SUM(od.Quantity * i.Price) " +
@@ -3016,21 +2982,21 @@ public class Admin extends javax.swing.JFrame {
                                          "  FROM orderdetails od " +
                                          "  WHERE od.OrderID = o.OrderID " +
                                          ")";
-                st.executeUpdate(updateTotalSql); // Execute the total update
+                st.executeUpdate(updateTotalSql); 
 
-                // Logging
+               
                 LocalDateTime now = LocalDateTime.now();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 String timestamp = now.format(formatter);
                 String logMessage = String.format("Update Action: ItemID: %s, Timestamp: %s, User: %s, Changes: [Quantity: %d to %d]",
                         itemId, timestamp, username, existingQuantity, quantity);
-                logUpdate(logMessage); // Log the change
+                logUpdate(logMessage); 
 
                 loadOrders();
                 
                 JOptionPane.showMessageDialog(this, "Quantity updated successfully and total amount recalculated!");
-                loadOrderDetails(orderId); // Refresh the order details to reflect changes
-                st.close(); // Close the statement
+                loadOrderDetails(orderId); 
+                st.close(); 
             } catch (SQLException ex) {
                 Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(this, "Error updating quantity: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -3054,15 +3020,11 @@ public class Admin extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        
         //</editor-fold>
 
         /* Create and display the form */
