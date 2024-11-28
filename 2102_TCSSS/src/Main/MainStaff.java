@@ -123,6 +123,7 @@ public class MainStaff extends javax.swing.JFrame {
         clear = new javax.swing.JButton();
         Brand = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        logout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -500,6 +501,14 @@ public class MainStaff extends javax.swing.JFrame {
         jLabel7.setText("Tea and Coffee Shop");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, -1, 10));
 
+        logout.setText("LOGOUT");
+        logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutActionPerformed(evt);
+            }
+        });
+        getContentPane().add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 10, 130, 30));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -575,11 +584,10 @@ public class MainStaff extends javax.swing.JFrame {
         }
 
         String paymentMethod = paymethod.getSelectedItem().toString();
-        String paymentStatus = paymentAmount == totalPrice ? "Paid" : "Unpaid";
+        String paymentStatus = paymentAmount >= totalPrice ? "Paid" : "Unpaid";
 
         try {
             conn.setAutoCommit(false);
-
             String insertCustomerSql = "INSERT INTO customers (Name, ContactInfo) VALUES (?, ?)";
             try (PreparedStatement pstmt = conn.prepareStatement(insertCustomerSql, Statement.RETURN_GENERATED_KEYS)) {
                 pstmt.setString(1, customerName);
@@ -630,7 +638,7 @@ public class MainStaff extends javax.swing.JFrame {
                         paymentPstmt.setInt(1, orderId);
                         paymentPstmt.setDouble(2, paymentAmount);
                         paymentPstmt.setString(3, paymentMethod);
-                        paymentPstmt.setString(4, paymentStatus);
+                        paymentPstmt.setString(4, paymentStatus);  
                         paymentPstmt.executeUpdate();
                     }
 
@@ -873,6 +881,19 @@ public class MainStaff extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_EditActionPerformed
 
+    private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "Are you sure you want to log out?",
+                "Confirm Logout",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            dispose();
+            new Login().setVisible(true);  
+        }
+    }//GEN-LAST:event_logoutActionPerformed
+
     private void loadData() {
         loadItemsByCategory("Coffee", coffeeTbl);
         loadItemsByCategory("Tea", teaTbl);
@@ -1020,6 +1041,7 @@ public class MainStaff extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JButton logout;
     private javax.swing.JButton nine;
     private javax.swing.JSpinner odqty;
     private javax.swing.JButton one;
