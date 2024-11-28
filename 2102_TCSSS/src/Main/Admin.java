@@ -76,6 +76,29 @@ public class Admin extends javax.swing.JFrame {
             }
         });
         
+        orderdetailstbl.addMouseListener(new MouseAdapter() {
+        @Override
+        public void mousePressed(MouseEvent e) {
+            if (e.getClickCount() == 1) {
+                int selectedRow = orderdetailstbl.rowAtPoint(e.getPoint());
+                if (selectedRow >= 0 && selectedRow < orderdetailstbl.getRowCount()) {
+                    DefaultTableModel model = (DefaultTableModel) orderdetailstbl.getModel();
+
+                    String itemId = model.getValueAt(selectedRow, 0).toString();
+                    String itemName = model.getValueAt(selectedRow, 1).toString();
+                    String price = model.getValueAt(selectedRow, 2).toString();
+                    String quantity = model.getValueAt(selectedRow, 3).toString();
+
+                    // Set the fields
+                    oditemID.setText(itemId);
+                    oditemname.setText(itemName);
+                    odprice.setText(price);
+                       odquantity.setText(quantity);
+                    }
+                }
+            }
+        });
+        
         itemtbl.addMouseListener(new MouseAdapter() {
         @Override
         public void mousePressed(MouseEvent e) {
@@ -198,7 +221,7 @@ public class Admin extends javax.swing.JFrame {
         Head = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jTextField5 = new javax.swing.JTextField();
-        jButton5 = new javax.swing.JButton();
+        ordersearchbtn = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         orderIDField = new javax.swing.JTextField();
@@ -216,16 +239,16 @@ public class Admin extends javax.swing.JFrame {
         jScrollPane7 = new javax.swing.JScrollPane();
         orderdetailstbl = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
-        jTextField10 = new javax.swing.JTextField();
+        oditemID = new javax.swing.JTextField();
+        oditemname = new javax.swing.JTextField();
+        odprice = new javax.swing.JTextField();
+        odquantity = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        odupdate = new javax.swing.JButton();
+        odclear = new javax.swing.JButton();
         itempanel = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         itemtbl = new javax.swing.JTable();
@@ -248,7 +271,7 @@ public class Admin extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         categoryfield = new javax.swing.JComboBox<>();
         jPanel7 = new javax.swing.JPanel();
-        jButton12 = new javax.swing.JButton();
+        itemsearchbtn = new javax.swing.JButton();
         jTextField17 = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
         paymentpanel = new javax.swing.JPanel();
@@ -273,7 +296,7 @@ public class Admin extends javax.swing.JFrame {
         jPanel9 = new javax.swing.JPanel();
         jTextField20 = new javax.swing.JTextField();
         jLabel28 = new javax.swing.JLabel();
-        jButton21 = new javax.swing.JButton();
+        paymentsearchbtn = new javax.swing.JButton();
         userspanel = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         usertbl = new javax.swing.JTable();
@@ -296,7 +319,7 @@ public class Admin extends javax.swing.JFrame {
         jPanel12 = new javax.swing.JPanel();
         jLabel35 = new javax.swing.JLabel();
         jTextField25 = new javax.swing.JTextField();
-        jButton22 = new javax.swing.JButton();
+        usersearchbtn = new javax.swing.JButton();
         salespanel = new javax.swing.JPanel();
         jLabel36 = new javax.swing.JLabel();
         jLabel37 = new javax.swing.JLabel();
@@ -690,10 +713,10 @@ public class Admin extends javax.swing.JFrame {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, null));
 
-        jButton5.setText("Search");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        ordersearchbtn.setText("Search");
+        ordersearchbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                ordersearchbtnActionPerformed(evt);
             }
         });
 
@@ -703,20 +726,19 @@ public class Admin extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+            .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(ordersearchbtn)))
+                        .addGap(61, 61, 61))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(120, 120, 120)))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton5)
-                .addGap(61, 61, 61))
+                        .addGap(120, 120, 120))))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -726,7 +748,7 @@ public class Admin extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton5)
+                .addComponent(ordersearchbtn)
                 .addGap(0, 10, Short.MAX_VALUE))
         );
 
@@ -757,8 +779,18 @@ public class Admin extends javax.swing.JFrame {
         });
 
         orderdeletebtn.setText("Delete");
+        orderdeletebtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                orderdeletebtnActionPerformed(evt);
+            }
+        });
 
         clearbtn2.setText("Clear");
+        clearbtn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearbtn2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -843,9 +875,9 @@ public class Admin extends javax.swing.JFrame {
 
         jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, null));
 
-        jTextField10.addActionListener(new java.awt.event.ActionListener() {
+        odquantity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField10ActionPerformed(evt);
+                odquantityActionPerformed(evt);
             }
         });
 
@@ -857,9 +889,19 @@ public class Admin extends javax.swing.JFrame {
 
         jLabel14.setText("Quantity:");
 
-        jButton6.setText("Update");
+        odupdate.setText("Update");
+        odupdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                odupdateActionPerformed(evt);
+            }
+        });
 
-        jButton7.setText("Clear");
+        odclear.setText("Clear");
+        odclear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                odclearActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -869,7 +911,7 @@ public class Admin extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(odupdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -878,11 +920,11 @@ public class Admin extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
-                    .addComponent(jTextField8)
-                    .addComponent(jButton7)
-                    .addComponent(jTextField9)
-                    .addComponent(jTextField10))
+                    .addComponent(oditemID, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+                    .addComponent(oditemname)
+                    .addComponent(odclear)
+                    .addComponent(odprice)
+                    .addComponent(odquantity))
                 .addGap(92, 92, 92))
         );
         jPanel6Layout.setVerticalGroup(
@@ -890,24 +932,24 @@ public class Admin extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(oditemID, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(oditemname, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(odprice, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(odquantity, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton6)
-                    .addComponent(jButton7))
+                    .addComponent(odupdate)
+                    .addComponent(odclear))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -971,8 +1013,18 @@ public class Admin extends javax.swing.JFrame {
         });
 
         itemdeletebtn.setText("Delete");
+        itemdeletebtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemdeletebtnActionPerformed(evt);
+            }
+        });
 
         clearbtn3.setText("Clear");
+        clearbtn3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearbtn3ActionPerformed(evt);
+            }
+        });
 
         jLabel16.setText("Item ID:");
 
@@ -999,18 +1051,14 @@ public class Admin extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel16)
-                            .addComponent(jLabel17)
-                            .addComponent(jLabel18)
-                            .addComponent(jLabel19)
-                            .addComponent(jLabel20)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(29, 29, 29)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel16)
+                    .addComponent(jLabel17)
+                    .addComponent(jLabel18)
+                    .addComponent(jLabel19)
+                    .addComponent(jLabel20)
+                    .addComponent(jLabel21))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -1073,7 +1121,12 @@ public class Admin extends javax.swing.JFrame {
 
         jPanel7.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, null));
 
-        jButton12.setText("Search");
+        itemsearchbtn.setText("Search");
+        itemsearchbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemsearchbtnActionPerformed(evt);
+            }
+        });
 
         jLabel22.setText("Search by ID:");
 
@@ -1085,7 +1138,7 @@ public class Admin extends javax.swing.JFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton12))
+                        .addComponent(itemsearchbtn))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1103,7 +1156,7 @@ public class Admin extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jTextField17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton12)
+                .addComponent(itemsearchbtn)
                 .addContainerGap())
         );
 
@@ -1164,8 +1217,18 @@ public class Admin extends javax.swing.JFrame {
         });
 
         paydeletebtn.setText("Delete");
+        paydeletebtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                paydeletebtnActionPerformed(evt);
+            }
+        });
 
         clearbtn4.setText("Clear");
+        clearbtn4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearbtn4ActionPerformed(evt);
+            }
+        });
 
         jLabel38.setText("Status:");
 
@@ -1243,7 +1306,12 @@ public class Admin extends javax.swing.JFrame {
 
         jLabel28.setText("Search by ID:");
 
-        jButton21.setText("Search");
+        paymentsearchbtn.setText("Search");
+        paymentsearchbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                paymentsearchbtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -1252,7 +1320,7 @@ public class Admin extends javax.swing.JFrame {
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton21)
+                    .addComponent(paymentsearchbtn)
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addComponent(jLabel28)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1267,7 +1335,7 @@ public class Admin extends javax.swing.JFrame {
                     .addComponent(jTextField20, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel28))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                .addComponent(jButton21)
+                .addComponent(paymentsearchbtn)
                 .addContainerGap())
         );
 
@@ -1364,8 +1432,18 @@ public class Admin extends javax.swing.JFrame {
         });
 
         userdeletebtn.setText("Delete");
+        userdeletebtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userdeletebtnActionPerformed(evt);
+            }
+        });
 
         clearbtn5.setText("Clear");
+        clearbtn5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearbtn5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -1442,7 +1520,12 @@ public class Admin extends javax.swing.JFrame {
 
         jLabel35.setText("Search by ID:");
 
-        jButton22.setText("Search");
+        usersearchbtn.setText("Search");
+        usersearchbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usersearchbtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -1457,7 +1540,7 @@ public class Admin extends javax.swing.JFrame {
                         .addComponent(jTextField25, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton22)))
+                        .addComponent(usersearchbtn)))
                 .addContainerGap())
         );
         jPanel12Layout.setVerticalGroup(
@@ -1468,7 +1551,7 @@ public class Admin extends javax.swing.JFrame {
                     .addComponent(jTextField25, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel35))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton22)
+                .addComponent(usersearchbtn)
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
@@ -1959,13 +2042,37 @@ public class Admin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_customersearchbtnActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void ordersearchbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ordersearchbtnActionPerformed
+        String searchId = jTextField5.getText().trim();
 
-    private void jTextField10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField10ActionPerformed
+        if (searchId.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter an Order ID to search", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
+            Statement st = dbcon.dbconnect().createStatement();
+            String sql = "SELECT * FROM orders WHERE OrderID = '" + searchId + "'";
+            ResultSet rs = st.executeQuery(sql);
+
+            if (rs.next()) {
+                orderIDField.setText(rs.getString("OrderID"));
+                customerIDField.setText(rs.getString("CustomerID"));
+                orderDateField.setText(rs.getString("OrderDate")); // Ensure formatting if necessary
+                totalAmountField.setText(String.valueOf(rs.getDouble("TotalAmount")));
+                loadOrderDetails(searchId); // Optionally load order details
+            } else {
+                JOptionPane.showMessageDialog(this, "Order ID not found.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error searching order: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_ordersearchbtnActionPerformed
+
+    private void odquantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_odquantityActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField10ActionPerformed
+    }//GEN-LAST:event_odquantityActionPerformed
 
     private void itemNameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemNameFieldActionPerformed
         // TODO add your handling code here:
@@ -2518,6 +2625,301 @@ public class Admin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_userupdatebtnActionPerformed
 
+    private void orderdeletebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderdeletebtnActionPerformed
+        String orderId = orderIDField.getText();
+        String customerId = customerIDField.getText(); // Assuming a field for customer ID exists
+        String orderDate = orderDateField.getText(); // Assuming a field for order date exists
+        String totalAmount = totalAmountField.getText(); // Assuming a field for total amount exists
+
+        if (orderId.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter an Order ID to delete", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Show confirmation dialog
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "Are you sure you want to delete the following order?\n\n" +
+                "Order ID: " + orderId + "\n" +
+                "Customer ID: " + customerId + "\n" +
+                "Order Date: " + orderDate + "\n" +
+                "Total Amount: " + totalAmount,
+                "Confirm Delete",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            try {
+                Statement st = dbcon.dbconnect().createStatement();
+
+                // Move the record to the deleted_orders table with the current timestamp
+                String insertSQL = "INSERT INTO deleted_orders (OrderID, CustomerID, OrderDate, TotalAmount, DeletedAt) " +
+                                   "VALUES ('" + orderId + "', '" + customerId + "', STR_TO_DATE('" + orderDate + "', '%Y-%m-%d'), " + totalAmount + ", CURRENT_TIMESTAMP)";
+                st.executeUpdate(insertSQL);
+
+                // Delete the record from the original orders table
+                String deleteSQL = "DELETE FROM orders WHERE OrderID = '" + orderId + "'";
+                st.executeUpdate(deleteSQL);
+
+                JOptionPane.showMessageDialog(this, "Order deleted successfully!");
+                loadOrders(); // Refresh the orders table
+            } catch (SQLException ex) {
+                Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Error deleting order: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+    }//GEN-LAST:event_orderdeletebtnActionPerformed
+
+    private void itemdeletebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemdeletebtnActionPerformed
+        String itemId = itemIDField.getText();
+        String itemName = itemNameField.getText(); // Assuming a field for item name exists
+        String price = priceField.getText(); // Assuming a field for item price exists
+
+        if (itemId.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter an Item ID to delete", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Show confirmation dialog
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "Are you sure you want to delete the following item?\n\n" +
+                "Item ID: " + itemId + "\n" +
+                "Item Name: " + itemName + "\n" +
+                "Price: " + price,
+                "Confirm Delete",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            try {
+                Statement st = dbcon.dbconnect().createStatement();
+
+                // Move the record to the deleted_items table with the current timestamp
+                String insertSQL = "INSERT INTO deleted_items (ItemID, ItemName, Price, Category, Description, Stock, DeletedAt) " +
+                                   "VALUES ('" + itemId + "', '" + itemName + "', " + price + ", '" + categoryfield.getSelectedItem() + "', '" + descriptionField.getText() + "', " + stockField.getText() + ", CURRENT_TIMESTAMP)";
+                st.executeUpdate(insertSQL);
+
+                // Delete the record from the original items table
+                String deleteSQL = "DELETE FROM items WHERE ItemID = '" + itemId + "'";
+                st.executeUpdate(deleteSQL);
+
+                JOptionPane.showMessageDialog(this, "Item deleted successfully!");
+                loadItems(); // Refresh the items table
+            } catch (SQLException ex) {
+                Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Error deleting item: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_itemdeletebtnActionPerformed
+
+    private void paydeletebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paydeletebtnActionPerformed
+        String paymentId = paymentIDField.getText();
+        String orderId = orderIDField1.getText(); // Assuming a field for order ID exists
+        String amount = amountField.getText(); // Assuming a field for amount exists
+
+        if (paymentId.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a Payment ID to delete", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Show confirmation dialog
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "Are you sure you want to delete the following payment?\n\n" +
+                "Payment ID: " + paymentId + "\n" +
+                "Order ID: " + orderId + "\n" +
+                "Amount: " + amount,
+                "Confirm Delete",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            try {
+                Statement st = dbcon.dbconnect().createStatement();
+
+                // Move the record to the deleted_payments table with the current timestamp
+                String insertSQL = "INSERT INTO deleted_payments (PaymentID, OrderID, Amount, PaymentMethod, Status, DeletedAt) " +
+                                   "VALUES ('" + paymentId + "', '" + orderId + "', " + amount + ", '" + paymentMethodField.getSelectedItem() + "', '" + paymentStatusField.getSelectedItem() + "', CURRENT_TIMESTAMP)";
+                st.executeUpdate(insertSQL);
+
+                // Delete the record from the original payments table
+                String deleteSQL = "DELETE FROM payments WHERE PaymentID = '" + paymentId + "'";
+                st.executeUpdate(deleteSQL);
+
+                JOptionPane.showMessageDialog(this, "Payment deleted successfully!");
+                loadPayments(); // Refresh the payments table
+            } catch (SQLException ex) {
+                Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Error deleting payment: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_paydeletebtnActionPerformed
+
+    private void userdeletebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userdeletebtnActionPerformed
+        String userId = userIDField.getText();
+        String userName = userNameField.getText(); // Assuming a field for user name exists
+        String email = emailField.getText(); // Assuming a field for user email exists
+
+        if (userId.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a User ID to delete", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Show confirmation dialog
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "Are you sure you want to delete the following user?\n\n" +
+                "User ID: " + userId + "\n" +
+                "User Name: " + userName + "\n" +
+                "Email: " + email,
+                "Confirm Delete",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            try {
+                Statement st = dbcon.dbconnect().createStatement();
+
+                // Move the record to the deleted_users table with the current timestamp
+                String insertSQL = "INSERT INTO deleted_users (UserID, UserName, Email, Password, Status, DeletedAt) " +
+                                   "VALUES ('" + userId + "', '" + userName + "', '" + email + "', '" + passwordField.getText() + "', '" + statusField.getSelectedItem() + "', CURRENT_TIMESTAMP)";
+                st.executeUpdate(insertSQL);
+
+                // Delete the record from the original users table
+                String deleteSQL = "DELETE FROM users WHERE UserID = '" + userId + "'";
+                st.executeUpdate(deleteSQL);
+
+                JOptionPane.showMessageDialog(this, "User deleted successfully!");
+                loadUsers(); // Refresh the users table
+            } catch (SQLException ex) {
+                Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Error deleting user: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_userdeletebtnActionPerformed
+
+    private void clearbtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearbtn2ActionPerformed
+        orderIDField.setText("");
+        customerIDField.setText("");
+        orderDateField.setText("");
+        totalAmountField.setText("");
+    }//GEN-LAST:event_clearbtn2ActionPerformed
+
+    private void clearbtn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearbtn3ActionPerformed
+        itemIDField.setText("");
+        itemNameField.setText("");
+        priceField.setText("");
+        descriptionField.setText("");
+        stockField.setText("");
+        categoryfield.setSelectedIndex(-1);
+    }//GEN-LAST:event_clearbtn3ActionPerformed
+
+    private void clearbtn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearbtn4ActionPerformed
+        paymentIDField.setText("");
+        orderIDField1.setText("");
+        amountField.setText("");
+        paymentMethodField.setSelectedIndex(-1);
+        paymentStatusField.setSelectedIndex(-1);
+    }//GEN-LAST:event_clearbtn4ActionPerformed
+
+    private void clearbtn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearbtn5ActionPerformed
+        userIDField.setText("");
+        userNameField.setText("");
+        emailField.setText("");
+        passwordField.setText("");
+        statusField.setSelectedIndex(-1);
+    }//GEN-LAST:event_clearbtn5ActionPerformed
+
+    private void usersearchbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usersearchbtnActionPerformed
+        String searchId = jTextField25.getText().trim();
+
+        if (searchId.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a User ID to search", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
+            Statement st = dbcon.dbconnect().createStatement();
+            String sql = "SELECT * FROM users WHERE UserID = '" + searchId + "'";
+            ResultSet rs = st.executeQuery(sql);
+
+            if (rs.next()) {
+                userIDField.setText(rs.getString("UserID"));
+                userNameField.setText(rs.getString("UserName"));
+                emailField.setText(rs.getString("Email"));
+                passwordField.setText(rs.getString("Password")); // Be cautious about showing passwords
+                statusField.setSelectedItem(rs.getString("Status"));
+            } else {
+                JOptionPane.showMessageDialog(this, "User ID not found.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error searching user: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_usersearchbtnActionPerformed
+
+    private void itemsearchbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemsearchbtnActionPerformed
+        String searchId = jTextField17.getText().trim();
+
+        if (searchId.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter an Item ID to search", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
+            Statement st = dbcon.dbconnect().createStatement();
+            String sql = "SELECT * FROM items WHERE ItemID = '" + searchId + "'";
+            ResultSet rs = st.executeQuery(sql);
+
+            if (rs.next()) {
+                itemIDField.setText(rs.getString("ItemID"));
+                itemNameField.setText(rs.getString("ItemName"));
+                priceField.setText(String.valueOf(rs.getDouble("Price")));
+                categoryfield.setSelectedItem(rs.getString("Category"));
+                descriptionField.setText(rs.getString("Description"));
+                stockField.setText(String.valueOf(rs.getInt("Stock")));
+            } else {
+                JOptionPane.showMessageDialog(this, "Item ID not found.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error searching item: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_itemsearchbtnActionPerformed
+
+    private void paymentsearchbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentsearchbtnActionPerformed
+        String searchId = jTextField20.getText().trim();
+
+        if (searchId.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a Payment ID to search", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
+            Statement st = dbcon.dbconnect().createStatement();
+            String sql = "SELECT * FROM payments WHERE PaymentID = '" + searchId + "'";
+            ResultSet rs = st.executeQuery(sql);
+
+            if (rs.next()) {
+                paymentIDField.setText(rs.getString("PaymentID"));
+                orderIDField1.setText(rs.getString("OrderID"));
+                amountField.setText(String.valueOf(rs.getDouble("Amount")));
+                paymentMethodField.setSelectedItem(rs.getString("PaymentMethod"));
+                paymentStatusField.setSelectedItem(rs.getString("Status"));
+            } else {
+                JOptionPane.showMessageDialog(this, "Payment ID not found.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error searching payment: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_paymentsearchbtnActionPerformed
+
+    private void odclearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_odclearActionPerformed
+        oditemID.setText("");
+        oditemname.setText("");
+        odprice.setText("");
+        odquantity.setText("");
+    }//GEN-LAST:event_odclearActionPerformed
+
+    private void odupdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_odupdateActionPerformed
+        
+    }//GEN-LAST:event_odupdateActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2588,14 +2990,9 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JButton itembtn;
     private javax.swing.JButton itemdeletebtn;
     private javax.swing.JPanel itempanel;
+    private javax.swing.JButton itemsearchbtn;
     private javax.swing.JTable itemtbl;
     private javax.swing.JButton itemupdatebtn;
-    private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton21;
-    private javax.swing.JButton jButton22;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2652,17 +3049,19 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField17;
     private javax.swing.JTextField jTextField20;
     private javax.swing.JTextField jTextField25;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JButton logoutbtn;
     private javax.swing.JPanel modifyPanel;
+    private javax.swing.JButton odclear;
+    private javax.swing.JTextField oditemID;
+    private javax.swing.JTextField oditemname;
+    private javax.swing.JTextField odprice;
+    private javax.swing.JTextField odquantity;
+    private javax.swing.JButton odupdate;
     private javax.swing.JTextField orderDateField;
     private javax.swing.JTextField orderIDField;
     private javax.swing.JTextField orderIDField1;
@@ -2671,6 +3070,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JButton orderdeletebtn;
     private javax.swing.JTable orderdetailstbl;
     private javax.swing.JPanel orderpanel;
+    private javax.swing.JButton ordersearchbtn;
     private javax.swing.JTable ordertbl;
     private javax.swing.JButton orderupdatebtn;
     private javax.swing.JTextField passwordField;
@@ -2681,6 +3081,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> paymentStatusField;
     private javax.swing.JButton paymentbtn;
     private javax.swing.JPanel paymentpanel;
+    private javax.swing.JButton paymentsearchbtn;
     private javax.swing.JTable paymenttbl;
     private javax.swing.JButton payupdatebtn;
     private javax.swing.JTextField priceField;
@@ -2697,6 +3098,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JButton useraddbtn;
     private javax.swing.JButton userbtn;
     private javax.swing.JButton userdeletebtn;
+    private javax.swing.JButton usersearchbtn;
     private javax.swing.JPanel userspanel;
     private javax.swing.JTable usertbl;
     private javax.swing.JButton userupdatebtn;

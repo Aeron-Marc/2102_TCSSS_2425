@@ -1,1 +1,2 @@
 2024-11-28 03:24:37 - Aeron: Deleted Customer ID: 5, Name: David, Contact Info: 09876543432
+2024-11-28 12:15:27 - Aeron: Deleted Customer ID: 7, Name: Marc, Contact Info: 09876543213

@@ -5,3 +5,7 @@
 2024-11-28 03:14:10 - Aeron: Update Action: PaymentID: 3, Timestamp: 2024-11-28 03:14:10, User: Aeron, Changes: [Amount: 90.00 to 90.00, Payment Method: 'Check' to 'Check', Status: 'Unpaid' to 'Paid']
 2024-11-28 03:14:22 - Aeron: Update Action: UserID: 2, Timestamp: 2024-11-28 03:14:22, User: Aeron, Changes: [User Name: 'Staff1' to 'Staff1', Email: 'staff1@gmail.com' to 'staff1@gmail.com', Status: 'Staff' to 'Admin']
 2024-11-28 03:14:27 - Aeron: Update Action: UserID: 2, Timestamp: 2024-11-28 03:14:27, User: Aeron, Changes: [User Name: 'Staff1' to 'Staff1', Email: 'staff1@gmail.com' to 'staff1@gmail.com', Status: 'Admin' to 'Staff']
+2024-11-28 11:29:33 - Aeron: Update Action: CustomerID: 4, Timestamp: 2024-11-28 11:29:33, User: Aeron, Changes: [Name: 'Robert' to 'Robin', Contact Info: '09876576543' to '09876576543']
+2024-11-28 11:30:27 - Aeron: Update Action: ItemID: 4, Timestamp: 2024-11-28 11:30:27, User: Aeron, Changes: [Item Name: 'Cookiez' to 'Cookies', Price: '25.00' to '25.00', Stock: 200 to 200]
+2024-11-28 11:30:55 - Aeron: Update Action: UserID: 3, Timestamp: 2024-11-28 11:30:55, User: Aeron, Changes: [User Name: 'Staff2' to 'Staff2', Email: 'staff2@gmail.com' to 'staff2@gmail.com', Status: 'Staff' to 'Staff']
+2024-11-28 12:15:11 - Aeron: Update Action: CustomerID: 3, Timestamp: 2024-11-28 12:15:11, User: Aeron, Changes: [Name: 'Michael Angelo' to 'Michael', Contact Info: '09888855667' to '09888855667']
