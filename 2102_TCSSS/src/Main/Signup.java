@@ -5,19 +5,8 @@
 package Main;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -186,68 +175,51 @@ public class Signup extends javax.swing.JFrame {
     }//GEN-LAST:event_confirmpasssignupActionPerformed
 
     private void createaccbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createaccbtnActionPerformed
-        String usernameSignup = namesignup.getText().trim();
-        String passwordSignup = passsignup1.getText().trim();
-        String confirmPasswordSignup = confirmpasssignup.getText().trim();
-        String emailSignup = emailsignup.getText().trim();
-        String statusSignup = (String) status.getSelectedItem();
+        // Retrieve user inputs
+        String username = namesignup.getText().trim();
+        String email = emailsignup.getText().trim();
+        String password = passsignup1.getText().trim();
+        String confirmPassword = confirmpasssignup.getText().trim();
+        String statusSelected = (String) status.getSelectedItem();
 
-        // Input validation
-        if (usernameSignup.isEmpty()) {
-            JOptionPane.showMessageDialog(new JFrame(), "Username is required", "Error!", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (passwordSignup.isEmpty()) {
-            JOptionPane.showMessageDialog(new JFrame(), "Password is required", "Error!", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (confirmPasswordSignup.isEmpty()) {
-            JOptionPane.showMessageDialog(new JFrame(), "Confirm Password is required", "Error!", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (!passwordSignup.equals(confirmPasswordSignup)) {
-            JOptionPane.showMessageDialog(new JFrame(), "Passwords do not match", "Error!", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (emailSignup.isEmpty()) {
-            JOptionPane.showMessageDialog(new JFrame(), "Email is required", "Error!", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (statusSignup == null) {
-            JOptionPane.showMessageDialog(new JFrame(), "Status is required", "Error!", JOptionPane.ERROR_MESSAGE);
+        // Validate inputs
+        if (username.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "All fields must be filled out.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        try (Connection con = dbcon.dbconnect()) {
-            if (con != null) {
-                // Check if the username already exists
-                String checkUser Query = "SELECT * FROM users WHERE Username = ?";
-                try (PreparedStatement ps = con.prepareStatement(checkUser Query)) {
-                    ps.setString(1, usernameSignup);
-                    ResultSet rs = ps.executeQuery();
+        if (!password.equals(confirmPassword)) {
+            JOptionPane.showMessageDialog(this, "Passwords do not match.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-                    if (rs.next()) {
-                        JOptionPane.showMessageDialog(new JFrame(), "Username already exists.", "Error!", JOptionPane.ERROR_MESSAGE);
-                    } else {
-                        // Insert new user into the database
-                        String insertQuery = "INSERT INTO users (Username, Password, Email, Status) VALUES (?, ?, ?, ?)";
-                        try (PreparedStatement insertPs = con.prepareStatement(insertQuery)) {
-                            insertPs.setString(1, usernameSignup);
-                            insertPs.setString(2, passwordSignup); // Consider hashing the password before storing
-                            insertPs.setString(3, emailSignup);
-                            insertPs.setString(4, statusSignup);
-                            insertPs.executeUpdate();
-                        }
-                        JOptionPane.showMessageDialog(this, "Account created successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                        new Login().setVisible(true);
-                        this.dispose();
-                    }
-                }
+        // Connect to the database
+        Connection connection = dbcon.dbconnect();
+        if (connection == null) {
+            return; // Connection failed; an error message has already been shown
+        }
+
+        // Prepare SQL statement to prevent SQL injection
+        String sql = "INSERT INTO users (username, email, password, status) VALUES (?, ?, ?, ?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, email);
+            preparedStatement.setString(3, password); // Consider hashing the password before saving
+            preparedStatement.setString(4, statusSelected);
+
+            // Execute the update
+            int rowsInserted = preparedStatement.executeUpdate();
+            if (rowsInserted > 0) {
+                JOptionPane.showMessageDialog(this, "Account created successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                // Optionally, clear the fields or navigate to a different view
+            } else {
+                JOptionPane.showMessageDialog(this, "Account creation failed. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(new JFrame(), "Database error: " + ex.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
-        }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error during account creation: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } 
     }//GEN-LAST:event_createaccbtnActionPerformed
+    
 
     private boolean validateInputs(String username, String password, String confirmPassword, String email, String status) {
         if (username.isEmpty()) {
