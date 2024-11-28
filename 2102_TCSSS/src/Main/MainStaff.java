@@ -512,7 +512,36 @@ public class MainStaff extends javax.swing.JFrame {
     }//GEN-LAST:event_paymethodActionPerformed
 
     private void printActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printActionPerformed
-        // TODO add your handling code here:
+        String customerName = cname.getText().trim();
+        String contactInfo = ccontactinfo.getText().trim();
+        String paymentMethod = paymethod.getSelectedItem().toString();
+        double totalAmount = Double.parseDouble(total.getText());
+
+        StringBuilder receiptBuilder = new StringBuilder();
+        receiptBuilder.append("********************************** RECEIPT *********************************\n");
+        receiptBuilder.append("Customer Name: ").append(customerName).append("\n");
+        receiptBuilder.append("Contact Info: ").append(contactInfo).append("\n");
+        receiptBuilder.append("Payment Method: ").append(paymentMethod).append("\n\n");
+        receiptBuilder.append("Items:\n");
+
+        DefaultTableModel orderTableModel = (DefaultTableModel) orderTbl.getModel();
+        for (int i = 0; i < orderTableModel.getRowCount(); i++) {
+            String itemName = (String) orderTableModel.getValueAt(i, 1);
+            double price = (Double) orderTableModel.getValueAt(i, 2);
+            int quantity = (Integer) orderTableModel.getValueAt(i, 3);
+            double subtotal = (Double) orderTableModel.getValueAt(i, 4);
+
+            receiptBuilder.append(itemName).append(" - Qty: ").append(quantity)
+                    .append(", Price: ").append(price)
+                    .append(", Subtotal: ").append(subtotal).append("\n");
+        }
+
+        receiptBuilder.append("\nTOTAL: ").append(totalAmount).append("\n");
+        receiptBuilder.append("*******************************************************************************\n");
+
+        Receipt receiptWindow = new Receipt();
+        receiptWindow.setReceiptText(receiptBuilder.toString());
+        receiptWindow.setVisible(true);
     }//GEN-LAST:event_printActionPerformed
 
     private void payActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payActionPerformed
