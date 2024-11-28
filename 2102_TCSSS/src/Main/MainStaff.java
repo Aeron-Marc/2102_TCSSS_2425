@@ -6,8 +6,10 @@ import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -87,9 +89,9 @@ public class MainStaff extends javax.swing.JFrame {
         pay = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        cname = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        ccontactinfo = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         orderTbl = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
@@ -104,9 +106,9 @@ public class MainStaff extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        total = new javax.swing.JLabel();
         pays = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
+        change = new javax.swing.JLabel();
         three = new javax.swing.JButton();
         one = new javax.swing.JButton();
         two = new javax.swing.JButton();
@@ -119,8 +121,11 @@ public class MainStaff extends javax.swing.JFrame {
         zero = new javax.swing.JButton();
         del = new javax.swing.JButton();
         clear = new javax.swing.JButton();
+        Brand = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTabbedPane1.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, null));
 
@@ -196,8 +201,10 @@ public class MainStaff extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Pastries", jPanel3);
 
-        paymethod.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        paymethod.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CASH", "CHECK", "CREDIT" }));
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 515, 456));
+
+        paymethod.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        paymethod.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cash", "Check", "Credit" }));
         paymethod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 paymethodActionPerformed(evt);
@@ -250,12 +257,12 @@ public class MainStaff extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(25, 25, 25)
+                            .addComponent(ccontactinfo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cname, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pay, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(print)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(print, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11))
         );
         jPanel4Layout.setVerticalGroup(
@@ -267,20 +274,22 @@ public class MainStaff extends javax.swing.JFrame {
                     .addComponent(paymethod, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cname, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ccontactinfo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(26, Short.MAX_VALUE))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pay, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(print, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(print, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pay, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 630, -1, -1));
 
         orderTbl.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, null));
         orderTbl.setModel(new javax.swing.table.DefaultTableModel(
@@ -307,6 +316,8 @@ public class MainStaff extends javax.swing.JFrame {
             orderTbl.getColumnModel().getColumn(2).setResizable(false);
             orderTbl.getColumnModel().getColumn(3).setResizable(false);
         }
+
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 50, 461, 456));
 
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -347,36 +358,38 @@ public class MainStaff extends javax.swing.JFrame {
         });
         jPanel5.add(addOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 20, 80, -1));
 
+        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 520, 460, 110));
+
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("TOTAL :");
-        jPanel6.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, 20));
+        jPanel6.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 20));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setText("PAY :");
-        jPanel6.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, -1, 24));
+        jPanel6.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, -1, 24));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setText("CHANGE:");
-        jPanel6.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, 20));
+        jPanel6.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, 20));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("0");
-        jPanel6.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, 130, -1));
+        total.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        total.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        total.setText("0");
+        jPanel6.add(total, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 130, -1));
 
         pays.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 paysActionPerformed(evt);
             }
         });
-        jPanel6.add(pays, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, 130, 24));
+        jPanel6.add(pays, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, 130, 24));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("0");
-        jPanel6.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 130, -1));
+        change.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        change.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        change.setText("0");
+        jPanel6.add(change, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 130, -1));
 
         three.setText("3");
         three.addActionListener(new java.awt.event.ActionListener() {
@@ -384,7 +397,7 @@ public class MainStaff extends javax.swing.JFrame {
                 threeActionPerformed(evt);
             }
         });
-        jPanel6.add(three, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 50, 50, 50));
+        jPanel6.add(three, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 40, 50, 50));
 
         one.setText("1");
         one.addActionListener(new java.awt.event.ActionListener() {
@@ -392,7 +405,7 @@ public class MainStaff extends javax.swing.JFrame {
                 oneActionPerformed(evt);
             }
         });
-        jPanel6.add(one, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, 50, 50));
+        jPanel6.add(one, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 40, 50, 50));
 
         two.setText("2");
         two.addActionListener(new java.awt.event.ActionListener() {
@@ -400,7 +413,7 @@ public class MainStaff extends javax.swing.JFrame {
                 twoActionPerformed(evt);
             }
         });
-        jPanel6.add(two, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 50, 50, 50));
+        jPanel6.add(two, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 40, 50, 50));
 
         five.setText("5");
         five.addActionListener(new java.awt.event.ActionListener() {
@@ -408,7 +421,7 @@ public class MainStaff extends javax.swing.JFrame {
                 fiveActionPerformed(evt);
             }
         });
-        jPanel6.add(five, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 100, 50, 50));
+        jPanel6.add(five, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 90, 50, 50));
 
         four.setText("4");
         four.addActionListener(new java.awt.event.ActionListener() {
@@ -416,7 +429,7 @@ public class MainStaff extends javax.swing.JFrame {
                 fourActionPerformed(evt);
             }
         });
-        jPanel6.add(four, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, 50, 50));
+        jPanel6.add(four, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 90, 50, 50));
 
         six.setText("6");
         six.addActionListener(new java.awt.event.ActionListener() {
@@ -424,7 +437,7 @@ public class MainStaff extends javax.swing.JFrame {
                 sixActionPerformed(evt);
             }
         });
-        jPanel6.add(six, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 100, 50, 50));
+        jPanel6.add(six, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 90, 50, 50));
 
         eight.setText("8");
         eight.addActionListener(new java.awt.event.ActionListener() {
@@ -432,7 +445,7 @@ public class MainStaff extends javax.swing.JFrame {
                 eightActionPerformed(evt);
             }
         });
-        jPanel6.add(eight, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 150, 50, 50));
+        jPanel6.add(eight, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, 50, 50));
 
         seven.setText("7");
         seven.addActionListener(new java.awt.event.ActionListener() {
@@ -440,7 +453,7 @@ public class MainStaff extends javax.swing.JFrame {
                 sevenActionPerformed(evt);
             }
         });
-        jPanel6.add(seven, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 150, 50, 50));
+        jPanel6.add(seven, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 140, 50, 50));
 
         nine.setText("9");
         nine.addActionListener(new java.awt.event.ActionListener() {
@@ -448,7 +461,7 @@ public class MainStaff extends javax.swing.JFrame {
                 nineActionPerformed(evt);
             }
         });
-        jPanel6.add(nine, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 150, 50, 50));
+        jPanel6.add(nine, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 140, 50, 50));
 
         zero.setText("0");
         zero.addActionListener(new java.awt.event.ActionListener() {
@@ -456,15 +469,16 @@ public class MainStaff extends javax.swing.JFrame {
                 zeroActionPerformed(evt);
             }
         });
-        jPanel6.add(zero, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 200, 50, 50));
+        jPanel6.add(zero, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 190, 50, 50));
 
+        del.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         del.setText("Del");
         del.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 delActionPerformed(evt);
             }
         });
-        jPanel6.add(del, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 200, 50, 50));
+        jPanel6.add(del, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 190, 50, 50));
 
         clear.setText("C");
         clear.addActionListener(new java.awt.event.ActionListener() {
@@ -472,45 +486,19 @@ public class MainStaff extends javax.swing.JFrame {
                 clearActionPerformed(evt);
             }
         });
-        jPanel6.add(clear, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 200, 50, 50));
+        jPanel6.add(clear, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 190, 50, 50));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(26, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(15, 15, 15))))
-        );
+        getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 510, 453, 256));
+
+        Brand.setFont(new java.awt.Font("Segoe Print", 1, 18)); // NOI18N
+        Brand.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pics/logo.png"))); // NOI18N
+        Brand.setText("TCAF");
+        Brand.setIconTextGap(0);
+        getContentPane().add(Brand, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 40));
+
+        jLabel7.setFont(new java.awt.Font("Segoe Print", 0, 8)); // NOI18N
+        jLabel7.setText("Tea and Coffee Shop");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, -1, 10));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -528,7 +516,131 @@ public class MainStaff extends javax.swing.JFrame {
     }//GEN-LAST:event_printActionPerformed
 
     private void payActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payActionPerformed
-        // TODO add your handling code here:
+        String customerName = cname.getText().trim();
+        String contactInfo = ccontactinfo.getText().trim();
+
+        if (customerName.isEmpty() || contactInfo.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter customer name and contact info.");
+            return;
+        }
+
+        double totalPrice = Double.parseDouble(total.getText());
+        double paymentAmount = 0.0;
+
+        try {
+            paymentAmount = Double.parseDouble(pays.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Invalid payment amount.");
+            return;
+        }
+
+        if (paymentAmount < totalPrice) {
+            JOptionPane.showMessageDialog(this, String.format("Insufficient payment. Total: %.2f, Paid: %.2f.", totalPrice, paymentAmount));
+            return;
+        }
+
+        Connection conn = dbcon.dbconnect();
+        if (conn == null) {
+            JOptionPane.showMessageDialog(this, "Database connection failed.");
+            return;
+        }
+
+        String paymentMethod = paymethod.getSelectedItem().toString();
+        String paymentStatus = paymentAmount == totalPrice ? "Paid" : "Unpaid";
+
+        try {
+            conn.setAutoCommit(false);
+
+            String insertCustomerSql = "INSERT INTO customers (Name, ContactInfo) VALUES (?, ?)";
+            try (PreparedStatement pstmt = conn.prepareStatement(insertCustomerSql, Statement.RETURN_GENERATED_KEYS)) {
+                pstmt.setString(1, customerName);
+                pstmt.setString(2, contactInfo);
+                pstmt.executeUpdate();
+
+                ResultSet generatedKeys = pstmt.getGeneratedKeys();
+                if (!generatedKeys.next()) {
+                    throw new SQLException("Creating customer failed, no ID obtained.");
+                }
+                int customerId = generatedKeys.getInt(1);
+
+                String insertOrderSql = "INSERT INTO orders (CustomerID, OrderDate, TotalAmount) VALUES (?, CURDATE(), ?)";
+                try (PreparedStatement orderPstmt = conn.prepareStatement(insertOrderSql, Statement.RETURN_GENERATED_KEYS)) {
+                    orderPstmt.setInt(1, customerId);
+                    orderPstmt.setDouble(2, totalPrice);
+                    orderPstmt.executeUpdate();
+
+                    ResultSet orderKeys = orderPstmt.getGeneratedKeys();
+                    if (!orderKeys.next()) {
+                        throw new SQLException("Creating order failed, no ID obtained.");
+                    }
+                    int orderId = orderKeys.getInt(1);
+
+                    DefaultTableModel orderTableModel = (DefaultTableModel) orderTbl.getModel();
+                    for (int i = 0; i < orderTableModel.getRowCount(); i++) {
+                        String itemId = (String) orderTableModel.getValueAt(i, 0);
+                        int quantity = (Integer) orderTableModel.getValueAt(i, 3);
+
+                        String insertOrderDetailSql = "INSERT INTO orderdetails (OrderID, ItemID, Quantity) VALUES (?, ?, ?)";
+                        try (PreparedStatement orderDetailPstmt = conn.prepareStatement(insertOrderDetailSql)) {
+                            orderDetailPstmt.setInt(1, orderId);
+                            orderDetailPstmt.setInt(2, Integer.parseInt(itemId));
+                            orderDetailPstmt.setInt(3, quantity);
+                            orderDetailPstmt.executeUpdate();
+                        }
+
+                        String updateStockSql = "UPDATE items SET Stock = Stock - ? WHERE ItemID = ?";
+                        try (PreparedStatement updateStockPstmt = conn.prepareStatement(updateStockSql)) {
+                            updateStockPstmt.setInt(1, quantity);
+                            updateStockPstmt.setInt(2, Integer.parseInt(itemId));
+                            updateStockPstmt.executeUpdate();
+                        }
+                    }
+
+                    String insertPaymentSql = "INSERT INTO payments (OrderID, Amount, PaymentMethod, Status) VALUES (?, ?, ?, ?)";
+                    try (PreparedStatement paymentPstmt = conn.prepareStatement(insertPaymentSql)) {
+                        paymentPstmt.setInt(1, orderId);
+                        paymentPstmt.setDouble(2, paymentAmount);
+                        paymentPstmt.setString(3, paymentMethod);
+                        paymentPstmt.setString(4, paymentStatus);
+                        paymentPstmt.executeUpdate();
+                    }
+
+                    if ("Card".equals(paymentMethod)) {
+                        String cardDetails = getCardDetailsFromUser();
+                        JOptionPane.showMessageDialog(this, "Payment via Card successful!\nCard Details: " + cardDetails);
+                    } else if ("Check".equals(paymentMethod)) {
+                        String checkNumber = getCheckNumberFromUser();
+                        JOptionPane.showMessageDialog(this, "Payment via Check successful!\nCheck Number: " + checkNumber);
+                    }
+
+                    conn.commit();
+                    JOptionPane.showMessageDialog(this, "Payment successful!");
+
+                    orderTableModel.setRowCount(0);
+                    cname.setText("");
+                    ccontactinfo.setText("");
+                    pays.setText("");
+                    total.setText("0");
+                    loadData();
+                }
+            }
+        } catch (SQLException e) {
+            try {
+                conn.rollback();
+            } catch (SQLException rollbackEx) {
+                JOptionPane.showMessageDialog(this, "Error during transaction rollback: " + rollbackEx.getMessage());
+            }
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        } finally {
+            try {
+                conn.setAutoCommit(true);
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Error closing connection: " + e.getMessage());
+            }
+        }
     }//GEN-LAST:event_payActionPerformed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
@@ -607,7 +719,8 @@ public class MainStaff extends javax.swing.JFrame {
             }
 
             itemname.setText(""); 
-            odqty.setValue(1); 
+            odqty.setValue(1);
+            calculateTotal();
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error adding item to order: " + e.getMessage());
@@ -615,51 +728,66 @@ public class MainStaff extends javax.swing.JFrame {
     }//GEN-LAST:event_addOrderActionPerformed
 
     private void threeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_threeActionPerformed
-        // TODO add your handling code here:
+        pays.setText(pays.getText() + "3");
+        calculateChange();
     }//GEN-LAST:event_threeActionPerformed
 
     private void oneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oneActionPerformed
-        // TODO add your handling code here:
+        pays.setText(pays.getText() + "1");
+        calculateChange();
     }//GEN-LAST:event_oneActionPerformed
 
     private void twoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_twoActionPerformed
-        // TODO add your handling code here:
+        pays.setText(pays.getText() + "2");
+        calculateChange();
     }//GEN-LAST:event_twoActionPerformed
 
     private void fiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fiveActionPerformed
-        // TODO add your handling code here:
+        pays.setText(pays.getText() + "5");
+        calculateChange();
     }//GEN-LAST:event_fiveActionPerformed
 
     private void fourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fourActionPerformed
-        // TODO add your handling code here:
+        pays.setText(pays.getText() + "4");
+        calculateChange();
     }//GEN-LAST:event_fourActionPerformed
 
     private void sixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sixActionPerformed
-        // TODO add your handling code here:
+        pays.setText(pays.getText() + "6");
+        calculateChange();
     }//GEN-LAST:event_sixActionPerformed
 
     private void eightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eightActionPerformed
-        // TODO add your handling code here:
+        pays.setText(pays.getText() + "8");
+        calculateChange();
     }//GEN-LAST:event_eightActionPerformed
 
     private void sevenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sevenActionPerformed
-        // TODO add your handling code here:
+        pays.setText(pays.getText() + "7");
+        calculateChange();
     }//GEN-LAST:event_sevenActionPerformed
 
     private void nineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nineActionPerformed
-        // TODO add your handling code here:
+        pays.setText(pays.getText() + "9");
+        calculateChange();
     }//GEN-LAST:event_nineActionPerformed
 
     private void zeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zeroActionPerformed
-        // TODO add your handling code here:
+        pays.setText(pays.getText() + "0");
+        calculateChange();
     }//GEN-LAST:event_zeroActionPerformed
 
     private void delActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delActionPerformed
-        // TODO add your handling code here:
+        String currentText = pays.getText();
+        if (!currentText.isEmpty()) {
+            pays.setText(currentText.substring(0, currentText.length() - 1));
+        }
+        calculateChange();
     }//GEN-LAST:event_delActionPerformed
 
     private void clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearActionPerformed
-        // TODO add your handling code here:
+        pays.setText("");
+        calculateChange();
     }//GEN-LAST:event_clearActionPerformed
 
     private void EditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditActionPerformed
@@ -709,6 +837,8 @@ public class MainStaff extends javax.swing.JFrame {
 
             itemname.setText(""); 
             odqty.setValue(1); 
+            calculateTotal();
+            
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error fetching stock information: " + e.getMessage());
         }
@@ -747,6 +877,54 @@ public class MainStaff extends javax.swing.JFrame {
         } 
     }
     
+    private void calculateTotal() {
+        double totalValue = 0.0;
+        DefaultTableModel model = (DefaultTableModel) orderTbl.getModel();
+        for (int i = 0; i < model.getRowCount(); i++) {
+            totalValue += (double) model.getValueAt(i, 4);
+        }
+        total.setText(String.format("%.2f", totalValue));
+    }
+    
+    private void calculateChange() {
+        double totalValue = Double.parseDouble(total.getText());
+        String payAmountText = pays.getText();
+
+        try {
+            double payAmount = payAmountText.isEmpty() ? 0 : Double.parseDouble(payAmountText);
+
+            if (payAmount >= totalValue) {
+                double changeValue = payAmount - totalValue;
+                change.setText(String.format("%.2f", changeValue)); 
+            } else {
+                change.setText("0.00"); 
+            }
+        } catch (NumberFormatException e) {
+            change.setText("0.00"); 
+        }
+    }
+    
+    private String getCardDetailsFromUser() {
+        JTextField cardNumberField = new JTextField();
+        JTextField expirationDateField = new JTextField();
+        Object[] message = {
+            "Card Number:", cardNumberField,
+            "Expiration Date (MM/YY):", expirationDateField
+        };
+
+        int option = JOptionPane.showConfirmDialog(null, message, "Enter Card Details", JOptionPane.OK_CANCEL_OPTION);
+        if (option == JOptionPane.OK_OPTION) {
+            return cardNumberField.getText() + "," + expirationDateField.getText(); 
+        }
+        return null;
+    }
+
+    private String getCheckNumberFromUser() {
+        String checkNumber = JOptionPane.showInputDialog(this, "Enter the Check Number:");
+        return checkNumber != null ? checkNumber : ""; 
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -779,9 +957,13 @@ public class MainStaff extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Brand;
     private javax.swing.JButton Edit;
     private javax.swing.JButton addOrder;
+    private javax.swing.JTextField ccontactinfo;
+    private javax.swing.JLabel change;
     private javax.swing.JButton clear;
+    private javax.swing.JTextField cname;
     private javax.swing.JTable coffeeTbl;
     private javax.swing.JButton del;
     private javax.swing.JButton delete;
@@ -794,9 +976,8 @@ public class MainStaff extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -810,8 +991,6 @@ public class MainStaff extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JButton nine;
     private javax.swing.JSpinner odqty;
     private javax.swing.JButton one;
@@ -825,6 +1004,7 @@ public class MainStaff extends javax.swing.JFrame {
     private javax.swing.JButton six;
     private javax.swing.JTable teaTbl;
     private javax.swing.JButton three;
+    private javax.swing.JLabel total;
     private javax.swing.JButton two;
     private javax.swing.JButton zero;
     // End of variables declaration//GEN-END:variables
