@@ -13,6 +13,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -39,7 +45,7 @@ public class Signup extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         namesignup = new javax.swing.JTextField();
         emailsignup = new javax.swing.JTextField();
-        passsignup = new javax.swing.JTextField();
+        confirmpasssignup = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -49,6 +55,8 @@ public class Signup extends javax.swing.JFrame {
         backloginbtn = new javax.swing.JButton();
         status = new javax.swing.JComboBox<>();
         statusbtn = new javax.swing.JLabel();
+        passsignup1 = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -64,33 +72,33 @@ public class Signup extends javax.swing.JFrame {
                 namesignupActionPerformed(evt);
             }
         });
-        jPanel1.add(namesignup, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 103, 241, 31));
+        jPanel1.add(namesignup, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 241, 31));
 
         emailsignup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 emailsignupActionPerformed(evt);
             }
         });
-        jPanel1.add(emailsignup, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 163, 241, 34));
+        jPanel1.add(emailsignup, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 241, 34));
 
-        passsignup.addActionListener(new java.awt.event.ActionListener() {
+        confirmpasssignup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passsignupActionPerformed(evt);
+                confirmpasssignupActionPerformed(evt);
             }
         });
-        jPanel1.add(passsignup, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 232, 241, 34));
+        jPanel1.add(confirmpasssignup, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 241, 34));
 
         jLabel2.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         jLabel2.setText("Username:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 80, 85, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 85, -1));
 
         jLabel3.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         jLabel3.setText("Email:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 140, 57, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 57, -1));
 
         jLabel4.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
-        jLabel4.setText("Password:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 209, 71, -1));
+        jLabel4.setText("Confirm Password:");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 140, -1));
 
         jLabel5.setFont(new java.awt.Font("Monospaced", 1, 24)); // NOI18N
         jLabel5.setText("Sign Up");
@@ -103,7 +111,7 @@ public class Signup extends javax.swing.JFrame {
                 createaccbtnActionPerformed(evt);
             }
         });
-        jPanel1.add(createaccbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 240, -1, -1));
+        jPanel1.add(createaccbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 150, -1, -1));
 
         jLabel6.setText("I have an account");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 330, -1, -1));
@@ -123,11 +131,22 @@ public class Signup extends javax.swing.JFrame {
                 statusActionPerformed(evt);
             }
         });
-        jPanel1.add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, 130, 40));
+        jPanel1.add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 80, 130, 30));
 
         statusbtn.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         statusbtn.setText("Status:");
-        jPanel1.add(statusbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 140, -1, -1));
+        jPanel1.add(statusbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 60, -1, -1));
+
+        passsignup1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passsignup1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(passsignup1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 241, 34));
+
+        jLabel7.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+        jLabel7.setText("Password:");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 71, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 420, 370));
 
@@ -161,68 +180,104 @@ public class Signup extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_emailsignupActionPerformed
 
-    private void passsignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passsignupActionPerformed
+    private void confirmpasssignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmpasssignupActionPerformed
         // TODO add your handling code here:
                
-    }//GEN-LAST:event_passsignupActionPerformed
+    }//GEN-LAST:event_confirmpasssignupActionPerformed
 
     private void createaccbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createaccbtnActionPerformed
-        // TODO add your handling code here:
-        String usernameSignup, passwordSignup, emailSignup, statusSignup, userDB = null, emailDB = null, passDB = null, statusDB = null;
-        boolean found = false;
-        
-        try {
-            // TODO add your handling code here:
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/tcsss_oop","root", "");
-            Statement st = con.createStatement();
-            
-            if(namesignup.getText().equals("")){
-                JOptionPane.showMessageDialog(new JFrame(), "Username is required", "Error!", JOptionPane.ERROR_MESSAGE);
-            } 
-            else if (passsignup.getText().equals("")) {
-                JOptionPane.showMessageDialog(new JFrame(), "Password is required", "Error!", JOptionPane.ERROR_MESSAGE);
-            }
-            else if (status.getSelectedItem().equals("")) {
-                JOptionPane.showMessageDialog(new JFrame(), "Status is required", "Error!", JOptionPane.ERROR_MESSAGE);
-            }
-            else if (emailsignup.getText().equals("")) {
-                JOptionPane.showMessageDialog(new JFrame(), "Email is required", "Error!", JOptionPane.ERROR_MESSAGE);
-            }
-            else {
-                usernameSignup    = namesignup.getText();
-                passwordSignup = passsignup.getText();  
-                
-                ResultSet rs = st.executeQuery("SELECT * FROM users WHERE Username = '" + usernameSignup + "'");
-                while(rs.next()){
-                userDB = rs.getString("Username");
-                emailDB = rs.getString("Email");
-                passDB = rs.getString("Password");
-                statusDB = rs.getString("Status");
-                found = true;
+        String usernameSignup = namesignup.getText().trim();
+        String passwordSignup = passsignup1.getText().trim();
+        String confirmPasswordSignup = confirmpasssignup.getText().trim();
+        String emailSignup = emailsignup.getText().trim();
+        String statusSignup = (String) status.getSelectedItem();
+
+        // Input validation
+        if (usernameSignup.isEmpty()) {
+            JOptionPane.showMessageDialog(new JFrame(), "Username is required", "Error!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (passwordSignup.isEmpty()) {
+            JOptionPane.showMessageDialog(new JFrame(), "Password is required", "Error!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (confirmPasswordSignup.isEmpty()) {
+            JOptionPane.showMessageDialog(new JFrame(), "Confirm Password is required", "Error!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (!passwordSignup.equals(confirmPasswordSignup)) {
+            JOptionPane.showMessageDialog(new JFrame(), "Passwords do not match", "Error!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (emailSignup.isEmpty()) {
+            JOptionPane.showMessageDialog(new JFrame(), "Email is required", "Error!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (statusSignup == null) {
+            JOptionPane.showMessageDialog(new JFrame(), "Status is required", "Error!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try (Connection con = dbcon.dbconnect()) {
+            if (con != null) {
+                // Check if the username already exists
+                String checkUser Query = "SELECT * FROM users WHERE Username = ?";
+                try (PreparedStatement ps = con.prepareStatement(checkUser Query)) {
+                    ps.setString(1, usernameSignup);
+                    ResultSet rs = ps.executeQuery();
+
+                    if (rs.next()) {
+                        JOptionPane.showMessageDialog(new JFrame(), "Username already exists.", "Error!", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        // Insert new user into the database
+                        String insertQuery = "INSERT INTO users (Username, Password, Email, Status) VALUES (?, ?, ?, ?)";
+                        try (PreparedStatement insertPs = con.prepareStatement(insertQuery)) {
+                            insertPs.setString(1, usernameSignup);
+                            insertPs.setString(2, passwordSignup); // Consider hashing the password before storing
+                            insertPs.setString(3, emailSignup);
+                            insertPs.setString(4, statusSignup);
+                            insertPs.executeUpdate();
+                        }
+                        JOptionPane.showMessageDialog(this, "Account created successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                        new Login().setVisible(true);
+                        this.dispose();
+                    }
                 }
-                
-                if (found && passsignup.equals(passDB) && "Admin".equals(statusDB)){
-                        new Admin().setVisible(true);
-                        this.dispose();
-                    }
-                else if (found && passsignup.equals(passDB) && "Staff".equals(statusDB)){
-                        new MainStaff().setVisible(true);
-                        this.dispose();
-                    }
-                else {
-                    JOptionPane.showMessageDialog(new JFrame(), "Incorrect email or password", "Error!", JOptionPane.ERROR_MESSAGE);
-                    passsignup.setText("");
-                    }
-                    
             }
-            
-            
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(new JFrame(), "Database error: " + ex.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_createaccbtnActionPerformed
 
+    private boolean validateInputs(String username, String password, String confirmPassword, String email, String status) {
+        if (username.isEmpty()) {
+            showError("Username is required.");
+            return false;
+        }
+        if (password.isEmpty()) {
+            showError("Password is required.");
+            return false;
+        }
+        if (confirmPassword.isEmpty()) {
+            showError("Confirm Password is required.");
+            return false;
+        }
+        if (email.isEmpty()) {
+            showError("Email is required.");
+            return false;
+        }
+        if (status == null || status.isEmpty()) {
+            showError("Status is required.");
+            return false;
+        }
+        return true;
+    }
+
+    private void showError(String message) {
+        JOptionPane.showMessageDialog(this, message, "Error!", JOptionPane.ERROR_MESSAGE);
+    }
+    
+    
     private void statusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_statusActionPerformed
@@ -233,6 +288,10 @@ public class Signup extends javax.swing.JFrame {
         login.setVisible(true);
         dispose();
     }//GEN-LAST:event_backloginbtnActionPerformed
+
+    private void passsignup1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passsignup1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_passsignup1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -271,6 +330,7 @@ public class Signup extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backloginbtn;
+    private javax.swing.JTextField confirmpasssignup;
     private javax.swing.JButton createaccbtn;
     private javax.swing.JTextField emailsignup;
     private javax.swing.JLabel jLabel1;
@@ -279,10 +339,11 @@ public class Signup extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField namesignup;
-    private javax.swing.JTextField passsignup;
+    private javax.swing.JTextField passsignup1;
     private javax.swing.JComboBox<String> status;
     private javax.swing.JLabel statusbtn;
     // End of variables declaration//GEN-END:variables
