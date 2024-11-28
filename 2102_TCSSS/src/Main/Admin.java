@@ -6,7 +6,6 @@ import java.awt.event.MouseEvent;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -21,11 +20,13 @@ import javax.swing.table.DefaultTableModel;
 
 public class Admin extends javax.swing.JFrame {
 
-    private String username;
+    private final String username;
     
     public Admin(String username) {
         this.username = username;
-        initComponents();    
+        
+        initComponents(); 
+        welcomemsg.setText("Welcome " + username + "!");
         customertbl.getTableHeader().setFont(new Font(" Segoe UI", Font.BOLD, 12));
         ordertbl.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
         itemtbl.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
@@ -195,7 +196,9 @@ public class Admin extends javax.swing.JFrame {
         Brand3 = new javax.swing.JLabel();
         admintabs = new javax.swing.JTabbedPane();
         homepanel = new javax.swing.JPanel();
+        jLabel40 = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
+        welcomemsg = new javax.swing.JLabel();
         customerPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         customertbl = new javax.swing.JTable();
@@ -483,20 +486,39 @@ public class Admin extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        jLabel39.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pics/shop.png"))); // NOI18N
+        jLabel40.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pics/home1.png"))); // NOI18N
+
+        jLabel39.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pics/home2.png"))); // NOI18N
+
+        welcomemsg.setFont(new java.awt.Font("Segoe Script", 0, 48)); // NOI18N
+        welcomemsg.setText("SAMPLE TEXT");
+        welcomemsg.setToolTipText("");
 
         javax.swing.GroupLayout homepanelLayout = new javax.swing.GroupLayout(homepanel);
         homepanel.setLayout(homepanelLayout);
         homepanelLayout.setHorizontalGroup(
             homepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel39, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(homepanelLayout.createSequentialGroup()
+                .addGap(75, 75, 75)
+                .addComponent(jLabel40)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel39)
+                .addGap(61, 61, 61))
+            .addGroup(homepanelLayout.createSequentialGroup()
+                .addGap(63, 63, 63)
+                .addComponent(welcomemsg, javax.swing.GroupLayout.PREFERRED_SIZE, 617, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(95, Short.MAX_VALUE))
         );
         homepanelLayout.setVerticalGroup(
             homepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homepanelLayout.createSequentialGroup()
-                .addContainerGap(160, Short.MAX_VALUE)
-                .addComponent(jLabel39)
-                .addGap(86, 86, 86))
+                .addGap(107, 107, 107)
+                .addComponent(welcomemsg)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
+                .addGroup(homepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel39)
+                    .addComponent(jLabel40))
+                .addGap(62, 62, 62))
         );
 
         admintabs.addTab("hm", homepanel);
@@ -3123,6 +3145,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -3199,5 +3222,6 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JPanel userspanel;
     private javax.swing.JTable usertbl;
     private javax.swing.JButton userupdatebtn;
+    private javax.swing.JLabel welcomemsg;
     // End of variables declaration//GEN-END:variables
 }
