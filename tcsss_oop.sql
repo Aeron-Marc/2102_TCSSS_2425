@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2024 at 06:30 PM
+-- Generation Time: Nov 28, 2024 at 08:22 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -41,17 +41,10 @@ INSERT INTO `customers` (`CustomerID`, `Name`, `ContactInfo`) VALUES
 (1, 'John', '09876543211'),
 (2, 'James', '09128745762'),
 (3, 'Michael', '09888855667'),
-(4, 'Robin', '09876576543'),
-(5, 'Robert', 'robert@gmail.com'),
-(6, 'Aeron', '09876543211'),
 (8, 'Bro', 'bro@yahoo.com'),
 (9, 'Mali', '098700065432'),
 (10, 'Mark', 'mark@tahimik.com'),
-(12, 'checkman', 'checkman@gmail.com'),
-(13, 'may', 'may@gmail.com'),
-(14, 'jett', 'jett@gmail.com'),
-(15, 'Gigi', 'gigi@gmail.com'),
-(16, 'riley', '09050010001');
+(12, 'checkmann', 'checkman@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -72,7 +65,10 @@ CREATE TABLE `deleted_customers` (
 
 INSERT INTO `deleted_customers` (`CustomerID`, `Name`, `ContactInfo`, `DeletedAt`) VALUES
 ('5', 'David', '09876543432', '2024-11-28 03:24:37'),
-('7', 'Marc', '09876543213', '2024-11-28 12:15:27');
+('7', 'Marc', '09876543213', '2024-11-28 12:15:27'),
+('15', 'Gigi', 'gigi@gmail.com', '2024-11-29 01:41:25'),
+('15', 'Gigi', 'gigi@gmail.com', '2024-11-29 01:43:35'),
+('16', 'riley', '09050010001', '2024-11-29 02:31:10');
 
 -- --------------------------------------------------------
 
@@ -90,6 +86,13 @@ CREATE TABLE `deleted_items` (
   `DeletedAt` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `deleted_items`
+--
+
+INSERT INTO `deleted_items` (`ItemID`, `ItemName`, `Price`, `Category`, `Description`, `Stock`, `DeletedAt`) VALUES
+('36', 'Apple Strudel', 50.00, 'Pastries', 'Traditional pastry filled with spiced apples', 50, '2024-11-29 03:03:39');
+
 -- --------------------------------------------------------
 
 --
@@ -103,6 +106,17 @@ CREATE TABLE `deleted_orders` (
   `TotalAmount` decimal(10,2) NOT NULL,
   `DeletedAt` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `deleted_orders`
+--
+
+INSERT INTO `deleted_orders` (`OrderID`, `CustomerID`, `OrderDate`, `TotalAmount`, `DeletedAt`) VALUES
+('10', '14', '2024-11-29 00:00:00', 160.00, '2024-11-29 02:49:42'),
+('11', '15', '2024-11-29 00:00:00', 110.00, '2024-11-29 02:49:11'),
+('12', '16', '2024-11-29 00:00:00', 195.00, '2024-11-29 01:45:02'),
+('13', '17', '2024-11-29 00:00:00', 230.00, '2024-11-29 03:20:35'),
+('9', '13', '2024-11-29 00:00:00', 170.00, '2024-11-29 02:56:09');
 
 -- --------------------------------------------------------
 
@@ -118,6 +132,17 @@ CREATE TABLE `deleted_payments` (
   `Status` enum('Paid','Unpaid') DEFAULT NULL,
   `DeletedAt` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `deleted_payments`
+--
+
+INSERT INTO `deleted_payments` (`PaymentID`, `OrderID`, `Amount`, `PaymentMethod`, `Status`, `DeletedAt`) VALUES
+('10', '11', 200.00, 'Cash', 'Paid', '2024-11-29 02:49:11'),
+('11', '12', 200.00, 'Cash', 'Paid', '2024-11-29 02:31:10'),
+('12', '13', 250.00, 'Cash', 'Paid', '2024-11-29 03:20:35'),
+('8', '9', 200.00, 'Cash', 'Paid', '2024-11-29 02:56:09'),
+('9', '10', 500.00, 'Cash', 'Paid', '2024-11-29 02:49:42');
 
 -- --------------------------------------------------------
 
@@ -154,9 +179,9 @@ CREATE TABLE `items` (
 --
 
 INSERT INTO `items` (`ItemID`, `ItemName`, `Price`, `Category`, `Description`, `Stock`) VALUES
-(1, 'Brewed Coffee', 50.00, 'Coffee', 'Freshly brewed coffee', 90),
-(2, 'Iced Tea', 40.00, 'Tea', 'Organic green tea', 71),
-(3, 'Croissant', 40.00, 'Pastries', 'Butter croissant', 44),
+(1, 'Brewed Coffee', 30.00, 'Coffee', 'Freshly brewed coffee', 90),
+(2, 'Iced Tea', 40.00, 'Tea', 'Organic green tea', 69),
+(3, 'Croissant', 40.00, 'Pastries', 'Butter croissant', 41),
 (4, 'Cookies', 25.00, 'Pastries', 'Chocolate chip cookies', 193),
 (5, 'Espresso', 55.00, 'Coffee', 'Rich and bold espresso shot', 100),
 (6, 'Cappuccino', 60.00, 'Coffee', 'A perfect blend of espresso and steamed milk', 80),
@@ -165,9 +190,9 @@ INSERT INTO `items` (`ItemID`, `ItemName`, `Price`, `Category`, `Description`, `
 (9, 'Almond Croissant', 45.00, 'Pastries', 'Pastry filled with almond cream', 60),
 (10, 'Macarons', 30.00, 'Pastries', 'Colorful French macarons, assorted flavors', 120),
 (11, 'Latte', 55.00, 'Coffee', 'Smooth latte with steamed milk', 73),
-(12, 'Iced Matcha', 42.00, 'Tea', 'Refreshing iced matcha drink', 67),
+(12, 'Iced Matcha', 45.00, 'Tea', 'Refreshing iced matcha drink', 67),
 (13, 'Tart au Citron', 35.00, 'Pastries', 'Lemon tart with a buttery crust', 40),
-(14, 'Herbal Tea', 30.00, 'Tea', 'Aromatic herbal tea blend', 80),
+(14, 'Herbal Tea', 30.00, 'Tea', 'Aromatic herbal tea blend', 79),
 (15, 'French Toast Pastry', 50.00, 'Pastries', 'Pastry inspired by classic French toast', 30),
 (16, 'Cold Brew', 55.00, 'Coffee', 'Smooth and flavorful cold brew coffee', 75),
 (17, 'Vanilla Latte', 60.00, 'Coffee', 'Creamy latte infused with vanilla', 70),
@@ -188,8 +213,7 @@ INSERT INTO `items` (`ItemID`, `ItemName`, `Price`, `Category`, `Description`, `
 (32, 'Chrysanthemum Tea', 30.00, 'Tea', 'Delicate floral tea made from chrysanthemum flowers', 60),
 (33, 'Cheese Danish', 40.00, 'Pastries', 'Flaky pastry filled with creamy cheese', 80),
 (34, 'Hazelnut Coffee', 50.00, 'Coffee', 'Nutty hazelnut flavored coffee', 90),
-(35, 'Rooibos Tea', 30.00, 'Tea', 'Naturally caffeine-free red tea', 75),
-(36, 'Apple Strudel', 50.00, 'Pastries', 'Traditional pastry filled with spiced apples', 50);
+(35, 'Rooibos Tea', 30.00, 'Tea', 'Naturally caffeine-free red tea', 75);
 
 -- --------------------------------------------------------
 
@@ -219,12 +243,7 @@ INSERT INTO `orderdetails` (`OrderDetailID`, `OrderID`, `ItemID`, `Quantity`) VA
 (8, '6', '2', 3),
 (9, '6', '4', 5),
 (11, '8', '2', 2),
-(12, '8', '3', 3),
-(13, '9', '3', 3),
-(14, '9', '4', 2),
-(15, '10', '2', 4),
-(16, '11', '11', 2),
-(17, '12', '31', 3);
+(12, '8', '3', 3);
 
 -- --------------------------------------------------------
 
@@ -250,11 +269,7 @@ INSERT INTO `orders` (`OrderID`, `CustomerID`, `OrderDate`, `TotalAmount`) VALUE
 (4, 8, '2024-11-29', 300.00),
 (5, 9, '2024-11-29', 200.00),
 (6, 10, '2024-11-29', 245.00),
-(8, 12, '2024-11-29', 200.00),
-(9, 13, '2024-11-29', 170.00),
-(10, 14, '2024-11-29', 160.00),
-(11, 15, '2024-11-29', 110.00),
-(12, 16, '2024-11-29', 195.00);
+(8, 12, '2024-11-29', 200.00);
 
 -- --------------------------------------------------------
 
@@ -281,11 +296,7 @@ INSERT INTO `payments` (`PaymentID`, `OrderID`, `Amount`, `PaymentMethod`, `Stat
 (4, 4, 500.00, 'Cash', 'Paid'),
 (5, 5, 200.00, 'Check', 'Unpaid'),
 (6, 6, 245.00, 'Credit', 'Paid'),
-(7, 8, 200.00, 'Check', 'Paid'),
-(8, 9, 200.00, 'Cash', 'Paid'),
-(9, 10, 500.00, 'Cash', 'Paid'),
-(10, 11, 200.00, 'Cash', 'Paid'),
-(11, 12, 200.00, 'Cash', 'Paid');
+(7, 8, 200.00, 'Check', 'Paid');
 
 -- --------------------------------------------------------
 
@@ -310,7 +321,8 @@ INSERT INTO `users` (`UserID`, `Username`, `Email`, `Password`, `Status`) VALUES
 (2, 'Staff1', 'staff1@gmail.com', 'Staff123', 'Staff'),
 (3, 'Staff2', 'staff2@gmail.com', 'Staff4567', 'Staff'),
 (4, 'Adrian', 'adrian@yahoo.com', 'Admin123', 'Admin'),
-(5, 'Marc', 'marc@yahoo.com', 'admin123', 'Admin');
+(5, 'Marc', 'marc@yahoo.com', 'admin123', 'Admin'),
+(6, 'jojo', 'jojo@gmail.com', 'Admin123', 'Admin');
 
 --
 -- Indexes for dumped tables
@@ -386,31 +398,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `CustomerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `CustomerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `orderdetails`
 --
 ALTER TABLE `orderdetails`
-  MODIFY `OrderDetailID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `OrderDetailID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `OrderID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `OrderID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `PaymentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `PaymentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
@@ -426,7 +438,7 @@ ALTER TABLE `orders`
 -- Constraints for table `payments`
 --
 ALTER TABLE `payments`
-  ADD CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`OrderID`) REFERENCES `orders` (`OrderID`);
+  ADD CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`OrderID`) REFERENCES `orders` (`OrderID`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
