@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2024 at 08:22 PM
+-- Generation Time: Dec 01, 2024 at 03:01 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -29,22 +29,21 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `customers` (
   `CustomerID` int(11) NOT NULL,
-  `Name` varchar(255) NOT NULL,
-  `ContactInfo` varchar(255) DEFAULT NULL
+  `Name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `customers`
 --
 
-INSERT INTO `customers` (`CustomerID`, `Name`, `ContactInfo`) VALUES
-(1, 'John', '09876543211'),
-(2, 'James', '09128745762'),
-(3, 'Michael', '09888855667'),
-(8, 'Bro', 'bro@yahoo.com'),
-(9, 'Mali', '098700065432'),
-(10, 'Mark', 'mark@tahimik.com'),
-(12, 'checkmann', 'checkman@gmail.com');
+INSERT INTO `customers` (`CustomerID`, `Name`) VALUES
+(1, 'John'),
+(2, 'James'),
+(3, 'Michael'),
+(8, 'Bro'),
+(9, 'Mali'),
+(10, 'Mark'),
+(12, 'checkmann');
 
 -- --------------------------------------------------------
 
@@ -116,6 +115,7 @@ INSERT INTO `deleted_orders` (`OrderID`, `CustomerID`, `OrderDate`, `TotalAmount
 ('11', '15', '2024-11-29 00:00:00', 110.00, '2024-11-29 02:49:11'),
 ('12', '16', '2024-11-29 00:00:00', 195.00, '2024-11-29 01:45:02'),
 ('13', '17', '2024-11-29 00:00:00', 230.00, '2024-11-29 03:20:35'),
+('14', '18', '2024-11-29 00:00:00', 130.00, '2024-11-29 03:24:31'),
 ('9', '13', '2024-11-29 00:00:00', 170.00, '2024-11-29 02:56:09');
 
 -- --------------------------------------------------------
@@ -141,6 +141,7 @@ INSERT INTO `deleted_payments` (`PaymentID`, `OrderID`, `Amount`, `PaymentMethod
 ('10', '11', 200.00, 'Cash', 'Paid', '2024-11-29 02:49:11'),
 ('11', '12', 200.00, 'Cash', 'Paid', '2024-11-29 02:31:10'),
 ('12', '13', 250.00, 'Cash', 'Paid', '2024-11-29 03:20:35'),
+('13', '14', 130.00, 'Cash', 'Paid', '2024-11-29 03:24:31'),
 ('8', '9', 200.00, 'Cash', 'Paid', '2024-11-29 02:56:09'),
 ('9', '10', 500.00, 'Cash', 'Paid', '2024-11-29 02:49:42');
 
@@ -209,7 +210,7 @@ INSERT INTO `items` (`ItemID`, `ItemName`, `Price`, `Category`, `Description`, `
 (28, 'Affogato', 75.00, 'Coffee', 'Vanilla ice cream topped with hot espresso', 40),
 (29, 'Lemon Ginger Tea', 35.00, 'Tea', 'Zingy lemon and ginger herbal infusion', 70),
 (30, 'Blueberry Muffin', 25.00, 'Pastries', 'Moist muffin filled with fresh blueberries', 110),
-(31, 'Caramel Macchiato', 65.00, 'Coffee', 'Espresso with caramel and frothy milk', 32),
+(31, 'Caramel Macchiato', 65.00, 'Coffee', 'Espresso with caramel and frothy milk', 30),
 (32, 'Chrysanthemum Tea', 30.00, 'Tea', 'Delicate floral tea made from chrysanthemum flowers', 60),
 (33, 'Cheese Danish', 40.00, 'Pastries', 'Flaky pastry filled with creamy cheese', 80),
 (34, 'Hazelnut Coffee', 50.00, 'Coffee', 'Nutty hazelnut flavored coffee', 90),
@@ -309,14 +310,14 @@ CREATE TABLE `users` (
   `Username` varchar(100) DEFAULT NULL,
   `Email` varchar(100) DEFAULT NULL,
   `Password` varchar(100) DEFAULT NULL,
-  `Status` varchar(100) DEFAULT NULL
+  `Account Type` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`UserID`, `Username`, `Email`, `Password`, `Status`) VALUES
+INSERT INTO `users` (`UserID`, `Username`, `Email`, `Password`, `Account Type`) VALUES
 (1, 'Aeron', 'admin123@admin.com', 'Admin123', 'Admin'),
 (2, 'Staff1', 'staff1@gmail.com', 'Staff123', 'Staff'),
 (3, 'Staff2', 'staff2@gmail.com', 'Staff4567', 'Staff'),
@@ -398,25 +399,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `CustomerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `CustomerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT for table `items`
+--
+ALTER TABLE `items`
+  MODIFY `ItemID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `orderdetails`
 --
 ALTER TABLE `orderdetails`
-  MODIFY `OrderDetailID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `OrderDetailID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `OrderID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `OrderID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `PaymentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `PaymentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `users`
