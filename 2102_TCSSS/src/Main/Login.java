@@ -192,7 +192,7 @@ public class Login extends javax.swing.JFrame {
     private String loggedInUser;
     
     private void loginbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginbtnActionPerformed
-        String userName, passWord, userDB = null, passDB = null, statusDB = null;
+        String userName, passWord, userDB = null, passDB = null, usertypeDB = null;
         boolean found = false;
         
         try {
@@ -215,16 +215,16 @@ public class Login extends javax.swing.JFrame {
                 while(rs.next()){
                 userDB = rs.getString("Username");
                 passDB = rs.getString("Password");
-                statusDB = rs.getString("Status");
+                usertypeDB = rs.getString("User_type");
                 found = true;
                 }
                 
-                if (found && passWord.equals(passDB) && "Admin".equals(statusDB)){
+                if (found && passWord.equals(passDB) && "Admin".equals(usertypeDB)){
                     loggedInUser = userDB;    
                     new Admin(loggedInUser).setVisible(true);
                         this.dispose();
                     }
-                else if (found && passWord.equals(passDB) && "Staff".equals(statusDB)){
+                else if (found && passWord.equals(passDB) && "Staff".equals(usertypeDB)){
                         new MainStaff().setVisible(true);
                         this.dispose();
                     }

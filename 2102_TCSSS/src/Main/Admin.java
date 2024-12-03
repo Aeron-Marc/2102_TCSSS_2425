@@ -43,11 +43,9 @@ public class Admin extends javax.swing.JFrame {
                     DefaultTableModel model = (DefaultTableModel) customertbl.getModel();
                     String customerId = model.getValueAt(selectedRow, 0).toString();
                     String customerName = model.getValueAt(selectedRow, 1).toString();
-                    String contactInfo = model.getValueAt(selectedRow, 2).toString();
 
                     custIDField.setText(customerId);
                     custNameField.setText(customerName);
-                    contactInfoField.setText(contactInfo);
                     }
                 }
             }
@@ -158,14 +156,14 @@ public class Admin extends javax.swing.JFrame {
                     String userName = model.getValueAt(selectedRow, 1).toString();
                     String email = model.getValueAt(selectedRow, 2).toString();
                     String password = model.getValueAt(selectedRow, 3).toString();
-                    String status = model.getValueAt(selectedRow, 4).toString();
+                    String usertype = model.getValueAt(selectedRow, 4).toString();
 
                     
                     userIDField.setText(userId);
                     userNameField.setText(userName);
                     emailField.setText(email);
                     passwordField.setText(password);
-                    statusField.setSelectedItem(status); 
+                    usertypeField.setSelectedItem(usertype); 
                     }
                 }
             }
@@ -208,9 +206,7 @@ public class Admin extends javax.swing.JFrame {
         clearbtn1 = new javax.swing.JButton();
         custIDField = new javax.swing.JTextField();
         custNameField = new javax.swing.JTextField();
-        contactInfoField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         Head1 = new javax.swing.JLabel();
         searchpanel1 = new javax.swing.JPanel();
@@ -307,7 +303,7 @@ public class Admin extends javax.swing.JFrame {
         userNameField = new javax.swing.JTextField();
         emailField = new javax.swing.JTextField();
         passwordField = new javax.swing.JTextField();
-        statusField = new javax.swing.JComboBox<>();
+        usertypeField = new javax.swing.JComboBox<>();
         jLabel30 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
@@ -512,7 +508,7 @@ public class Admin extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homepanelLayout.createSequentialGroup()
                 .addGap(107, 107, 107)
                 .addComponent(welcomemsg)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
                 .addGroup(homepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel39)
                     .addComponent(jLabel40))
@@ -527,11 +523,11 @@ public class Admin extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Customer ID", "Customer Name", "Contact Info"
+                "Customer ID", "Customer Name"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -572,8 +568,6 @@ public class Admin extends javax.swing.JFrame {
 
         jLabel3.setText("Customer Name:");
 
-        jLabel4.setText("Contact Info:");
-
         jLabel5.setText("Customer ID:");
 
         javax.swing.GroupLayout modifyPanelLayout = new javax.swing.GroupLayout(modifyPanel);
@@ -584,15 +578,9 @@ public class Admin extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(modifyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, modifyPanelLayout.createSequentialGroup()
-                        .addGroup(modifyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(modifyPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(modifyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(contactInfoField, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(custNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(custNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, modifyPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -600,11 +588,11 @@ public class Admin extends javax.swing.JFrame {
                         .addComponent(custIDField, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(modifyPanelLayout.createSequentialGroup()
                         .addComponent(customeraddbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(customerupdatebtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(customerdeletebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(clearbtn1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -619,17 +607,13 @@ public class Admin extends javax.swing.JFrame {
                 .addGroup(modifyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(custNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(modifyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(contactInfoField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addGap(18, 18, 18)
+                .addGap(31, 31, 31)
                 .addGroup(modifyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(customeraddbtn)
                     .addComponent(customerupdatebtn)
                     .addComponent(customerdeletebtn)
                     .addComponent(clearbtn1))
-                .addContainerGap())
+                .addGap(35, 35, 35))
         );
 
         Head1.setFont(new java.awt.Font("Segoe Print", 1, 36)); // NOI18N
@@ -703,7 +687,7 @@ public class Admin extends javax.swing.JFrame {
                 .addGroup(customerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(modifyPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchpanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         admintabs.addTab("cust", customerPanel);
@@ -1396,7 +1380,7 @@ public class Admin extends javax.swing.JFrame {
 
             },
             new String [] {
-                "User ID", "User Name", "Email", "Password", "Status"
+                "User ID", "User Name", "Email", "Password", "User type"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -1417,8 +1401,8 @@ public class Admin extends javax.swing.JFrame {
 
         jPanel10.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, null));
 
-        statusField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Staff", "Admin" }));
-        statusField.setSelectedIndex(-1);
+        usertypeField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Staff", "Admin" }));
+        usertypeField.setSelectedIndex(-1);
 
         jLabel30.setText("User ID:");
 
@@ -1428,7 +1412,7 @@ public class Admin extends javax.swing.JFrame {
 
         jLabel33.setText("Password:");
 
-        jLabel34.setText("Status:");
+        jLabel34.setText("User type:");
 
         useraddbtn.setText("Add");
         useraddbtn.addActionListener(new java.awt.event.ActionListener() {
@@ -1488,7 +1472,7 @@ public class Admin extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(clearbtn5, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(statusField, 0, 264, Short.MAX_VALUE)
+                        .addComponent(usertypeField, 0, 264, Short.MAX_VALUE)
                         .addComponent(passwordField, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(emailField, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(userNameField, javax.swing.GroupLayout.Alignment.LEADING)
@@ -1516,7 +1500,7 @@ public class Admin extends javax.swing.JFrame {
                     .addComponent(jLabel33))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(statusField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(usertypeField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel34))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1609,17 +1593,17 @@ public class Admin extends javax.swing.JFrame {
         salespanelLayout.setHorizontalGroup(
             salespanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, salespanelLayout.createSequentialGroup()
-                .addContainerGap(348, Short.MAX_VALUE)
+                .addContainerGap(353, Short.MAX_VALUE)
                 .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(331, 331, 331))
             .addGroup(salespanelLayout.createSequentialGroup()
-                .addGap(64, 64, 64)
+                .addGap(125, 125, 125)
                 .addGroup(salespanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(salespanelLayout.createSequentialGroup()
-                        .addComponent(jLabel37)
-                        .addGap(18, 18, 18)
-                        .addComponent(timeframe, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(timeframe, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         salespanelLayout.setVerticalGroup(
@@ -1628,16 +1612,15 @@ public class Admin extends javax.swing.JFrame {
                 .addGap(87, 87, 87)
                 .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(salespanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(salespanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel37)
-                    .addGroup(salespanelLayout.createSequentialGroup()
-                        .addComponent(timeframe)
-                        .addGap(1, 1, 1)))
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(296, 296, 296))
+                    .addComponent(timeframe))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(173, 173, 173))
         );
 
-        admintabs.addTab("tab7", salespanel);
+        admintabs.addTab("sales", salespanel);
 
         getContentPane().add(admintabs, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, -70, 780, 710));
 
@@ -1655,10 +1638,10 @@ public class Admin extends javax.swing.JFrame {
         }
     }  
     
-    private void logDeletion(String username, String customerId, String customerName, String contactInfo) {
+    private void logDeletion(String username, String customerId, String customerName) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("deletelogs.txt", true))) {
             String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-            writer.write(timestamp + " - " + username + ": Deleted Customer ID: " + customerId + ", Name: " + customerName + ", Contact Info: " + contactInfo);
+            writer.write(timestamp + " - " + username + ": Deleted Customer ID: " + customerId + ", Name: " + customerName);
             writer.newLine();
         } catch (IOException e) {
             Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, e);
@@ -1697,7 +1680,7 @@ public class Admin extends javax.swing.JFrame {
             model.setRowCount(0);
             
             while(rs.next()){
-                model.addRow(new String[]{rs.getString(1), rs.getString(2), rs.getString(3)});
+                model.addRow(new String[]{rs.getString(1), rs.getString(2)});
             }
             
         } 
@@ -1838,7 +1821,7 @@ public class Admin extends javax.swing.JFrame {
     private void loadUsers() {
         try {
             Statement st = dbcon.dbconnect().createStatement();
-            ResultSet rs = st.executeQuery("SELECT UserID, UserName, Email, Password, Status FROM users");
+            ResultSet rs = st.executeQuery("SELECT * FROM users");
 
             DefaultTableModel model = (DefaultTableModel) usertbl.getModel();
             model.setRowCount(0); 
@@ -1849,7 +1832,7 @@ public class Admin extends javax.swing.JFrame {
                     rs.getString("UserName"),
                     rs.getString("Email"),
                     rs.getString("Password"),
-                    rs.getString("Status")
+                    rs.getString("User_type")
                 });
             }
 
@@ -1861,9 +1844,9 @@ public class Admin extends javax.swing.JFrame {
     }
 
     private void populateUserComboBox() {
-        statusField.removeAllItems();
-        statusField.addItem("Staff");
-        statusField.addItem("Admin");
+        usertypeField.removeAllItems();
+        usertypeField.addItem("Staff");
+        usertypeField.addItem("Admin");
     }
     private void salesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salesActionPerformed
         admintabs.setSelectedIndex(6);
@@ -1872,10 +1855,9 @@ public class Admin extends javax.swing.JFrame {
     private void customeraddbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customeraddbtnActionPerformed
         String customerId = custIDField.getText();
         String customerName = custNameField.getText();
-        String contactInfo = contactInfoField.getText();
 
        
-        if (customerId.isEmpty() || customerName.isEmpty() || contactInfo.isEmpty()) {
+        if (customerId.isEmpty() || customerName.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please fill all fields", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -1883,16 +1865,15 @@ public class Admin extends javax.swing.JFrame {
         int confirm = JOptionPane.showConfirmDialog(this,
                 "Are you sure you want to add the following customer?\n\n" +
                 "Customer ID: " + customerId + "\n" +
-                "Customer Name: " + customerName + "\n" +
-                "Contact Info: " + contactInfo,
+                "Customer Name: " + customerName,
                 "Confirm Add",
                 JOptionPane.YES_NO_OPTION);
 
         if (confirm == JOptionPane.YES_OPTION) {
             try {
                 Statement st = dbcon.dbconnect().createStatement();
-                String sql = "INSERT INTO customers (CustomerID, Name, ContactInfo) VALUES ('" 
-                             + customerId + "', '" + customerName + "', '" + contactInfo + "')";
+                String sql = "INSERT INTO customers (CustomerID, Name) VALUES ('" 
+                             + customerId + "', '" + customerName + "')";
 
                 st.executeUpdate(sql); 
 
@@ -1914,15 +1895,13 @@ public class Admin extends javax.swing.JFrame {
     private void customerupdatebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customerupdatebtnActionPerformed
         String customerId = custIDField.getText();
         String customerName = custNameField.getText();
-        String contactInfo = contactInfoField.getText();
 
-        if (customerId.isEmpty() || customerName.isEmpty() || contactInfo.isEmpty()) {
+        if (customerId.isEmpty() || customerName.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please fill all fields", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         String existingCustomerName = "";
-        String existingContactInfo = "";
 
         try {
             Statement st = dbcon.dbconnect().createStatement();
@@ -1931,7 +1910,6 @@ public class Admin extends javax.swing.JFrame {
 
             if (rs.next()) {
                 existingCustomerName = rs.getString("Name");
-                existingContactInfo = rs.getString("ContactInfo");
             } else {
                 JOptionPane.showMessageDialog(this, "Customer ID not found.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
@@ -1947,17 +1925,15 @@ public class Admin extends javax.swing.JFrame {
                 "Customer ID: " + customerId + "\n\n" +
                 "Old Values:\n" +
                 "  Name: " + existingCustomerName + "\n" +
-                "  Contact Info: " + existingContactInfo + "\n\n" +
                 "New Values:\n" +
-                "  Name: " + customerName + "\n" +
-                "  Contact Info: " + contactInfo,
+                "  Name: " + customerName,
                 "Confirm Update",
                 JOptionPane.YES_NO_OPTION);
 
         if (confirm == JOptionPane.YES_OPTION) {
             try {
                 Statement st = dbcon.dbconnect().createStatement();
-                String sql = "UPDATE customers SET Name = '" + customerName + "', ContactInfo = '" + contactInfo + "' WHERE CustomerID = '" + customerId + "'";
+                String sql = "UPDATE customers SET Name = '" + customerName + "' WHERE CustomerID = '" + customerId + "'";
                 st.executeUpdate(sql); 
 
                 LocalDateTime now = LocalDateTime.now();
@@ -1965,7 +1941,7 @@ public class Admin extends javax.swing.JFrame {
                 String timestamp = now.format(formatter);
 
                 String logMessage = String.format("Update Action: CustomerID: %s, Timestamp: %s, User: %s, Changes: [Name: '%s' to '%s', Contact Info: '%s' to '%s']",
-                        customerId, timestamp, username, existingCustomerName, customerName, existingContactInfo, contactInfo);
+                        customerId, timestamp, username, existingCustomerName, customerName);
                 logUpdate(logMessage); 
 
                 JOptionPane.showMessageDialog(this, "Customer updated successfully!");
@@ -1982,7 +1958,6 @@ public class Admin extends javax.swing.JFrame {
     private void clearbtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearbtn1ActionPerformed
         custIDField.setText("");
         custNameField.setText("");
-        contactInfoField.setText("");
     }//GEN-LAST:event_clearbtn1ActionPerformed
 
     private void customersearchbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customersearchbtnActionPerformed
@@ -2001,7 +1976,6 @@ public class Admin extends javax.swing.JFrame {
             if (rs.next()) {
                 custIDField.setText(rs.getString("CustomerID"));
                 custNameField.setText(rs.getString("Name"));
-                contactInfoField.setText(rs.getString("ContactInfo"));
             } else {
                 JOptionPane.showMessageDialog(this, "Customer ID not found.", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -2060,19 +2034,40 @@ public class Admin extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField20ActionPerformed
 
     private void loadSalesData(String period) {
-            try {
+        try {
             Statement st = dbcon.dbconnect().createStatement();
             ResultSet rs;
 
             switch (period) {
                 case "Daily":
-                    rs = st.executeQuery("SELECT DATE(OrderDate) AS sale_date, SUM(TotalAmount) AS total_sales FROM orders GROUP BY DATE(OrderDate)");
+                    rs = st.executeQuery(
+                        "SELECT DATE(OrderDate) AS sale_date, SUM(TotalAmount) AS total_sales FROM (" +
+                        "   SELECT OrderDate, TotalAmount FROM orders " +
+                        "   UNION ALL " +
+                        "   SELECT DeletedAt AS OrderDate, TotalAmount FROM deleted_orders" +
+                        ") AS combined_table " +
+                        "GROUP BY DATE(sale_date)"
+                    );
                     break;
                 case "Monthly":
-                    rs = st.executeQuery("SELECT DATE_FORMAT(OrderDate, '%Y-%m') AS sale_month, SUM(TotalAmount) AS total_sales FROM orders GROUP BY sale_month");
+                    rs = st.executeQuery(
+                        "SELECT DATE_FORMAT(sale_date, '%Y-%m') AS sale_month, SUM(total_sales) AS total_sales FROM (" +
+                        "   SELECT OrderDate AS sale_date, TotalAmount AS total_sales FROM orders " +
+                        "   UNION ALL " +
+                        "   SELECT DeletedAt AS sale_date, TotalAmount AS total_sales FROM deleted_orders" +
+                        ") AS combined_table " +
+                        "GROUP BY sale_month"
+                    );
                     break;
                 case "Yearly":
-                    rs = st.executeQuery("SELECT YEAR(OrderDate) AS sale_year, SUM(TotalAmount) AS total_sales FROM orders GROUP BY sale_year");
+                    rs = st.executeQuery(
+                        "SELECT YEAR(sale_date) AS sale_year, SUM(total_sales) AS total_sales FROM (" +
+                        "   SELECT OrderDate AS sale_date, TotalAmount AS total_sales FROM orders " +
+                        "   UNION ALL " +
+                        "   SELECT DeletedAt AS sale_date, TotalAmount AS total_sales FROM deleted_orders" +
+                        ") AS combined_table " +
+                        "GROUP BY sale_year"
+                    );
                     break;
                 default:
                     return;
@@ -2247,10 +2242,10 @@ public class Admin extends javax.swing.JFrame {
         String userName = userNameField.getText();
         String email = emailField.getText();
         String password = passwordField.getText();
-        String status = (String) statusField.getSelectedItem();
+        String usertype = (String) usertypeField.getSelectedItem();
 
         
-        if (userId.isEmpty() || userName.isEmpty() || email.isEmpty() || password.isEmpty() || status == null) {
+        if (userId.isEmpty() || userName.isEmpty() || email.isEmpty() || password.isEmpty() || usertype == null) {
             JOptionPane.showMessageDialog(this, "Please fill all fields", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -2260,15 +2255,15 @@ public class Admin extends javax.swing.JFrame {
                 "User ID: " + userId + "\n" +
                 "User Name: " + userName + "\n" +
                 "Email: " + email + "\n" +
-                "Status: " + status,
+                "Status: " + usertype,
                 "Confirm Add",
                 JOptionPane.YES_NO_OPTION);
 
         if (confirm == JOptionPane.YES_OPTION) {
             try {
                 Statement st = dbcon.dbconnect().createStatement();
-                String sql = "INSERT INTO users (UserID, UserName, Email, Password, Status) VALUES ('" 
-                             + userId + "', '" + userName + "', '" + email + "', '" + password + "', '" + status + "')";
+                String sql = "INSERT INTO users (UserID, UserName, Email, Password, User type) VALUES ('" 
+                             + userId + "', '" + userName + "', '" + email + "', '" + password + "', '" + usertype + "')";
                 st.executeUpdate(sql); 
 
                 JOptionPane.showMessageDialog(this, "User added successfully!");
@@ -2506,7 +2501,7 @@ public class Admin extends javax.swing.JFrame {
         String userName = userNameField.getText();
         String email = emailField.getText();
         String password = passwordField.getText();
-        String status = (String) statusField.getSelectedItem();
+        String status = (String) usertypeField.getSelectedItem();
 
         if (userId.isEmpty() || userName.isEmpty() || email.isEmpty() || password.isEmpty() || status == null) {
             JOptionPane.showMessageDialog(this, "Please fill all fields", "Error", JOptionPane.ERROR_MESSAGE);
@@ -2645,7 +2640,7 @@ public class Admin extends javax.swing.JFrame {
 
                     conn.commit();
 
-                    logDeletion(username, orderId, existingCustomerId + ": " + existingCustomerName, orderDate != null ? orderDate.toString() : "N/A");
+                    logDeletion(username, orderId, existingCustomerId + ": " + existingCustomerName);
 
                     JOptionPane.showMessageDialog(this, "Order and related records (payments) deleted successfully!");
                     loadOrders();
@@ -2700,7 +2695,7 @@ public class Admin extends javax.swing.JFrame {
 
                     JOptionPane.showMessageDialog(this, "Item deleted successfully!");
 
-                    logDeletion(username, itemId, itemName, price);
+                    logDeletion(username, itemId, itemName);
 
                     loadItems(); 
                 }
@@ -2734,7 +2729,7 @@ public class Admin extends javax.swing.JFrame {
                 Statement st = dbcon.dbconnect().createStatement();
 
                 String insertSQL = "INSERT INTO deleted_users (UserID, UserName, Email, Password, Status, DeletedAt) " +
-                                   "VALUES ('" + userId + "', '" + userName + "', '" + email + "', '" + passwordField.getText() + "', '" + statusField.getSelectedItem() + "', CURRENT_TIMESTAMP)";
+                                   "VALUES ('" + userId + "', '" + userName + "', '" + email + "', '" + passwordField.getText() + "', '" + usertypeField.getSelectedItem() + "', CURRENT_TIMESTAMP)";
                 st.executeUpdate(insertSQL);
 
                 String deleteSQL = "DELETE FROM users WHERE UserID = '" + userId + "'";
@@ -2778,7 +2773,7 @@ public class Admin extends javax.swing.JFrame {
         userNameField.setText("");
         emailField.setText("");
         passwordField.setText("");
-        statusField.setSelectedIndex(-1);
+        usertypeField.setSelectedIndex(-1);
     }//GEN-LAST:event_clearbtn5ActionPerformed
 
     private void usersearchbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usersearchbtnActionPerformed
@@ -2799,7 +2794,7 @@ public class Admin extends javax.swing.JFrame {
                 userNameField.setText(rs.getString("UserName"));
                 emailField.setText(rs.getString("Email"));
                 passwordField.setText(rs.getString("Password")); 
-                statusField.setSelectedItem(rs.getString("Status"));
+                usertypeField.setSelectedItem(rs.getString("Status"));
             } else {
                 JOptionPane.showMessageDialog(this, "User ID not found.", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -2973,7 +2968,6 @@ public class Admin extends javax.swing.JFrame {
     private void customerdeletebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customerdeletebtnActionPerformed
         String customerId = custIDField.getText();
         String customerName = custNameField.getText(); 
-        String contactInfo = contactInfoField.getText();
 
         if (customerId.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter a Customer ID to delete", "Error", JOptionPane.ERROR_MESSAGE);
@@ -3006,7 +3000,7 @@ public class Admin extends javax.swing.JFrame {
                 } else {
                     String deleteSQL = "DELETE FROM customers WHERE CustomerID = '" + customerId + "'";
                     stmt.executeUpdate(deleteSQL);
-                    logDeletion(username, customerId, customerName, contactInfo);
+                    logDeletion(username, customerId, customerName);
                     JOptionPane.showMessageDialog(this, "Customer deleted successfully!");
                     loadCustomer(); 
                 }
@@ -3062,7 +3056,6 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JButton clearbtn3;
     private javax.swing.JButton clearbtn4;
     private javax.swing.JButton clearbtn5;
-    private javax.swing.JTextField contactInfoField;
     private javax.swing.JTextField custIDField;
     private javax.swing.JTextField custNameField;
     private javax.swing.JTextField customerIDField;
@@ -3119,7 +3112,6 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -3183,7 +3175,6 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JPanel salespanel;
     private javax.swing.JTable salestbl;
     private javax.swing.JPanel searchpanel1;
-    private javax.swing.JComboBox<String> statusField;
     private javax.swing.JTextField stockField;
     private javax.swing.JComboBox<String> timeframe;
     private javax.swing.JTextField totalAmountField;
@@ -3195,6 +3186,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JButton usersearchbtn;
     private javax.swing.JPanel userspanel;
     private javax.swing.JTable usertbl;
+    private javax.swing.JComboBox<String> usertypeField;
     private javax.swing.JButton userupdatebtn;
     private javax.swing.JLabel welcomemsg;
     // End of variables declaration//GEN-END:variables

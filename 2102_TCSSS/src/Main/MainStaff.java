@@ -90,8 +90,6 @@ public class MainStaff extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         cname = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        ccontactinfo = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         orderTbl = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
@@ -234,32 +232,28 @@ public class MainStaff extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel11.setText("Customer Name :");
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel10.setText("Contact Info :");
+        cname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cnameActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel10))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(0, 15, Short.MAX_VALUE)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel11))))
+                .addGap(0, 15, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel11))
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGap(4, 4, 4)
                         .addComponent(paymethod, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ccontactinfo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cname, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(cname, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pay, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -269,25 +263,22 @@ public class MainStaff extends javax.swing.JFrame {
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(8, 8, 8)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(paymethod, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cname, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(ccontactinfo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(26, Short.MAX_VALUE))
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(print, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pay, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(paymethod, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cname, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(print, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pay, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 630, -1, -1));
@@ -522,14 +513,12 @@ public class MainStaff extends javax.swing.JFrame {
 
     private void printActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printActionPerformed
         String customerName = cname.getText().trim();
-        String contactInfo = ccontactinfo.getText().trim();
         String paymentMethod = paymethod.getSelectedItem().toString();
         double totalAmount = Double.parseDouble(total.getText());
 
         StringBuilder receiptBuilder = new StringBuilder();
         receiptBuilder.append("********************************** RECEIPT *********************************\n");
         receiptBuilder.append("Customer Name: ").append(customerName).append("\n");
-        receiptBuilder.append("Contact Info: ").append(contactInfo).append("\n");
         receiptBuilder.append("Payment Method: ").append(paymentMethod).append("\n\n");
         receiptBuilder.append("Items:\n");
 
@@ -555,10 +544,10 @@ public class MainStaff extends javax.swing.JFrame {
 
     private void payActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payActionPerformed
         String customerName = cname.getText().trim();
-        String contactInfo = ccontactinfo.getText().trim();
+        
 
-        if (customerName.isEmpty() || contactInfo.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter customer name and contact info.");
+        if (customerName.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter customer name.");
             return;
         }
 
@@ -588,10 +577,9 @@ public class MainStaff extends javax.swing.JFrame {
 
         try {
             conn.setAutoCommit(false);
-            String insertCustomerSql = "INSERT INTO customers (Name, ContactInfo) VALUES (?, ?)";
+            String insertCustomerSql = "INSERT INTO customers (Name) VALUES (?)";
             try (PreparedStatement pstmt = conn.prepareStatement(insertCustomerSql, Statement.RETURN_GENERATED_KEYS)) {
                 pstmt.setString(1, customerName);
-                pstmt.setString(2, contactInfo);
                 pstmt.executeUpdate();
 
                 ResultSet generatedKeys = pstmt.getGeneratedKeys();
@@ -655,7 +643,6 @@ public class MainStaff extends javax.swing.JFrame {
 
                     orderTableModel.setRowCount(0);
                     cname.setText("");
-                    ccontactinfo.setText("");
                     pays.setText("");
                     total.setText("0");
                     loadData();
@@ -717,7 +704,7 @@ public class MainStaff extends javax.swing.JFrame {
             if (rs.next()) {
                 itemId = rs.getString("ItemID"); 
                 price = rs.getDouble("Price"); 
-                availableStock = rs.getInt("Stock"); 
+                availableStock = rs.getInt("Stock");
             } else {
                 JOptionPane.showMessageDialog(this, "Item not found.");
                 return;
@@ -894,6 +881,10 @@ public class MainStaff extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_logoutActionPerformed
 
+    private void cnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cnameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cnameActionPerformed
+
     private void loadData() {
         loadItemsByCategory("Coffee", coffeeTbl);
         loadItemsByCategory("Tea", teaTbl);
@@ -1010,7 +1001,6 @@ public class MainStaff extends javax.swing.JFrame {
     private javax.swing.JLabel Brand;
     private javax.swing.JButton Edit;
     private javax.swing.JButton addOrder;
-    private javax.swing.JTextField ccontactinfo;
     private javax.swing.JLabel change;
     private javax.swing.JButton clear;
     private javax.swing.JTextField cname;
@@ -1022,7 +1012,6 @@ public class MainStaff extends javax.swing.JFrame {
     private javax.swing.JButton four;
     private javax.swing.JTextField itemname;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

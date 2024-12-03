@@ -42,8 +42,8 @@ public class Signup extends javax.swing.JFrame {
         createaccbtn = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         backloginbtn = new javax.swing.JButton();
-        status = new javax.swing.JComboBox<>();
-        statusbtn = new javax.swing.JLabel();
+        usertype = new javax.swing.JComboBox<>();
+        usertypebtn = new javax.swing.JLabel();
         passsignup1 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -113,18 +113,18 @@ public class Signup extends javax.swing.JFrame {
         });
         jPanel1.add(backloginbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 320, -1, -1));
 
-        status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Staff" }));
-        status.setSelectedIndex(-1);
-        status.addActionListener(new java.awt.event.ActionListener() {
+        usertype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Staff" }));
+        usertype.setSelectedIndex(-1);
+        usertype.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                statusActionPerformed(evt);
+                usertypeActionPerformed(evt);
             }
         });
-        jPanel1.add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 80, 130, 30));
+        jPanel1.add(usertype, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 80, 130, 30));
 
-        statusbtn.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
-        statusbtn.setText("Status:");
-        jPanel1.add(statusbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 60, -1, -1));
+        usertypebtn.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+        usertypebtn.setText("User type:");
+        jPanel1.add(usertypebtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 60, -1, -1));
 
         passsignup1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -180,7 +180,7 @@ public class Signup extends javax.swing.JFrame {
         String email = emailsignup.getText().trim();
         String password = passsignup1.getText().trim();
         String confirmPassword = confirmpasssignup.getText().trim();
-        String statusSelected = (String) status.getSelectedItem();
+        String usertypeSelected = (String) usertype.getSelectedItem();
 
         // Validate inputs
         if (username.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
@@ -200,12 +200,12 @@ public class Signup extends javax.swing.JFrame {
         }
 
         // Prepare SQL statement to prevent SQL injection
-        String sql = "INSERT INTO users (username, email, password, status) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO users (Username, Email, Password, User_type) VALUES (?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, email);
             preparedStatement.setString(3, password); // Consider hashing the password before saving
-            preparedStatement.setString(4, statusSelected);
+            preparedStatement.setString(4, usertypeSelected);
 
             // Execute the update
             int rowsInserted = preparedStatement.executeUpdate();
@@ -221,7 +221,7 @@ public class Signup extends javax.swing.JFrame {
     }//GEN-LAST:event_createaccbtnActionPerformed
     
 
-    private boolean validateInputs(String username, String password, String confirmPassword, String email, String status) {
+    private boolean validateInputs(String username, String password, String confirmPassword, String email, String usertype) {
         if (username.isEmpty()) {
             showError("Username is required.");
             return false;
@@ -238,8 +238,8 @@ public class Signup extends javax.swing.JFrame {
             showError("Email is required.");
             return false;
         }
-        if (status == null || status.isEmpty()) {
-            showError("Status is required.");
+        if (usertype == null || usertype.isEmpty()) {
+            showError("User type is required.");
             return false;
         }
         return true;
@@ -250,9 +250,9 @@ public class Signup extends javax.swing.JFrame {
     }
     
     
-    private void statusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusActionPerformed
+    private void usertypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usertypeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_statusActionPerformed
+    }//GEN-LAST:event_usertypeActionPerformed
 
     private void backloginbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backloginbtnActionPerformed
         // TODO add your handling code here:
@@ -316,7 +316,7 @@ public class Signup extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField namesignup;
     private javax.swing.JTextField passsignup1;
-    private javax.swing.JComboBox<String> status;
-    private javax.swing.JLabel statusbtn;
+    private javax.swing.JComboBox<String> usertype;
+    private javax.swing.JLabel usertypebtn;
     // End of variables declaration//GEN-END:variables
 }

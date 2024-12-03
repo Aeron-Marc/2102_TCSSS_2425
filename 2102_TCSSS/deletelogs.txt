@@ -4,3 +4,8 @@
 2024-11-29 03:03:41 - Aeron: Deleted Customer ID: 36, Name: Apple Strudel, Contact Info: 50.0
 2024-11-29 03:20:35 - Aeron: Deleted Customer ID: 13, Name: 17: jollibee, Contact Info: 2024-11-29
 2024-11-29 03:20:48 - Aeron: Deleted Customer ID: 17, Name: jollibee, Contact Info: 87000
+2024-11-29 05:13:13 - Charish: Deleted Customer ID: 13, Name: Kikay, Contact Info: kikayy@gmail.com
+2024-12-01 16:30:32 - adminUsername: Deleted Customer ID: 4, Name: 8: Bro
+2024-12-01 16:30:51 - adminUsername: Deleted Customer ID: 5, Name: 9: Mali
+2024-12-01 16:46:36 - adminUsername: Deleted Customer ID: 16, Name: 20: Bea
+2024-12-01 16:51:44 - Charish: Deleted Customer ID: 20, Name: Bea
